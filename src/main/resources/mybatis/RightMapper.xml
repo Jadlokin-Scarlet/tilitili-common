@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tilitili.common.mapper.RightMapper">
+	<resultMap id="RightResultMap" type="com.tilitili.common.entity.Right">
+		<result column="no_reprint" property="noReprint" />
+		<result column="ugc_pay" property="ugcPay" />
+		<result column="is_cooperation" property="isCooperation" />
+		<result column="ugc_pay_preview" property="ugcPayPreview" />
+		<result column="no_background" property="noBackground" />
+	</resultMap>
+	<select id="count" resultType="Integer">
+		select count(1) from right
+		<where>
+			<if test="av != null">
+				and right.av = #{av}
+			</if>
+		</where>
+	</select>
+	<select id="list" resultMap="RightResultMap">
+		select * from right
+		<where>
+			<if test="av != null">
+				and right.av = #{av}
+			</if>
+		</where>
+		<if test="sorter != null and sorted != null">
+			order by [${sorter}] ${sorted}
+		</if>
+		<if test="sorter == null or sorted == null">
+			order by av desc
+		</if>
+		<if test="start != null and rightSize != null">
+			offset ${start} rows fetch next ${rightSize} rows only
+		</if>
+	</select>
+	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.Right" useGeneratedKeys="true">
+		insert into right (
+		<trim suffixOverrides=",">
+			<if test="av != null">av,</if>
+			<if test="bp != null">bp,</if>
+			<if test="elec != null">elec,</if>
+			<if test="download != null">download,</if>
+			<if test="movie != null">movie,</if>
+			<if test="pay != null">pay,</if>
+			<if test="hd5 != null">hd5,</if>
+			<if test="noReprint != null">no_reprint,</if>
+			<if test="autoplay != null">autoplay,</if>
+			<if test="ugcPay != null">ugc_pay,</if>
+			<if test="isCooperation != null">is_cooperation,</if>
+			<if test="ugcPayPreview != null">ugc_pay_preview,</if>
+			<if test="noBackground != null">no_background,</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="av != null">#{av},</if>
+			<if test="bp != null">#{bp},</if>
+			<if test="elec != null">#{elec},</if>
+			<if test="download != null">#{download},</if>
+			<if test="movie != null">#{movie},</if>
+			<if test="pay != null">#{pay},</if>
+			<if test="hd5 != null">#{hd5},</if>
+			<if test="noReprint != null">#{noReprint},</if>
+			<if test="autoplay != null">#{autoplay},</if>
+			<if test="ugcPay != null">#{ugcPay},</if>
+			<if test="isCooperation != null">#{isCooperation},</if>
+			<if test="ugcPayPreview != null">#{ugcPayPreview},</if>
+			<if test="noBackground != null">#{noBackground},</if>
+		</trim>
+		)
+	</insert>
+	<update id="update">
+		update right
+		<set>
+			<if test="bp != null">bp = #{bp},</if>
+			<if test="elec != null">elec = #{elec},</if>
+			<if test="download != null">download = #{download},</if>
+			<if test="movie != null">movie = #{movie},</if>
+			<if test="pay != null">pay = #{pay},</if>
+			<if test="hd5 != null">hd5 = #{hd5},</if>
+			<if test="noReprint != null">no_reprint = #{noReprint},</if>
+			<if test="autoplay != null">autoplay = #{autoplay},</if>
+			<if test="ugcPay != null">ugc_pay = #{ugcPay},</if>
+			<if test="isCooperation != null">is_cooperation = #{isCooperation},</if>
+			<if test="ugcPayPreview != null">ugc_pay_preview = #{ugcPayPreview},</if>
+			<if test="noBackground != null">no_background = #{noBackground},</if>
+		</set>
+		where av = #{av}
+	</update>
+</mapper>

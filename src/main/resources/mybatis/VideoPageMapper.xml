@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tilitili.common.mapper.VideoPageMapper">
+	<resultMap id="VideoPageResultMap" type="com.tilitili.common.entity.VideoPage">
+	</resultMap>
+	<select id="count" resultType="Integer">
+		select count(1) from page
+		<where>
+			<if test="av != null">
+				and page.av = #{av}
+			</if>
+			<if test="cid != null">
+				and page.cid = #{cid}
+			</if>
+		</where>
+	</select>
+	<select id="list" resultMap="VideoPageResultMap">
+		select * from page
+		<where>
+			<if test="av != null">
+				and page.av = #{av}
+			</if>
+			<if test="cid != null">
+				and page.cid = #{cid}
+			</if>
+		</where>
+		<if test="sorter != null and sorted != null">
+			order by [${sorter}] ${sorted}
+		</if>
+		<if test="sorter == null or sorted == null">
+			order by av desc
+		</if>
+		<if test="start != null and pageSize != null">
+			offset ${start} rows fetch next ${pageSize} rows only
+		</if>
+	</select>
+	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.VideoPage" useGeneratedKeys="true">
+		insert into page (
+		<trim suffixOverrides=",">
+			<if test="cid != null">cid,</if>
+			<if test="av != null">av,</if>
+			<if test="part != null">[part],</if>
+			<if test="page != null">page,</if>
+			<if test="from != null">[from],</if>
+			<if test="duration != null">duration,</if>
+			<if test="vid != null">vid,</if>
+			<if test="weblink != null">weblink,</if>
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="cid != null">#{cid},</if>
+			<if test="av != null">#{av},</if>
+			<if test="part != null">#{part},</if>
+			<if test="page != null">#{page},</if>
+			<if test="from != null">#{from},</if>
+			<if test="duration != null">#{duration},</if>
+			<if test="vid != null">#{vid},</if>
+			<if test="weblink != null">#{weblink},</if>
+		</trim>
+		)
+	</insert>
+	<update id="update">
+		update page
+		<set>
+			<if test="part != null">part = #{part},</if>
+			<if test="page != null">page = #{page},</if>
+			<if test="from != null">from = #{from},</if>
+			<if test="duration != null">duration = #{duration},</if>
+			<if test="vid != null">vid = #{vid},</if>
+			<if test="weblink != null">weblink = #{weblink},</if>
+		</set>
+		where cid = #{cid} and av = #{av}
+	</update>
+</mapper>
