@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 public interface AdminMapper {
 
     @Select("select * from admin where id = #{id}")
-    Admin getAdminById(Long id);
+    Admin getById(Long id);
 
     @Select("select * from admin where user_name = #{userName}")
     @ResultMap("adminResults")
-    Admin getAdminByName(String userName);
+    Admin getByName(String userName);
 
 }
