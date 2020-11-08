@@ -32,6 +32,9 @@
 			<if test="copyright != null">
 				and video_info.copyright = #{copyright}
 			</if>
+			<if test="status != null">
+				and video_info.status = #{status}
+			</if>
 		</where>
 	</select>
 	<select id="list" resultMap="VideoInfoResultMap">
@@ -58,12 +61,15 @@
 			<if test="copyright != null">
 				and video_info.copyright = #{copyright}
 			</if>
+			<if test="status != null">
+				and video_info.status = #{status}
+			</if>
 		</where>
 		<if test="sorter != null and sorted != null">
 			order by [${sorter}] ${sorted}
 		</if>
 		<if test="sorter == null or sorted == null">
-			order by av desc
+			order by pub_time desc
 		</if>
 		<if test="start != null and pageSize != null">
 			offset ${start} rows fetch next ${pageSize} rows only
@@ -73,31 +79,68 @@
 		insert into video_info (
 		<trim suffixOverrides=",">
 			<if test="av != null">av,</if>
-			create_time,
-			update_time,
-			status,
-			<if test="type != null">type,</if>
+			<if test="name != null">[name],</if>
+			<if test="img != null">img,</if>
+			<if test="type != null">[type],</if>
+			<if test="owner != null">[owner],</if>
+			<if test="copyright != null">copyright,</if>
+			<if test="pubTime != null">pub_time,</if>
+			<if test="startTime != null">start_time,</if>
+			<if test="isDelete != null">is_delete,</if>
+			<if test="bv != null">bv,</if>
+			<if test="description != null">[description],</if>
+			<if test="state != null">[state],</if>
+			<if test="attribute != null">[attribute],</if>
+			<if test="duration != null">duration,</if>
+			<if test="missionId != null">mission_id,</if>
+			<if test="dynamic != null">[dynamic],</if>
+			<if test="startPage != null">start_page,</if>
+			<if test="status != null">status,</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
 			<if test="av != null">#{av},</if>
-			getdate(),
-			getdate(),
-			0,
+			<if test="name != null">#{name},</if>
+			<if test="img != null">#{img},</if>
 			<if test="type != null">#{type},</if>
+			<if test="owner != null">#{owner},</if>
+			<if test="copyright != null">#{copyright},</if>
+			<if test="pubTime != null">#{pubTime},</if>
+			<if test="startTime != null">#{startTime},</if>
+			<if test="isDelete != null">#{isDelete},</if>
+			<if test="bv != null">#{bv},</if>
+			<if test="description != null">#{description},</if>
+			<if test="state != null">#{state},</if>
+			<if test="attribute != null">#{attribute},</if>
+			<if test="duration != null">#{duration},</if>
+			<if test="missionId != null">#{missionId},</if>
+			<if test="dynamic != null">#{dynamic},</if>
+			<if test="startPage != null">#{startPage},</if>
+			<if test="status != null">#{status},</if>
 		</trim>
 		)
 	</insert>
 	<update id="update">
 		update video_info
 		<set>
-			<if test="status != null">
-				status = #{status},
-			</if>
-			<if test="remark != null">
-				remark = #{remark},
-			</if>
+			<if test="name != null">name = #{name},</if>
+			<if test="img != null">img = #{img},</if>
+			<if test="type != null">type = #{type},</if>
+			<if test="owner != null">[owner] = #{owner},</if>
+			<if test="copyright != null">copyright = #{copyright},</if>
+			<if test="pubTime != null">pub_time = #{pubTime},</if>
+			<if test="startTime != null">start_time = #{startTime},</if>
+			<if test="isDelete != null">is_delete = #{isDelete},</if>
+			<if test="bv != null">bv = #{bv},</if>
+			<if test="description != null">[description] = #{description},</if>
+			<if test="state != null">state = #{state},</if>
+			<if test="attribute != null">attribute = #{attribute},</if>
+			<if test="duration != null">duration = #{duration},</if>
+			<if test="missionId != null">mission_id = #{missionId},</if>
+			<if test="dynamic != null">[dynamic] = #{dynamic},</if>
+			<if test="startPage != null">start_page = #{startPage},</if>
+			<if test="status != null">status = #{status},</if>
 		</set>
-		where id = #{id}
+		where av = #{av}
 	</update>
 </mapper>

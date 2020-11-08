@@ -6,16 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum TaskStatus {
-    DELETE(-1, "废弃"),
-    WAIT(0, "待爬取"),
-    SPIDER(1, "爬取中"),
-    SUCCESS(2, "爬取成功"),
-    FAIL(3, "爬取失败"),
-    TIMEOUT(4, "爬取超时"),
+public enum TaskReason {
+    NO_REASON(0, "我不管我就是要爬"),
+    SUPPLEMENT_VIDEO(1, "补充缺失视频"),
+    SUPPLEMENT_VIDEO_INFO(1, "补充视频信息"),
     ;
 
-    private TaskStatus(Integer value, String text) {
+    private TaskReason(Integer value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -28,6 +25,10 @@ public enum TaskStatus {
                 .map(e -> new Resource(e.value, e.text))
                 .collect(Collectors.toList());
     }
+
+
+
+
 
     public Integer getValue() {
         return value;

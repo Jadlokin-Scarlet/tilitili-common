@@ -16,7 +16,7 @@ public interface RightMapper {
     int insert(Right right);
     int update(Right right);
 
-    @Select("select * from right where av = #{av}")
+    @Select("select * from [right] where av = #{av}")
     @ResultMap("RightResultMap")
     Right getByAv(Long av);
 

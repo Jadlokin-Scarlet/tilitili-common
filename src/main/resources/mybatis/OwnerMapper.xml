@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tilitili.common.mapper.OwnerBaseMapper">
+<mapper namespace="com.tilitili.common.mapper.OwnerMapper">
   <resultMap id="OwnerResultMap" type="com.tilitili.common.entity.Owner">
     <result column="vip_type" property="vipType" />
   </resultMap>

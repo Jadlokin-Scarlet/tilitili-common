@@ -14,5 +14,6 @@ public class VideoInfoQuery extends BaseQuery<VideoInfoQuery> {
     private String owner;
     private String bv;
     private String type;
+    private Integer status;
     private Boolean copyright;
 }

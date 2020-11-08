@@ -25,4 +25,5 @@ public class VideoInfo {
     private String dynamic;
     private Boolean isDelete;
     private Integer startPage;
+    private Integer status;
 }

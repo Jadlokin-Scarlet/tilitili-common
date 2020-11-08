@@ -39,4 +39,5 @@ public class VideoData {
     private Long missionId;
     private String dynamic;
     private Boolean isDelete;
+    private Integer startPage;
 }

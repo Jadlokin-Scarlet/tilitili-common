@@ -11,11 +11,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Resource<T> {
-    private T value;
-    private T text;
+public class Resource {
+    private Object value;
+    private Object text;
 
-    public Resource(T text) {
+    public Resource(Object text) {
         this.text = text;
         this.value = text;
     }

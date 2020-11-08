@@ -6,16 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum TaskStatus {
-    DELETE(-1, "废弃"),
-    WAIT(0, "待爬取"),
-    SPIDER(1, "爬取中"),
-    SUCCESS(2, "爬取成功"),
-    FAIL(3, "爬取失败"),
-    TIMEOUT(4, "爬取超时"),
+public enum TaskType {
+    SpiderVideo(0, "自定义爬取"),
+    BatchSpiderVideo(1, "自定义批量爬取"),
+    AutoBatchSpiderVideo(2, "定时任务"),
     ;
 
-    private TaskStatus(Integer value, String text) {
+    private TaskType(Integer value, String text) {
         this.value = value;
         this.text = text;
     }

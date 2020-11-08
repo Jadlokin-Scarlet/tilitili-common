@@ -4,6 +4,7 @@
 	<resultMap id="TaskResultMap" type="com.tilitili.common.entity.Task">
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
+		<result column="batch_id" property="batchId" />
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from task
@@ -20,7 +21,28 @@
 			<if test="type != null">
 				and task.type = #{type}
 			</if>
+			<if test="batchId != null">
+				and task.batch_id = #{batchId}
+			</if>
 		</where>
+	</select>
+	<select id="countByGroupStatus" resultType="TaskStatusCount">
+		select task.status, count(1) as number from task
+		<where>
+			<if test="id != null">
+				and task.id = #{id}
+			</if>
+			<if test="av != null">
+				and task.av = #{av}
+			</if>
+			<if test="type != null">
+				and task.type = #{type}
+			</if>
+			<if test="batchId != null">
+				and task.batch_id = #{batchId}
+			</if>
+		</where>
+		group by task.status
 	</select>
 	<select id="list" resultMap="TaskResultMap">
 		select * from task
@@ -36,6 +58,9 @@
 			</if>
 			<if test="type != null">
 				and task.type = #{type}
+			</if>
+			<if test="batchId != null">
+				and task.batch_id = #{batchId}
 			</if>
 		</where>
 		<if test="sorter != null and sorted != null">
@@ -54,28 +79,29 @@
 				<if test="av != null">av,</if>
 				create_time,
 				update_time,
-				status,
+				<if test="status != null">status,</if>
 				<if test="type != null">type,</if>
+				<if test="batchId != null">batch_id,</if>
 			</trim>
 		) values (
 			<trim suffixOverrides=",">
 				<if test="av != null">#{av},</if>
 				getdate(),
 				getdate(),
-				0,
+				<if test="status != null">#{status},</if>
 				<if test="type != null">#{type},</if>
+				<if test="batchId != null">#{batchId},</if>
 			</trim>
 		)
 	</insert>
 	<update id="update">
 		update task
 		<set>
-			<if test="status != null">
-				task.status = #{status},
-			</if>
-			<if test="remark != null">
-				task.remark = #{remark},
-			</if>
+		    update_time = getdate(),
+			<if test="status != null">type = #{type},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="remark != null">remark = #{remark},</if>
+			<if test="batchId != null">batch_id = #{batchId},</if>
 		</set>
 		where id = #{id}
 	</update>

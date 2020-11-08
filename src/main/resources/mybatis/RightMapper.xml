@@ -9,7 +9,7 @@
 		<result column="no_background" property="noBackground" />
 	</resultMap>
 	<select id="count" resultType="Integer">
-		select count(1) from right
+		select count(1) from [right]
 		<where>
 			<if test="av != null">
 				and right.av = #{av}
@@ -17,7 +17,7 @@
 		</where>
 	</select>
 	<select id="list" resultMap="RightResultMap">
-		select * from right
+		select * from [right]
 		<where>
 			<if test="av != null">
 				and right.av = #{av}
@@ -34,7 +34,7 @@
 		</if>
 	</select>
 	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.Right" useGeneratedKeys="true">
-		insert into right (
+		insert into [right] (
 		<trim suffixOverrides=",">
 			<if test="av != null">av,</if>
 			<if test="bp != null">bp,</if>
@@ -69,7 +69,7 @@
 		)
 	</insert>
 	<update id="update">
-		update right
+		update [right]
 		<set>
 			<if test="bp != null">bp = #{bp},</if>
 			<if test="elec != null">elec = #{elec},</if>

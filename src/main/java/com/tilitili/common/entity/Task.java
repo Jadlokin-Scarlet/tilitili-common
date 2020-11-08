@@ -17,4 +17,5 @@ public class Task {
     private Integer status;
     private Integer type;
     private String remark;
+    private Long batchId;
 }

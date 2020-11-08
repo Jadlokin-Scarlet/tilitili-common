@@ -9,7 +9,7 @@
 		<result column="start_page" property="startPage" />
 	</resultMap>
 	<select id="count" resultType="Integer">
-		select count(1) from video_data left join video_info on video_data.av = video_info.av
+		select count(1) from [video_data] left join video_info on video_data.av = video_info.av
 		<where>
 			<if test="av != null">
 				and video_data.av = #{av}
@@ -83,12 +83,12 @@
 			<if test="reply != null">reply,</if>
 			<if test="favorite != null">favorite,</if>
 			<if test="coin != null">coin,</if>
-			<if test="page != null">page,</if>
-			<if test="point != null">point,</if>
-			<if test="rank != null">rank,</if>
+			<if test="page != null">[page],</if>
+			<if test="point != null">[point],</if>
+			<if test="rank != null">[rank],</if>
 			<if test="issue != null">issue,</if>
 			<if test="danmaku != null">danmaku,</if>
-			<if test="share != null">share,</if>
+			<if test="share != null">[share],</if>
 			<if test="like != null">[like],</if>
 			<if test="dislike != null">dislike,</if>
 			<if test="evaluation != null">evaluation,</if>
@@ -119,12 +119,12 @@
 			<if test="reply != null">reply = #{reply},</if>
 			<if test="favorite != null">favorite = #{favorite},</if>
 			<if test="coin != null">coin = #{coin},</if>
-			<if test="page != null">page = #{page},</if>
-			<if test="point != null">point = #{point},</if>
-			<if test="rank != null">rank = #{rank},</if>
+			<if test="page != null">[page] = #{page},</if>
+			<if test="point != null">[point] = #{point},</if>
+			<if test="rank != null">[rank] = #{rank},</if>
 			<if test="danmaku != null">danmaku = #{danmaku},</if>
-			<if test="share != null">share = #{share},</if>
-			<if test="like != null">like = #{like},</if>
+			<if test="share != null">[share] = #{share},</if>
+			<if test="like != null">[like] = #{like},</if>
 			<if test="dislike != null">dislike = #{dislike},</if>
 			<if test="evaluation != null">evaluation = #{evaluation},</if>
 		</set>
