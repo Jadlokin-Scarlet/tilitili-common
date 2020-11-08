@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public enum TaskReason {
     NO_REASON(0, "我不管我就是要爬"),
     SUPPLEMENT_VIDEO(1, "补充缺失视频"),
-    SUPPLEMENT_VIDEO_INFO(1, "补充视频信息"),
+    SUPPLEMENT_VIDEO_INFO(2, "补充视频信息"),
     ;
 
     private TaskReason(Integer value, String text) {
