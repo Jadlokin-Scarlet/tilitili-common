@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 public class VideoDataQuery extends BaseQuery<VideoDataQuery> {
     private Long av;
     private Integer issue;
+    private Integer status;
 
     //info
     private Boolean isDelete;

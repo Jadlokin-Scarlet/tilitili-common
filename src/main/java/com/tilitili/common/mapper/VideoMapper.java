@@ -8,5 +8,5 @@ import java.util.List;
 
 @Component
 public interface VideoMapper {
-	List<Video> list(VideoQuery videoQuery);
+//	List<Video> list(VideoQuery videoQuery);
 }

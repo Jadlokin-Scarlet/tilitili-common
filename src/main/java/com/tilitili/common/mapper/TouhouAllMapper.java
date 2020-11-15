@@ -27,7 +27,8 @@ public interface TouhouAllMapper {
             "order by touhou_all.av desc")
     List<Long> selectOtherAv();
 
-    @Select("select touhou_all.av from touhou_all left join video_info on touhou_all.av = video_info.av\n" +
+    @Select("select touhou_all.av from (select * from touhou_all union select * from touhou_new) touhou_all\n" +
+            "left join video_info on touhou_all.av = video_info.av\n" +
             "where video_info.av is null\n" +
             "order by touhou_all.av desc")
     List<Long> checkVideoInfo();

@@ -40,4 +40,5 @@ public class VideoData {
     private String dynamic;
     private Boolean isDelete;
     private Integer startPage;
+    private Integer status;
 }
