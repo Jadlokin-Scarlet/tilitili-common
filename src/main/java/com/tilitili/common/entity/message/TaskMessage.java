@@ -13,4 +13,5 @@ public class TaskMessage {
     private Long id;
     private Long av;
     private Integer type;
+    private Integer reason;
 }

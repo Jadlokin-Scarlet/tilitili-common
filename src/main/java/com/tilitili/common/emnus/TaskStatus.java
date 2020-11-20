@@ -20,8 +20,8 @@ public enum TaskStatus {
         this.text = text;
     }
 
-    private Integer value;
-    private String text;
+    public final Integer value;
+    public final String text;
 
     public static List<Resource> getResource() {
         return Arrays.stream(values())
@@ -33,15 +33,7 @@ public enum TaskStatus {
         return value;
     }
 
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
     public String getText() {
         return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 }

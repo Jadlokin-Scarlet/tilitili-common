@@ -4,24 +4,24 @@
 	<resultMap id="VideoPageResultMap" type="com.tilitili.common.entity.VideoPage">
 	</resultMap>
 	<select id="count" resultType="Integer">
-		select count(1) from page
+		select count(1) from [page]
 		<where>
 			<if test="av != null">
-				and page.av = #{av}
+				and av = #{av}
 			</if>
 			<if test="cid != null">
-				and page.cid = #{cid}
+				and cid = #{cid}
 			</if>
 		</where>
 	</select>
 	<select id="list" resultMap="VideoPageResultMap">
-		select * from page
+		select * from [page]
 		<where>
 			<if test="av != null">
-				and page.av = #{av}
+				and av = #{av}
 			</if>
 			<if test="cid != null">
-				and page.cid = #{cid}
+				and cid = #{cid}
 			</if>
 		</where>
 		<if test="sorter != null and sorted != null">
@@ -35,7 +35,7 @@
 		</if>
 	</select>
 	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.VideoPage" useGeneratedKeys="true">
-		insert into page (
+		insert into [page] (
 		<trim suffixOverrides=",">
 			<if test="cid != null">cid,</if>
 			<if test="av != null">av,</if>
@@ -60,11 +60,11 @@
 		)
 	</insert>
 	<update id="update">
-		update page
+		update [page]
 		<set>
 			<if test="part != null">part = #{part},</if>
-			<if test="page != null">page = #{page},</if>
-			<if test="from != null">from = #{from},</if>
+			<if test="page != null">[page] = #{page},</if>
+			<if test="from != null">[from] = #{from},</if>
 			<if test="duration != null">duration = #{duration},</if>
 			<if test="vid != null">vid = #{vid},</if>
 			<if test="weblink != null">weblink = #{weblink},</if>

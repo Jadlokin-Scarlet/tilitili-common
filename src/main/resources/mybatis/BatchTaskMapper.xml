@@ -22,7 +22,7 @@
 				and batch_task.type = #{type}
 			</if>
 			<if test="reason != null">
-				and task.reason = #{reason}
+				and batch_task.reason = #{reason}
 			</if>
 		</where>
 	</select>
@@ -39,7 +39,7 @@
 				and batch_task.type = #{type}
 			</if>
 			<if test="reason != null">
-				and task.reason = #{reason}
+				and batch_task.reason = #{reason}
 			</if>
 		</where>
 		<if test="sorter != null and sorted != null">
@@ -74,7 +74,7 @@
 <!--				and batch_task.type = #{type}-->
 <!--			</if>-->
 <!--			<if test="reason != null">-->
-<!--				and task.reason = #{reason}-->
+<!--				and batch_task.reason = #{reason}-->
 <!--			</if>-->
 <!--		</where>-->
 <!--		group by batch_task.id, batch_task.type, batch_task.status, batch_task.create_time, batch_task.update_time, batch_task.remark, batch_task.reason-->

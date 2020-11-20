@@ -16,7 +16,7 @@ public interface VideoPageMapper {
     int insert(VideoPage videoPage);
     int update(VideoPage videoPage);
 
-    @Select("select * from page where cid = #{cid} and av = #{av}")
+    @Select("select * from [page] where cid = #{cid} and av = #{av}")
     @ResultMap("VideoPageResultMap")
     VideoPage getByCidAndAv(Long cid, Long av);
 

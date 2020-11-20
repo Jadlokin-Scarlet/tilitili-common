@@ -4,6 +4,7 @@ import com.tilitili.common.entity.Resource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public enum TaskType {
@@ -17,8 +18,17 @@ public enum TaskType {
         this.text = text;
     }
 
-    private Integer value;
-    private String text;
+    public final Integer value;
+    public final String text;
+
+    public static TaskType getByValue(Integer value) {
+        for (TaskType taskType : values()) {
+            if (Objects.equals(taskType.value, value)) {
+                return taskType;
+            }
+        }
+        return null;
+    }
 
     public static List<Resource> getResource() {
         return Arrays.stream(values())
@@ -30,15 +40,8 @@ public enum TaskType {
         return value;
     }
 
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
 }

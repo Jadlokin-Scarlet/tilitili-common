@@ -15,8 +15,4 @@ public class BatchTaskQuery extends BaseQuery<BatchTaskQuery> {
     private Integer type;
     private Integer reason;
 
-    private Integer totalTaskNumber;
-    private Integer waitTaskNumber;
-    private Integer successTaskNumber;
-    private Integer failTaskNumber;
 }

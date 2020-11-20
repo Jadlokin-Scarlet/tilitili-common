@@ -33,4 +33,7 @@ public interface TouhouAllMapper {
             "order by touhou_all.av desc")
     List<Long> checkVideoInfo();
 
+    @Select("select av from (select * from touhou_all union select * from touhou_new) touhou_all")
+    List<Long> selectAllAv();
+
 }

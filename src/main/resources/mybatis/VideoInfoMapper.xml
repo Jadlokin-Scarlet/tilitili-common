@@ -7,6 +7,8 @@
 		<result column="is_delete" property="isDelete" />
 		<result column="mission_id" property="missionId" />
 		<result column="start_page" property="startPage" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from video_info
@@ -96,6 +98,8 @@
 			<if test="dynamic != null">[dynamic],</if>
 			<if test="startPage != null">start_page,</if>
 			<if test="status != null">status,</if>
+			create_time,
+			update_time,
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -117,6 +121,8 @@
 			<if test="dynamic != null">#{dynamic},</if>
 			<if test="startPage != null">#{startPage},</if>
 			<if test="status != null">#{status},</if>
+			getdate(),
+			getdate(),
 		</trim>
 		)
 	</insert>
@@ -140,6 +146,7 @@
 			<if test="dynamic != null">[dynamic] = #{dynamic},</if>
 			<if test="startPage != null">start_page = #{startPage},</if>
 			<if test="status != null">status = #{status},</if>
+			update_time = getdate(),
 		</set>
 		where av = #{av}
 	</update>
