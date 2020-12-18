@@ -21,12 +21,6 @@ public interface VideoInfoMapper {
     @ResultMap("VideoInfoResultMap")
     VideoInfo getByAv(Long av);
 
-    @Update("update video_info set is_delete = 1 where av = #{av}")
-    int delete(Long av);
-
-    @Update("update video_info set is_delete = 0 where av = #{av}")
-    int recovery(Long av);
-
     @Select("select * from video_info where status != 0")
     @ResultMap("VideoInfoResultMap")
     List<VideoInfo> listHiddenVideo();
