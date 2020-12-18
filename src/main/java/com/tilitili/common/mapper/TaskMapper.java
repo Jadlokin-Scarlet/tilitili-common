@@ -3,10 +3,7 @@ package com.tilitili.common.mapper;
 import com.tilitili.common.entity.Task;
 import com.tilitili.common.entity.dto.TaskStatusCount;
 import com.tilitili.common.entity.query.TaskQuery;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +16,9 @@ public interface TaskMapper {
     int count(TaskQuery taskQuery);
     int insert(Task task);
     int update(Task task);
+
+    @Delete("delete task where batch_id = #{batchId}")
+    int deleteByBatchId(Long batchId);
 
     List<TaskStatusCount> countByGroupStatus(TaskQuery taskQuery);
 

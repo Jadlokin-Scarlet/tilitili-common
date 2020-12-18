@@ -2,6 +2,7 @@ package com.tilitili.common.mapper;
 
 import com.tilitili.common.entity.BatchTask;
 import com.tilitili.common.entity.query.BatchTaskQuery;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public interface BatchTaskMapper {
 
     int update(BatchTask batchTask);
 
-
+    @Delete("delete batch_task where id = #{id}")
+    int delete(Long id);
 
 }

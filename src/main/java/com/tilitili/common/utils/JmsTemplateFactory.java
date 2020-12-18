@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.tilitili.common.emnus.TaskReason.RE_SPIDER_All_VIDEO;
+import static com.tilitili.common.emnus.TaskReason.RE_SPIDER_All_VIDEO_TAG;
 import static com.tilitili.common.emnus.TaskType.*;
 
 @Component
@@ -31,6 +32,7 @@ public class JmsTemplateFactory {
         updateJmsTemplate(AutoBatchSpiderVideo, null, 3, null);
 
         updateJmsTemplate(BatchSpiderVideo, RE_SPIDER_All_VIDEO, 2, 0L);
+        updateJmsTemplate(BatchSpiderVideo, RE_SPIDER_All_VIDEO_TAG, 2, 0L);
     }
 
     public void updateJmsTemplate(TaskType batchSpiderType, TaskReason batchSpiderReason, Integer priority, Long timeToLive) {

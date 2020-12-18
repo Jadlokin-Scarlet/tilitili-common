@@ -98,7 +98,7 @@
 		update task
 		<set>
 		    update_time = getdate(),
-			<if test="status != null">type = #{type},</if>
+			<if test="type != null">type = #{type},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="remark != null">remark = #{remark},</if>
 			<if test="batchId != null">batch_id = #{batchId},</if>

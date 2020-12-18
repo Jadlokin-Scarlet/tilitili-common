@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tilitili.common.mapper.VideoTagRelationMapper">
+	<resultMap id="VideoTagRelationResultMap" type="com.tilitili.common.entity.VideoTagRelation">
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="tag_id" property="tagId" />
+	</resultMap>
+	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.VideoTagRelation" useGeneratedKeys="true">
+		insert into video_tag_relation (
+			<trim suffixOverrides=",">
+				<if test="tagId != null">tag_id,</if>
+				<if test="av != null">av,</if>
+				create_time,
+				update_time,
+				<if test="status != null">status,</if>
+				<if test="type != null">type,</if>
+			</trim>
+		) values (
+			<trim suffixOverrides=",">
+				<if test="tagId != null">#{tagId},</if>
+				<if test="av != null">#{av},</if>
+				getdate(),
+				getdate(),
+				<if test="status != null">#{status},</if>
+				<if test="type != null">#{type},</if>
+			</trim>
+		)
+	</insert>
+	<update id="update">
+		update video_tag_relation
+		<set>
+		    update_time = getdate(),
+			<if test="av != null">av = #{av},</if>
+			<if test="tagId != null">tag_id = #{tagId},</if>
+			<if test="type != null">type = #{type},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="remark != null">remark = #{remark},</if>
+		</set>
+		where id = #{id}
+	</update>
+</mapper>
