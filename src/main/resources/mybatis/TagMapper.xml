@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tilitili.common.mapper.TagMapper">
+	<resultMap id="TagResultMap" type="com.tilitili.common.entity.Tag">
+<!--		<result property="isTouhouTag" column="is_touhou_tag"/>-->
+<!--		<result property="headCover" column="head_cover"/>-->
+<!--		<result property="shortContent" column="short_content"/>-->
+<!--		<result property="externalType" column="external_type"/>-->
+<!--		<result property="isAtten" column="is_atten"/>-->
+<!--		<result property="extraAttr" column="extra_attr"/>-->
+<!--		<result property="tagType" column="tag_type"/>-->
+<!--		<result property="isActivity" column="is_activity"/>-->
+<!--		<result property="isSeason" column="is_season"/>-->
+<!--		<result property="subscribedCount" column="subscribed_count"/>-->
+	</resultMap>
+	<select id="count" resultType="Integer">
+		select count(1) from [tag]
+		<where>
+			<if test="id != null">
+				and tag.id = #{id}
+			</if>
+			<if test="status != null">
+				and tag.status = #{status}
+			</if>
+			<if test="type != null">
+				and tag.type = #{type}
+			</if>
+		</where>
+	</select>
+	<select id="list" resultMap="TagResultMap">
+		select * from [tag]
+		<where>
+			<if test="id != null">
+				and tag.id = #{id}
+			</if>
+			<if test="status != null">
+				and tag.status = #{status}
+			</if>
+			<if test="type != null">
+				and tag.type = #{type}
+			</if>
+		</where>
+		<if test="sorter != null and sorted != null">
+			order by [${sorter}] ${sorted}
+		</if>
+		<if test="sorter == null or sorted == null">
+			order by id desc
+		</if>
+		<if test="start != null and tagSize != null">
+			offset ${start} rows fetch next ${tagSize} rows only
+		</if>
+	</select>
+	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.Tag" useGeneratedKeys="true">
+		insert into [tag] (
+		<trim suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="isTouhouTag != null">is_touhou_tag,</if>
+			<if test="cover != null">cover,</if>
+			<if test="headCover != null">head_cover,</if>
+			<if test="content != null">content,</if>
+			<if test="shortContent != null">short_content,</if>
+			<if test="externalType != null">external_type,</if>
+			<if test="state != null">state,</if>
+			<if test="isAtten != null">is_atten,</if>
+			<if test="likes != null">likes,</if>
+			<if test="hates != null">hates,</if>
+			<if test="attribute != null">attribute,</if>
+			<if test="liked != null">liked,</if>
+			<if test="hated != null">hated,</if>
+			<if test="extraAttr != null">extra_attr,</if>
+			<if test="tagType != null">tag_type,</if>
+			<if test="isActivity != null">is_activity,</if>
+			<if test="color != null">color,</if>
+			<if test="alpha != null">alpha,</if>
+			<if test="isSeason != null">is_season,</if>
+			<if test="subscribedCount != null">subscribed_count,</if>
+			<if test="archiveCount != null">archive_count,</if>
+			<if test="externalCreateTime != null">external_create_time,</if>
+			<if test="status != null">status,</if>
+			<if test="type != null">type,</if>
+			create_time,
+			update_time,
+		</trim>
+		) values (
+		<trim suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="isTouhouTag != null">#{isTouhouTag},</if>
+			<if test="cover != null">#{cover},</if>
+			<if test="headCover != null">#{headCover},</if>
+			<if test="content != null">#{content},</if>
+			<if test="shortContent != null">#{shortContent},</if>
+			<if test="externalType != null">#{externalType},</if>
+			<if test="state != null">#{state},</if>
+			<if test="isAtten != null">#{isAtten},</if>
+			<if test="likes != null">#{likes},</if>
+			<if test="hates != null">#{hates},</if>
+			<if test="attribute != null">#{attribute},</if>
+			<if test="liked != null">#{liked},</if>
+			<if test="hated != null">#{hated},</if>
+			<if test="extraAttr != null">#{extraAttr},</if>
+			<if test="tagType != null">#{tagType},</if>
+			<if test="isActivity != null">#{isActivity},</if>
+			<if test="color != null">#{color},</if>
+			<if test="alpha != null">#{alpha},</if>
+			<if test="isSeason != null">#{isSeason},</if>
+			<if test="subscribedCount != null">#{subscribedCount},</if>
+			<if test="archiveCount != null">#{archiveCount},</if>
+			<if test="externalCreateTime != null">#{externalCreateTime},</if>
+			<if test="status != null">#{status},</if>
+			<if test="type != null">#{type},</if>
+			getdate(),
+			getdate(),
+		</trim>
+		)
+	</insert>
+	<update id="update">
+		update [tag]
+		<set>
+			<if test="name != null">name = #{name},</if>
+			<if test="isTouhouTag != null">is_touhou_tag = #{isTouhouTag},</if>
+			<if test="cover != null">cover = #{cover},</if>
+			<if test="headCover != null">head_cover = #{headCover},</if>
+			<if test="content != null">content = #{content},</if>
+			<if test="shortContent != null">short_content = #{shortContent},</if>
+			<if test="externalType != null">external_type = #{externalType},</if>
+			<if test="state != null">state = #{state},</if>
+			<if test="isAtten != null">is_atten = #{isAtten},</if>
+			<if test="likes != null">likes = #{likes},</if>
+			<if test="hates != null">hates = #{hates},</if>
+			<if test="attribute != null">attribute = #{attribute},</if>
+			<if test="liked != null">liked = #{liked},</if>
+			<if test="hated != null">hated = #{hated},</if>
+			<if test="extraAttr != null">extra_attr = #{extraAttr},</if>
+			<if test="tagType != null">tag_type = #{tagType},</if>
+			<if test="isActivity != null">is_activity = #{isActivity},</if>
+			<if test="color != null">color = #{color},</if>
+			<if test="alpha != null">alpha = #{alpha},</if>
+			<if test="isSeason != null">is_season = #{isSeason},</if>
+			<if test="subscribedCount != null">subscribed_count = #{subscribedCount},</if>
+			<if test="archiveCount != null">archive_count = #{archiveCount},</if>
+			<if test="externalCreateTime != null">external_create_time = #{externalCreateTime},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="type != null">type = #{type},</if>
+			update_time = getdate(),
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

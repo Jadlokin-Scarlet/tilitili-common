@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tilitili.common.mapper.VideoTagMapper">
     <resultMap id="VideoTagResultMap" type="VideoTag">
-        <result column="tag1" property="tag" />
-        <result column="tag2" property="tag" />
-        <result column="tag3" property="tag" />
-        <result column="tag4" property="tag" />
-        <result column="tag5" property="tag" />
-        <result column="tag6" property="tag" />
-        <result column="tag7" property="tag" />
-        <result column="tag8" property="tag" />
-        <result column="tag9" property="tag" />
-        <result column="tag10" property="tag" />
-        <result column="tag11" property="tag" />
-        <result column="tag12" property="tag" />
-        <result column="tag13" property="tag" />
-        <result column="tag14" property="tag" />
-        <result column="tag15" property="tag" />
-        <result column="tag16" property="tag" />
-        <result column="tag17" property="tag" />
-        <result column="tag18" property="tag" />
-        <result column="tag19" property="tag" />
-        <result column="tag20" property="tag" />
+        <result column="tag1" property="tags" />
+        <result column="tag2" property="tags" />
+        <result column="tag3" property="tags" />
+        <result column="tag4" property="tags" />
+        <result column="tag5" property="tags" />
+        <result column="tag6" property="tags" />
+        <result column="tag7" property="tags" />
+        <result column="tag8" property="tags" />
+        <result column="tag9" property="tags" />
+        <result column="tag10" property="tags" />
+        <result column="tag11" property="tags" />
+        <result column="tag12" property="tags" />
+        <result column="tag13" property="tags" />
+        <result column="tag14" property="tags" />
+        <result column="tag15" property="tags" />
+        <result column="tag16" property="tags" />
+        <result column="tag17" property="tags" />
+        <result column="tag18" property="tags" />
+        <result column="tag19" property="tags" />
+        <result column="tag20" property="tags" />
     </resultMap>
     <!--  <sql id="Base_Column_List">-->
     <!--    av, [name], tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, -->

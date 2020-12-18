@@ -26,7 +26,7 @@ public interface VideoDataMapper {
     @Select("select issue from video_data group by issue order by issue desc")
     List<Integer> listIssue();
 
-    @Update("update video_data set rank = #{rank} where av = #{av}")
+    @Update("update video_data set rank = #{rank} where av = #{av} and issue = #{issue}")
     void updateRank(VideoData videoData);
 
 }

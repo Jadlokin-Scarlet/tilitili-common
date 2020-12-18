@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,10 +14,12 @@ public class VideoTag implements Serializable {
 
     private String name;
 
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();
 
-    public VideoTag setTag(String tag) {
-        this.tags.add(tag);
+    public VideoTag setTags(String tag) {
+        if (!tag.isEmpty()) {
+            this.tags.add(tag);
+        }
         return this;
     }
 

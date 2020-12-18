@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class SpiderVideoViewTaskSender {
+public class TaskSender {
 
     private final JmsTemplateFactory jmsTemplateFactory;
 
     @Autowired
-    public SpiderVideoViewTaskSender(JmsTemplateFactory jmsTemplateFactory) {
+    public TaskSender(JmsTemplateFactory jmsTemplateFactory) {
         this.jmsTemplateFactory = jmsTemplateFactory;
     }
 
-    public void sendSpiderVideo(TaskMessage taskMessage) {
+    public void sendTask(TaskMessage taskMessage) {
         JmsTemplate jmsTemplate = jmsTemplateFactory.getJmsTemplate(taskMessage.getType(), taskMessage.getReason());
         log.info("send task to mq{}_{}_{}: {}", jmsTemplate.getDefaultDestinationName(), jmsTemplate.getPriority(), jmsTemplate.getTimeToLive(), taskMessage);
         jmsTemplate.convertAndSend(taskMessage);

@@ -9,7 +9,7 @@ import com.tilitili.common.entity.query.TaskQuery;
 import com.tilitili.common.entity.view.SimpleTaskView;
 import com.tilitili.common.mapper.BatchTaskMapper;
 import com.tilitili.common.mapper.TaskMapper;
-import com.tilitili.common.sender.SpiderVideoViewTaskSender;
+import com.tilitili.common.sender.TaskSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,13 +23,13 @@ public class TaskManager {
 
     private final TaskMapper taskMapper;
     private final BatchTaskMapper batchTaskMapper;
-    private final SpiderVideoViewTaskSender spiderVideoViewTaskSender;
+    private final TaskSender taskSender;
 
     @Autowired
-    public TaskManager(TaskMapper taskMapper, BatchTaskMapper batchTaskMapper, SpiderVideoViewTaskSender spiderVideoViewTaskSender) {
+    public TaskManager(TaskMapper taskMapper, BatchTaskMapper batchTaskMapper, TaskSender taskSender) {
         this.taskMapper = taskMapper;
         this.batchTaskMapper = batchTaskMapper;
-        this.spiderVideoViewTaskSender = spiderVideoViewTaskSender;
+        this.taskSender = taskSender;
     }
 
     public Map<Integer, Integer> countByGroupStatus(TaskQuery taskQuery) {
@@ -52,7 +52,7 @@ public class TaskManager {
             taskMapper.insert(task);
 
             TaskMessage taskMessage = new TaskMessage().setAv(av).setId(task.getId()).setType(batchTask.getType()).setReason(batchTask.getReason());
-            spiderVideoViewTaskSender.sendSpiderVideo(taskMessage);
+            taskSender.sendTask(taskMessage);
         });
     }
 

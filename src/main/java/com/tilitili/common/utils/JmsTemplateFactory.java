@@ -27,8 +27,8 @@ public class JmsTemplateFactory {
         map = new HashMap<>();
         updateJmsTemplate(null, null, 5, 7200000L);
 
-        updateJmsTemplate(SpiderVideo, null, 3, null);
-        updateJmsTemplate(AutoBatchSpiderVideo, null, 8, null);
+        updateJmsTemplate(SpiderVideo, null, 8, null);
+        updateJmsTemplate(AutoBatchSpiderVideo, null, 3, null);
 
         updateJmsTemplate(BatchSpiderVideo, RE_SPIDER_All_VIDEO, 2, 0L);
     }
