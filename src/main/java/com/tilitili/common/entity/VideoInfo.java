@@ -30,4 +30,5 @@ public class VideoInfo {
     private Integer status;
     private Date createTime;
     private Date updateTime;
+    private String externalOwner;
 }

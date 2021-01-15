@@ -14,9 +14,10 @@ public enum TaskReason {
     RE_SPIDER_HIDDEN_VIDEO(3, "重爬被隐藏的视频", "SpiderVideoViewTaskMessage"),
     RE_SPIDER_All_VIDEO(4, "重爬所有的视频", "SpiderVideoViewTaskMessage"),
     RE_SPIDER_All_VIDEO_TAG(5, "重爬所有的视频的tag", "SpiderVideoTagTaskMessage"),
+    SUPPLEMENT_VIDEO_TAG(6, "补充视频tag", "SpiderVideoTagTaskMessage"),
     ;
 
-    private TaskReason(Integer value, String text, String destination) {
+    TaskReason(Integer value, String text, String destination) {
         this.value = value;
         this.text = text;
         this.destination = destination;

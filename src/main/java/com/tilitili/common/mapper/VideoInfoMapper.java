@@ -1,6 +1,5 @@
 package com.tilitili.common.mapper;
 
-import com.tilitili.common.entity.Video;
 import com.tilitili.common.entity.VideoInfo;
 import com.tilitili.common.entity.query.VideoInfoQuery;
 import org.apache.ibatis.annotations.ResultMap;
@@ -25,4 +24,6 @@ public interface VideoInfoMapper {
     @ResultMap("VideoInfoResultMap")
     List<VideoInfo> listHiddenVideo();
 
+    @Update("update video_info set external_owner = #{externalOwner} where av = #{av}")
+    void updateExternalOwner(Long av, String externalOwner);
 }

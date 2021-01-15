@@ -7,6 +7,7 @@
 		<result column="is_delete" property="isDelete" />
 		<result column="mission_id" property="missionId" />
 		<result column="start_page" property="startPage" />
+		<result column="external_owner" property="externalOwner" />
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from [video_data] left join video_info on video_data.av = video_info.av
@@ -34,6 +35,9 @@
 			</if>
 			<if test="copyright != null">
 				and video_info.copyright = #{copyright}
+			</if>
+			<if test="status != null">
+				and video_info.status = #{status}
 			</if>
 		</where>
 	</select>
@@ -63,6 +67,9 @@
 			</if>
 			<if test="copyright != null">
 				and video_info.copyright = #{copyright}
+			</if>
+			<if test="status != null">
+				and video_info.status = #{status}
 			</if>
 		</where>
 		<if test="sorter != null and sorted != null">

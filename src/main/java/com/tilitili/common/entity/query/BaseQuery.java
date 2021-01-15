@@ -12,7 +12,6 @@ public class BaseQuery<T extends BaseQuery<T>> {
 
     public T setSorter(String sorter) {
         this.sorter = sorter;
-        this.sorted = "desc";
         return (T) this;
     }
 

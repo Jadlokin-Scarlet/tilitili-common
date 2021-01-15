@@ -22,5 +22,13 @@ public class VideoDataManager {
             return videoDataMapper.update(videoData);
         }
     }
+
+    public VideoData getOrDefault(Long av, Integer issue) {
+        VideoData videoData = videoDataMapper.getByAvAndIssue(av, issue);
+        if (videoData == null) {
+            return new VideoData().setAv(av).setIssue(issue);
+        }
+        return videoData;
+    }
     
 }

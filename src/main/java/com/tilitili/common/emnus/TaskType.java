@@ -13,7 +13,7 @@ public enum TaskType {
     AutoBatchSpiderVideo(2, "定时任务"),
     ;
 
-    private TaskType(Integer value, String text) {
+    TaskType(Integer value, String text) {
         this.value = value;
         this.text = text;
     }

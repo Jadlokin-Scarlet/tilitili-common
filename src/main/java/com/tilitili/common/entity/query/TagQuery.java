@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class TagQuery extends BaseQuery<TagQuery> {
     private Long id;
+    private String name;
     private Integer status;
     private Integer type;
-
 }

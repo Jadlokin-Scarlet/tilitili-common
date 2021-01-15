@@ -34,6 +34,12 @@ public interface TouhouAllMapper {
     List<Long> checkVideoInfo();
 
     @Select("select touhou_all.av from (select * from touhou_all union select * from touhou_new) touhou_all\n" +
+            "left join video_tag_relation on touhou_all.av = video_tag_relation.av\n" +
+            "where video_tag_relation.av is null\n" +
+            "order by touhou_all.av desc")
+    List<Long> checkVideoTag();
+
+    @Select("select touhou_all.av from (select * from touhou_all union select * from touhou_new) touhou_all\n" +
             "left join video_info on touhou_all.av = video_info.av\n" +
             "where video_info.update_time is null or video_info.update_time < dateadd(dd, 7, getdate())")
     List<Long> selectAllAv();

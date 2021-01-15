@@ -10,18 +10,18 @@ import lombok.experimental.Accessors;
 public class VideoData {
     private Long av;
     private Integer issue;
-    private Integer view;
-    private Integer reply;
-    private Integer favorite;
-    private Integer coin;
-    private Integer page;
-    private Integer point;
-    private Integer rank;
-    private Integer danmaku;
-    private Integer share;
-    private Integer like;
-    private Integer dislike;
-    private String evaluation;
+    private Integer view = 0;
+    private Integer reply = 0;
+    private Integer favorite = 0;
+    private Integer coin = 0;
+    private Integer page = 0;
+    private Integer point = 0;
+    private Integer rank = 0;
+    private Integer danmaku = 0;
+    private Integer share = 0;
+    private Integer like = 0;
+    private Integer dislike = 0;
+    private String evaluation = "";
 
     //info
     private String name;
@@ -41,4 +41,5 @@ public class VideoData {
     private Boolean isDelete;
     private Integer startPage;
     private Integer status;
+    private String externalOwner;
 }

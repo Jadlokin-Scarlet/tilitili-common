@@ -18,4 +18,6 @@ public class Task {
     private Integer type;
     private String remark;
     private Long batchId;
+
+    private String idList;
 }

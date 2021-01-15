@@ -9,6 +9,7 @@
 		<result column="start_page" property="startPage" />
 		<result column="create_time" property="createTime" />
 		<result column="update_time" property="updateTime" />
+		<result column="external_owner" property="externalOwner" />
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from video_info
