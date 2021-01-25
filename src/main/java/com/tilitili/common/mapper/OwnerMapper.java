@@ -9,13 +9,9 @@ import java.util.List;
 
 @Component
 public interface OwnerMapper {
-
     List<Owner> list(OwnerQuery ownerQuery);
-
     int count(OwnerQuery ownerQuery);
-
     int insert(Owner owner);
-
     int update(Owner owner);
 
     @Select("select * from owner where uid = #{uid}")

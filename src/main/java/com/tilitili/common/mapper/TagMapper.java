@@ -2,6 +2,7 @@ package com.tilitili.common.mapper;
 
 import com.tilitili.common.entity.Tag;
 import com.tilitili.common.entity.query.TagQuery;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -19,4 +20,7 @@ public interface TagMapper {
     @Select("select * from [tag] where id = #{id}")
     @ResultMap("TagResultMap")
     Tag getById(Long id);
+
+    @Select("select * from [tag] where id in (${idListStr})")
+    List<Tag> listByIdListStr(@Param("idListStr") String idListStr);
 }

@@ -8,6 +8,6 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 public class SimpleTaskView {
-    private Long av;
+    private String value;
     private Integer reason;
 }

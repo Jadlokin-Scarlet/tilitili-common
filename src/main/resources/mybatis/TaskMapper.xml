@@ -12,8 +12,8 @@
 			<if test="id != null">
 				and task.id = #{id}
 			</if>
-			<if test="av != null">
-				and task.av = #{av}
+			<if test="value != null">
+				and task.value = #{value}
 			</if>
 			<if test="status != null">
 				and task.status = #{status}
@@ -32,8 +32,8 @@
 			<if test="id != null">
 				and task.id = #{id}
 			</if>
-			<if test="av != null">
-				and task.av = #{av}
+			<if test="value != null">
+				and task.value = #{value}
 			</if>
 			<if test="type != null">
 				and task.type = #{type}
@@ -50,8 +50,8 @@
 			<if test="id != null">
 				and task.id = #{id}
 			</if>
-			<if test="av != null">
-				and task.av = #{av}
+			<if test="value != null">
+				and task.value = #{value}
 			</if>
 			<if test="status != null">
 				and task.status = #{status}
@@ -76,21 +76,21 @@
 	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.Task" useGeneratedKeys="true">
 		insert into task (
 			<trim suffixOverrides=",">
-				<if test="av != null">av,</if>
 				create_time,
 				update_time,
 				<if test="status != null">status,</if>
 				<if test="type != null">type,</if>
 				<if test="batchId != null">batch_id,</if>
+				<if test="value != null">value,</if>
 			</trim>
 		) values (
 			<trim suffixOverrides=",">
-				<if test="av != null">#{av},</if>
 				getdate(),
 				getdate(),
 				<if test="status != null">#{status},</if>
 				<if test="type != null">#{type},</if>
 				<if test="batchId != null">#{batchId},</if>
+				<if test="value != null">#{value},</if>
 			</trim>
 		)
 	</insert>
@@ -102,6 +102,7 @@
 			<if test="status != null">status = #{status},</if>
 			<if test="remark != null">remark = #{remark},</if>
 			<if test="batchId != null">batch_id = #{batchId},</if>
+			<if test="value != null">value = #{value},</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -9,15 +9,15 @@ import java.util.Date;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class VideoTagRelation {
+public class Users {
     private Long id;
-    private Long tagId;
-    private Long av;
-    private Date createTime;
-    private Date updateTime;
+    private String name;
+    private String password;
+    private String email;
+    private String phone;
     private Integer status;
     private Integer type;
-    private String remark;
-
-    private String tagName;
+    private Date createTime;
+    private Date updateTime;
+    private Date lastLoginTime;
 }

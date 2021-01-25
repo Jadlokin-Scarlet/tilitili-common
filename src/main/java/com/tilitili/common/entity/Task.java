@@ -11,13 +11,13 @@ import java.util.Date;
 @Accessors(chain = true)
 public class Task {
     private Long id;
-    private Long av;
     private Date createTime;
     private Date updateTime;
     private Integer status;
     private Integer type;
     private String remark;
     private Long batchId;
+    private String value;
 
     private String idList;
 }

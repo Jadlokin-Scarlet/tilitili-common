@@ -40,18 +40,18 @@ public class TaskManager {
     }
 
     public void simpleSpiderVideo(SimpleTaskView simpleTaskView) {
-        Long av = simpleTaskView.getAv();
+        String value = simpleTaskView.getValue();
         BatchTask batchTask = new BatchTask().setType(TaskType.SpiderVideo.getValue()).setReason(simpleTaskView.getReason());
-        batchSpiderVideo(batchTask, Collections.singletonList(av));
+        batchSpiderVideo(batchTask, Collections.singletonList(value));
     }
 
-    public void batchSpiderVideo(BatchTask batchTask, List<Long> avList) {
+    public void batchSpiderVideo(BatchTask batchTask, List<String> valueList) {
         batchTaskMapper.insert(batchTask);
-        avList.stream().parallel().forEach(av -> {
-            Task task = new Task().setAv(av).setBatchId(batchTask.getId()).setType(batchTask.getType());
+        valueList.stream().parallel().forEach(value -> {
+            Task task = new Task().setValue(value).setBatchId(batchTask.getId()).setType(batchTask.getType());
             taskMapper.insert(task);
 
-            TaskMessage taskMessage = new TaskMessage().setAv(av).setId(task.getId()).setType(batchTask.getType()).setReason(batchTask.getReason());
+            TaskMessage taskMessage = new TaskMessage().setValue(value).setId(task.getId()).setType(batchTask.getType()).setReason(batchTask.getReason());
             taskSender.sendTask(taskMessage);
         });
     }

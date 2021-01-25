@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @ToString
 public class TaskMessage {
     private Long id;
-    private Long av;
+    private String value;
     private Integer type;
     private Integer reason;
 }

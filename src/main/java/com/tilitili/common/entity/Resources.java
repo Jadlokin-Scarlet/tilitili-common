@@ -1,16 +1,19 @@
-package com.tilitili.common.entity.query;
+package com.tilitili.common.entity;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-@Setter
+import java.util.Date;
+
 @Getter
+@Setter
 @Accessors(chain = true)
-public class TaskQuery extends BaseQuery<TaskQuery> {
+public class Resources {
     private Long id;
-    private String value;
+    private Date createTime;
+    private Date updateTime;
     private Integer status;
     private Integer type;
-    private Long batchId;
+    private String value;
 }

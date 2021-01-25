@@ -1,9 +1,13 @@
 package com.tilitili.common.manager;
 
+import com.tilitili.common.entity.VideoTag;
 import com.tilitili.common.entity.VideoTagRelation;
+import com.tilitili.common.entity.query.VideoTagRelationQuery;
 import com.tilitili.common.mapper.VideoTagRelationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class VideoTagRelationManager {

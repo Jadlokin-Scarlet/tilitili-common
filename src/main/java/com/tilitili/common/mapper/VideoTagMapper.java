@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public interface VideoTagMapper {
-    List<VideoTag> list(VideoTagQuery videoTagQuery);
-    int count(VideoTagQuery videoTagQuery);
-    int insert(VideoTag videoTag);
-    int update(VideoTag videoTag);
+//    List<VideoTag> list(VideoTagQuery videoTagQuery);
+//    int count(VideoTagQuery videoTagQuery);
+//    int insert(VideoTag videoTag);
+//    int update(VideoTag videoTag);
 }

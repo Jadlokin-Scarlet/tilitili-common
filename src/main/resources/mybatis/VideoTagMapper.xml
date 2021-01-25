@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tilitili.common.mapper.VideoTagMapper">
-    <resultMap id="VideoTagResultMap" type="VideoTag">
-        <result column="tag1" property="tags" />
-        <result column="tag2" property="tags" />
-        <result column="tag3" property="tags" />
-        <result column="tag4" property="tags" />
-        <result column="tag5" property="tags" />
-        <result column="tag6" property="tags" />
-        <result column="tag7" property="tags" />
-        <result column="tag8" property="tags" />
-        <result column="tag9" property="tags" />
-        <result column="tag10" property="tags" />
-        <result column="tag11" property="tags" />
-        <result column="tag12" property="tags" />
-        <result column="tag13" property="tags" />
-        <result column="tag14" property="tags" />
-        <result column="tag15" property="tags" />
-        <result column="tag16" property="tags" />
-        <result column="tag17" property="tags" />
-        <result column="tag18" property="tags" />
-        <result column="tag19" property="tags" />
-        <result column="tag20" property="tags" />
-    </resultMap>
-    <!--  <sql id="Base_Column_List">-->
-    <!--    av, [name], tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, -->
-    <!--    tag13, tag14, tag15, tag16, tag17, tag18, tag19, tag20-->
-    <!--  </sql>-->
-    <select id="count" resultType="Integer">
-        select count(1) from touhouTag
-        <where>
-            <if test="av != null">and av = #{av}</if>
-            <if test="name != null">and [name] like concat('%', #{name}, '%')</if>
-<!--            <if test="tag != null">and concat(tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, tag13, tag14, tag15, tag16, tag17, tag18, tag19, tag20) like concat('%', #{tag}, '%')</if>-->
-        </where>
-    </select>
-    <select id="list" parameterType="VideoTagQuery" resultMap="VideoTagResultMap">
-        select * from touhouTag
-        <where>
-            <if test="av != null">and av = #{av}</if>
-            <if test="name != null">and [name] like concat('%', #{name}, '%')</if>
-            <!--            <if test="tag != null">and concat(tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, tag13, tag14, tag15, tag16, tag17, tag18, tag19, tag20) like concat('%', #{tag}, '%')</if>-->
-        </where>
-    </select>
-    <insert id="insert" keyProperty="id" parameterType="VideoTag" useGeneratedKeys="true">
-        insert into touhouTag (av, [name],
-            <foreach collection="tags" index="index" separator=",">
-                tag${index+1}
-            </foreach>
-       )
-        values (#{av}, #{name},
-            <foreach collection="tags" item="tag" separator=",">
-                #{tag}
-            </foreach>
-        )
-    </insert>
-    <update id="update" parameterType="VideoTag">
-        update touhouTag
-        <set>
-            <if test="name != null">[name] = #{name}</if>
-            <foreach collection="tags" item="tag" index="index">
-                tag${index+1} = #{tag}
-            </foreach>
-        </set>
-        where av = #{av,jdbcType=NUMERIC}
-    </update>
+<!--    <resultMap id="VideoTagResultMap" type="VideoTag">-->
+<!--        <result column="tag1" property="tags" />-->
+<!--        <result column="tag2" property="tags" />-->
+<!--        <result column="tag3" property="tags" />-->
+<!--        <result column="tag4" property="tags" />-->
+<!--        <result column="tag5" property="tags" />-->
+<!--        <result column="tag6" property="tags" />-->
+<!--        <result column="tag7" property="tags" />-->
+<!--        <result column="tag8" property="tags" />-->
+<!--        <result column="tag9" property="tags" />-->
+<!--        <result column="tag10" property="tags" />-->
+<!--        <result column="tag11" property="tags" />-->
+<!--        <result column="tag12" property="tags" />-->
+<!--        <result column="tag13" property="tags" />-->
+<!--        <result column="tag14" property="tags" />-->
+<!--        <result column="tag15" property="tags" />-->
+<!--        <result column="tag16" property="tags" />-->
+<!--        <result column="tag17" property="tags" />-->
+<!--        <result column="tag18" property="tags" />-->
+<!--        <result column="tag19" property="tags" />-->
+<!--        <result column="tag20" property="tags" />-->
+<!--    </resultMap>-->
+<!--    &lt;!&ndash;  <sql id="Base_Column_List">&ndash;&gt;-->
+<!--    &lt;!&ndash;    av, [name], tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, &ndash;&gt;-->
+<!--    &lt;!&ndash;    tag13, tag14, tag15, tag16, tag17, tag18, tag19, tag20&ndash;&gt;-->
+<!--    &lt;!&ndash;  </sql>&ndash;&gt;-->
+<!--    <select id="count" resultType="Integer">-->
+<!--        select count(1) from touhouTag-->
+<!--        <where>-->
+<!--            <if test="av != null">and av = #{av}</if>-->
+<!--            <if test="name != null">and [name] like concat('%', #{name}, '%')</if>-->
+<!--&lt;!&ndash;            <if test="tag != null">and concat(tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, tag13, tag14, tag15, tag16, tag17, tag18, tag19, tag20) like concat('%', #{tag}, '%')</if>&ndash;&gt;-->
+<!--        </where>-->
+<!--    </select>-->
+<!--    <select id="list" parameterType="VideoTagQuery" resultMap="VideoTagResultMap">-->
+<!--        select * from touhouTag-->
+<!--        <where>-->
+<!--            <if test="av != null">and av = #{av}</if>-->
+<!--            <if test="name != null">and [name] like concat('%', #{name}, '%')</if>-->
+<!--            &lt;!&ndash;            <if test="tag != null">and concat(tag1, tag2, tag3, tag4, tag5, tag6, tag7, tag8, tag9, tag10, tag11, tag12, tag13, tag14, tag15, tag16, tag17, tag18, tag19, tag20) like concat('%', #{tag}, '%')</if>&ndash;&gt;-->
+<!--        </where>-->
+<!--    </select>-->
+<!--    <insert id="insert" keyProperty="id" parameterType="VideoTag" useGeneratedKeys="true">-->
+<!--        insert into touhouTag (av, [name],-->
+<!--            <foreach collection="tags" index="index" separator=",">-->
+<!--                tag${index+1}-->
+<!--            </foreach>-->
+<!--       )-->
+<!--        values (#{av}, #{name},-->
+<!--            <foreach collection="tags" item="tag" separator=",">-->
+<!--                #{tag}-->
+<!--            </foreach>-->
+<!--        )-->
+<!--    </insert>-->
+<!--    <update id="update" parameterType="VideoTag">-->
+<!--        update touhouTag-->
+<!--        <set>-->
+<!--            <if test="name != null">[name] = #{name}</if>-->
+<!--            <foreach collection="tags" item="tag" index="index">-->
+<!--                tag${index+1} = #{tag}-->
+<!--            </foreach>-->
+<!--        </set>-->
+<!--        where av = #{av,jdbcType=NUMERIC}-->
+<!--    </update>-->
 </mapper>
