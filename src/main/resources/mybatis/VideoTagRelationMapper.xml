@@ -150,4 +150,8 @@
 		</set>
 		where id = #{id}
 	</update>
+	<select id="groupByTag" resultType="TagRelationGroup">
+		select a.name as tag, count(1) as number from video_tag_relation b left join tag a on a.id = b.tag_id
+		group by a.name
+	</select>
 </mapper>

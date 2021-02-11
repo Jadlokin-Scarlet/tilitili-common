@@ -38,6 +38,12 @@
 			<if test="status != null">
 				and video_info.status = #{status}
 			</if>
+			<if test="createTimeStart != null">-- 大于
+				and create_time &gt;= convert(varchar(10),#{createTimeStart},120)
+			</if>
+			<if test="createTimeEnd != null">-- 小于
+				and create_time &lt; convert(varchar(10),#{createTimeEnd},120)
+			</if>
 		</where>
 	</select>
 	<select id="list" resultMap="VideoInfoResultMap">
@@ -66,6 +72,12 @@
 			</if>
 			<if test="status != null">
 				and video_info.status = #{status}
+			</if>
+			<if test="createTimeStart != null">-- 大于
+				and create_time &gt;= convert(varchar(10),#{createTimeStart},120)
+			</if>
+			<if test="createTimeEnd != null">-- 小于
+				and create_time &lt; convert(varchar(10),#{createTimeEnd},120)
 			</if>
 		</where>
 		<if test="sorter != null and sorted != null">
@@ -151,4 +163,24 @@
 		</set>
 		where av = #{av}
 	</update>
+	<select id="groupByCreateDay" resultType="VideoInfoGroup">
+		select convert(varchar(10),create_time,120) as time, count(1) as number
+		from video_info
+		<where>
+			<if test="isDelete != null">
+				and is_delete = #{isDelete}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="createTimeStart != null">-- 大于
+				and create_time &gt;= convert(varchar(10),#{createTimeStart},120)
+			</if>
+			<if test="createTimeEnd != null">-- 小于
+				and create_time &lt; convert(varchar(10),#{createTimeEnd},120)
+			</if>
+		</where>
+		group by convert(varchar(10),create_time,120)
+		order by convert(varchar(10),create_time,120)
+	</select>
 </mapper>

@@ -76,6 +76,11 @@
             <if test='nameplateLevel != null'>[nameplate_level],</if>
             <if test='nameplateCondition != null'>[nameplate_condition],</if>
             <if test='topPhoto != null'>[top_photo],</if>
+            <if test="status != null">[status],</if>
+            <if test="type != null">[type],</if>
+            <if test="remark != null">[remark],</if>
+            [create_time],
+            [update_time],
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test='uid != null'>#{uid},</if>
@@ -116,6 +121,11 @@
             <if test='nameplateLevel != null'>#{nameplateLevel},</if>
             <if test='nameplateCondition != null'>#{nameplateCondition},</if>
             <if test='topPhoto != null'>#{topPhoto},</if>
+            <if test="status != null">#{status},</if>
+            <if test="type != null">#{type},</if>
+            <if test="remark != null">#{remark},</if>
+            getdate(),
+            getdate(),
         </trim>
     </insert>
     <update id="update">
@@ -158,7 +168,10 @@
             <if test='nameplateLevel != null'>[nameplate_level] = #{nameplateLevel},</if>
             <if test='nameplateCondition != null'>[nameplate_condition] = #{nameplateCondition},</if>
             <if test='topPhoto != null'>[top_photo] = #{topPhoto},</if>
-
+            <if test="type != null">type = #{type},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            [update_time] = getdate(),
         </set>
         where [uid] = #{uid}
     </update>

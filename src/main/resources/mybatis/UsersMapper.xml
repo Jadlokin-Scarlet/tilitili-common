@@ -67,7 +67,7 @@
 				<if test="password != null">password,</if>
 				<if test="email != null">email,</if>
 				<if test="phone != null">phone,</if>
-				<if test="lastLoginTime != null">last_login_time,</if>
+				last_login_time,
 				create_time,
 				update_time,
 			</trim>
@@ -79,7 +79,7 @@
 				<if test="password != null">#{password},</if>
 				<if test="email != null">#{email},</if>
 				<if test="phone != null">#{phone},</if>
-				<if test="lastLoginTime != null">#{lastLoginTime},</if>
+				getdate(),
 				getdate(),
 				getdate(),
 			</trim>

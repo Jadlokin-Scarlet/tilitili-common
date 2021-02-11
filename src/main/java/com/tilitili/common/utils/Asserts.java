@@ -31,6 +31,12 @@ public class Asserts {
         }
     }
 
+    public static void checkNull(Object object, String message) {
+        if (object != null) {
+            throw new IllegalStateException(message);
+        }
+    }
+
     public static void notEmpty(String s, String name) {
         if (StringUtils.isEmpty(s)) {
             throw new IllegalStateException(name + " is empty");

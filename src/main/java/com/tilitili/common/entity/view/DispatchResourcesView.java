@@ -15,6 +15,8 @@ public class DispatchResourcesView {
     private String musicCard;
     private String musicImage;
     private String musicSource;
+    private String markTime;
+    private String v;
 
     public DispatchResourcesView setIsStaffShow1(String isStaffShow1) {
         this.isStaffShow1 = Integer.valueOf(isStaffShow1);

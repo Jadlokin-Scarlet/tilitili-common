@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Accessors(chain=true)
@@ -46,4 +47,9 @@ public class Owner implements Serializable {
     private String nameplateLevel;
     private String nameplateCondition;
     private String topPhoto;
+    private Integer type;
+    private Integer status;
+    private String remark;
+    private Date createTime;
+    private Date updateTime;
 }

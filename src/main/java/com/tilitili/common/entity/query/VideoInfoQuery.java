@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @Accessors(chain = true)
@@ -16,4 +18,6 @@ public class VideoInfoQuery extends BaseQuery<VideoInfoQuery> {
     private String type;
     private Integer status;
     private Boolean copyright;
+    private Date createTimeStart;
+    private Date createTimeEnd;
 }

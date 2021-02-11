@@ -1,6 +1,7 @@
 package com.tilitili.common.mapper;
 
 import com.tilitili.common.entity.VideoInfo;
+import com.tilitili.common.entity.dto.VideoInfoGroup;
 import com.tilitili.common.entity.query.VideoInfoQuery;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -26,4 +27,6 @@ public interface VideoInfoMapper {
 
     @Update("update video_info set external_owner = #{externalOwner} where av = #{av}")
     void updateExternalOwner(Long av, String externalOwner);
+
+    List<VideoInfoGroup> groupByCreateDay(VideoInfoQuery query);
 }

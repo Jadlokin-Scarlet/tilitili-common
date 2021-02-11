@@ -1,5 +1,6 @@
 package com.tilitili.common.mapper;
 
+import com.tilitili.common.entity.query.BaseQuery;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +8,9 @@ import java.util.List;
 
 @Component
 public interface TouhouAllMapper {
+    List<Long> list(BaseQuery<?> baseQuery);
+    int count(BaseQuery<?> baseQuery);
+
     @Select("select touhou_all.av from (select * from touhou_all union select * from touhou_new ) touhou_all \n" +
             "    left join video_info on touhou_all.av = video_info.av\n" +
             "    left join video_data on touhou_all.av = video_data.av and issue = 7\n" +

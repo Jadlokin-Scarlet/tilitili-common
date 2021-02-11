@@ -32,7 +32,10 @@ public class JmsTemplateFactory {
 
         updateJmsTemplate(BatchSpiderVideo, RE_SPIDER_All_VIDEO, 2, 0L);
         updateJmsTemplate(BatchSpiderVideo, RE_SPIDER_All_VIDEO_TAG, 2, 0L);
+
         updateJmsTemplate(AutoBatchSpiderVideo, RE_SPIDER_All_OWNER, 2, null);
+        updateJmsTemplate(AutoBatchSpiderVideo, RE_SPIDER_All_VIDEO, 2, null);
+        updateJmsTemplate(AutoBatchSpiderVideo, RE_SPIDER_All_VIDEO_TAG, 2, null);
     }
 
     public void updateJmsTemplate(TaskType batchSpiderType, TaskReason batchSpiderReason, Integer priority, Long timeToLive) {
