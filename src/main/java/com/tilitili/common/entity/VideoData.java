@@ -42,4 +42,5 @@ public class VideoData {
     private Integer startPage;
     private Integer status;
     private String externalOwner;
+    private Boolean isCopyWarning;
 }

@@ -28,5 +28,8 @@ public interface VideoInfoMapper {
     @Update("update video_info set external_owner = #{externalOwner} where av = #{av}")
     void updateExternalOwner(Long av, String externalOwner);
 
-    List<VideoInfoGroup> groupByCreateDay(VideoInfoQuery query);
+    @Update("update video_info set is_copy_warning = #{isCopyWarning} where av = #{av}")
+    void updateIsCopyWarning(Long av, Boolean isCopyWarning);
+
+    List<VideoInfoGroup> groupByPubTime(VideoInfoQuery query);
 }

@@ -13,6 +13,7 @@
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from video_info
+		left join (select * from type where status = 0) type on video_info.type = type.name
 		<where>
 			<if test="av != null">
 				and video_info.av = #{av}
@@ -29,8 +30,8 @@
 			<if test="bv != null">
 				and video_info.bv = #{bv}
 			</if>
-			<if test="type != null">
-				and video_info.type = #{type}
+			<if test="type != null and type != '全部'">
+				and (type.name = #{type} or type.first_type_name = #{type})
 			</if>
 			<if test="copyright != null">
 				and video_info.copyright = #{copyright}
@@ -38,16 +39,17 @@
 			<if test="status != null">
 				and video_info.status = #{status}
 			</if>
-			<if test="createTimeStart != null">-- 大于
-				and create_time &gt;= convert(varchar(10),#{createTimeStart},120)
+			<if test="pubTimeStart != null">-- 大于
+				and pub_time &gt;= convert(varchar(10),#{pubTimeStart},120)
 			</if>
-			<if test="createTimeEnd != null">-- 小于
-				and create_time &lt; convert(varchar(10),#{createTimeEnd},120)
+			<if test="pubTimeEnd != null">-- 小于
+				and pub_time &lt; convert(varchar(10),#{pubTimeEnd},120)
 			</if>
 		</where>
 	</select>
 	<select id="list" resultMap="VideoInfoResultMap">
 		select * from video_info
+		left join (select * from type where status = 0) type on video_info.type = type.name
 		<where>
 			<if test="av != null">
 				and video_info.av = #{av}
@@ -64,8 +66,8 @@
 			<if test="bv != null">
 				and video_info.bv = #{bv}
 			</if>
-			<if test="type != null">
-				and video_info.type = #{type}
+			<if test="type != null and type != '全部'">
+				and (type.name = #{type} or type.first_type_name = #{type})
 			</if>
 			<if test="copyright != null">
 				and video_info.copyright = #{copyright}
@@ -73,11 +75,11 @@
 			<if test="status != null">
 				and video_info.status = #{status}
 			</if>
-			<if test="createTimeStart != null">-- 大于
-				and create_time &gt;= convert(varchar(10),#{createTimeStart},120)
+			<if test="pubTimeStart != null">-- 大于
+				and pub_time &gt;= convert(varchar(10),#{pubTimeStart},120)
 			</if>
-			<if test="createTimeEnd != null">-- 小于
-				and create_time &lt; convert(varchar(10),#{createTimeEnd},120)
+			<if test="pubTimeEnd != null">-- 小于
+				and pub_time &lt; convert(varchar(10),#{pubTimeEnd},120)
 			</if>
 		</where>
 		<if test="sorter != null and sorted != null">
@@ -163,24 +165,28 @@
 		</set>
 		where av = #{av}
 	</update>
-	<select id="groupByCreateDay" resultType="VideoInfoGroup">
-		select convert(varchar(10),create_time,120) as time, count(1) as number
+	<select id="groupByPubTime" resultType="VideoInfoGroup">
+		select convert(varchar(10),video_info.pub_time,120) as time, count(1) as number
 		from video_info
+		left join (select * from type where status = 0) type on video_info.type = type.name
 		<where>
 			<if test="isDelete != null">
-				and is_delete = #{isDelete}
+				and video_info.is_delete = #{isDelete}
 			</if>
 			<if test="status != null">
-				and status = #{status}
+				and video_info.status = #{status}
 			</if>
-			<if test="createTimeStart != null">-- 大于
-				and create_time &gt;= convert(varchar(10),#{createTimeStart},120)
+			<if test="pubTimeStart != null">-- 大于
+				and video_info.pub_time &gt;= convert(varchar(10),#{pubTimeStart},120)
 			</if>
-			<if test="createTimeEnd != null">-- 小于
-				and create_time &lt; convert(varchar(10),#{createTimeEnd},120)
+			<if test="pubTimeEnd != null">-- 小于
+				and video_info.pub_time &lt; convert(varchar(10),#{pubTimeEnd},120)
+			</if>
+			<if test="type != null and type != '全部'">
+				and (type.name = #{type} or type.first_type_name = #{type})
 			</if>
 		</where>
-		group by convert(varchar(10),create_time,120)
-		order by convert(varchar(10),create_time,120)
+		group by convert(varchar(10),video_info.pub_time,120)
+		order by convert(varchar(10),video_info.pub_time,120)
 	</select>
 </mapper>

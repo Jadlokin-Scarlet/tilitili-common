@@ -31,4 +31,5 @@ public class VideoInfo {
     private Date createTime;
     private Date updateTime;
     private String externalOwner;
+    private Boolean isCopyWarning;
 }
