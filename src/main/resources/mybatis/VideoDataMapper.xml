@@ -137,4 +137,18 @@
 		</set>
 		where av = #{av} and issue = #{issue}
 	</update>
+	<select id="groupByIssue" resultType="VideoDataGroup">
+		select
+		    issue,
+			sum([view]) as [view],
+			sum(coin) as coin,
+			sum(reply) as reply,
+			sum(favorite) as favorite
+		from video_data
+		group by issue
+		order by issue desc
+		<if test="start != null and pageSize != null">
+			offset ${start} rows fetch next ${pageSize} rows only
+		</if>
+	</select>
 </mapper>

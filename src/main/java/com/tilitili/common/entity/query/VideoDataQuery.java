@@ -1,12 +1,14 @@
 package com.tilitili.common.entity.query;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
 public class VideoDataQuery extends BaseQuery<VideoDataQuery> {
     private Long av;
     private Integer issue;
@@ -21,3 +23,5 @@ public class VideoDataQuery extends BaseQuery<VideoDataQuery> {
     private Boolean copyright;
 
 }
+
+

@@ -3,6 +3,7 @@ package com.tilitili.common.mapper;
 import com.tilitili.common.entity.VideoTag;
 import com.tilitili.common.entity.VideoTagRelation;
 import com.tilitili.common.entity.dto.TagRelationGroup;
+import com.tilitili.common.entity.query.BaseQuery;
 import com.tilitili.common.entity.query.VideoTagQuery;
 import com.tilitili.common.entity.query.VideoTagRelationQuery;
 import org.apache.ibatis.annotations.ResultMap;
@@ -22,7 +23,7 @@ public interface VideoTagRelationMapper {
     int countVideoTag(VideoTagQuery query);
     List<VideoTag> listVideoTag(VideoTagQuery query);
 
-    List<TagRelationGroup> groupByTag();
+    List<TagRelationGroup> groupByTag(VideoTagQuery query);
 
     @Select("select * from video_tag_relation where id = #{id}")
     @ResultMap("VideoTagRelationResultMap")

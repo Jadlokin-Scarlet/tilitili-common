@@ -1,6 +1,7 @@
 package com.tilitili.common.manager;
 
 import com.tilitili.common.entity.VideoData;
+import com.tilitili.common.entity.dto.VideoDataGroup;
 import com.tilitili.common.entity.query.VideoDataQuery;
 import com.tilitili.common.entity.query.VideoInfoQuery;
 import com.tilitili.common.mapper.VideoDataMapper;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -44,12 +46,12 @@ public class VideoDataManager {
     }
 
 
-    public List<VideoData> list(VideoDataQuery videoInfoQuery) {
+    public List<VideoData> list(VideoDataQuery videoDataQuery) {
         VideoDataQuery newVideoDataQuery = new VideoDataQuery();
-        if (videoInfoQuery != null) {
-            BeanUtils.copyProperties(videoInfoQuery, newVideoDataQuery);
-            if (videoInfoQuery.getIssue() != null) {
-                newVideoDataQuery.setIssue(videoInfoQuery.getIssue() + resourcesManager.getIssueSupplement());
+        if (videoDataQuery != null) {
+            BeanUtils.copyProperties(videoDataQuery, newVideoDataQuery);
+            if (videoDataQuery.getIssue() != null) {
+                newVideoDataQuery.setIssue(videoDataQuery.getIssue() + resourcesManager.getIssueSupplement());
             }
         }
         return videoDataMapper.list(newVideoDataQuery).parallelStream()
@@ -57,15 +59,29 @@ public class VideoDataManager {
                 .collect(Collectors.toList());
     }
 
-    public int count(VideoDataQuery videoInfoQuery) {
+    public int count(VideoDataQuery videoDataQuery) {
         VideoDataQuery newVideoDataQuery = new VideoDataQuery();
-        if (videoInfoQuery != null) {
-            BeanUtils.copyProperties(videoInfoQuery, newVideoDataQuery);
-            if (videoInfoQuery.getIssue() != null) {
-                newVideoDataQuery.setIssue(videoInfoQuery.getIssue() + resourcesManager.getIssueSupplement());
+        if (videoDataQuery != null) {
+            BeanUtils.copyProperties(videoDataQuery, newVideoDataQuery);
+            if (videoDataQuery.getIssue() != null) {
+                newVideoDataQuery.setIssue(videoDataQuery.getIssue() + resourcesManager.getIssueSupplement());
             }
         }
         return videoDataMapper.count(newVideoDataQuery);
+    }
+
+    @Cacheable(value = "videoDataGroup", key = "#videoDataQuery.pageSize")
+    public List<VideoDataGroup> groupByIssue(VideoDataQuery videoDataQuery) {
+        VideoDataQuery newVideoDataQuery = new VideoDataQuery();
+        if (videoDataQuery != null) {
+            BeanUtils.copyProperties(videoDataQuery, newVideoDataQuery);
+            if (videoDataQuery.getIssue() != null) {
+                newVideoDataQuery.setIssue(videoDataQuery.getIssue() + resourcesManager.getIssueSupplement());
+            }
+        }
+        return videoDataMapper.groupByIssue(newVideoDataQuery).parallelStream().peek(videoDataGroup ->
+                videoDataGroup.setIssue(videoDataGroup.getIssue() - resourcesManager.getIssueSupplement())
+        ).collect(Collectors.toList());
     }
 
     public int insert(VideoData videoData) {

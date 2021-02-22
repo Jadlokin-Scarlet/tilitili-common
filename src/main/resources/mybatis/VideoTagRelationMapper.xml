@@ -73,12 +73,6 @@
 			<if test="av != null">
 				and video_tag_relation.av = #{av}
 			</if>
-			<if test="status != null">
-				and video_tag_relation.status = #{status}
-			</if>
-			<if test="type != null">
-				and video_tag_relation.type = #{type}
-			</if>
 			<if test="tag != null">
 				and tag.name = #{tag}
 			</if>
@@ -95,12 +89,6 @@
 		<where>
 			<if test="av != null">
 				and video_tag_relation.av = #{av}
-			</if>
-			<if test="status != null">
-				and video_tag_relation.status = #{status}
-			</if>
-			<if test="type != null">
-				and video_tag_relation.type = #{type}
 			</if>
 		</where>
 		group by video_tag_relation.av, video_info.name
@@ -151,7 +139,18 @@
 		where id = #{id}
 	</update>
 	<select id="groupByTag" resultType="TagRelationGroup">
-		select a.name as tag, count(1) as number from video_tag_relation b left join tag a on a.id = b.tag_id
+		select a.name as tag, count(1) as number
+		from video_tag_relation b
+		left join tag a on a.id = b.tag_id
+		<where>
+			<if test="tagType != null">
+				a.type = #{tagType}
+			</if>
+		</where>
 		group by a.name
+		order by count(1) desc
+		<if test="start != null and pageSize != null">
+			offset ${start} rows fetch next ${pageSize} rows only
+		</if>
 	</select>
 </mapper>

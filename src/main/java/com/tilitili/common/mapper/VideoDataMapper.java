@@ -1,6 +1,7 @@
 package com.tilitili.common.mapper;
 
 import com.tilitili.common.entity.VideoData;
+import com.tilitili.common.entity.dto.VideoDataGroup;
 import com.tilitili.common.entity.query.VideoDataQuery;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -15,6 +16,8 @@ public interface VideoDataMapper {
     int count(VideoDataQuery videoInfoQuery);
     int insert(VideoData videoData);
     int update(VideoData videoData);
+
+    List<VideoDataGroup> groupByIssue(VideoDataQuery videoDataQuery);
 
     @Select("select * from video_data where av = #{av} and issue = #{issue}")
     @ResultMap("VideoDataResultMap")
