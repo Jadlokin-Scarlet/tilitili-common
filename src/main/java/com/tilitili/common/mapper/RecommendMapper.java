@@ -15,5 +15,9 @@ public interface RecommendMapper {
     int update(Recommend recommend);
 
     @Select("select * from recommend where av = #{av} and status != -1")
-    public Recommend getByAv(Long av);
+    Recommend getByAv(Long av);
+
+    @Select("select issue from recommend group by issue")
+    List<Integer> listRecommendIssue();
+
 }
