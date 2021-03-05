@@ -8,7 +8,7 @@
 		<where>
 			<if test="av != null">and recommend.av = #{av}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
-			<if test="issue != null">and recommend.issue = #{issue}</if>
+			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
 		</where>
 	</select>
 	<select id="list" resultMap="RecommendResultMap">
@@ -16,7 +16,7 @@
 		<where>
 			<if test="av != null">and recommend.av = #{av}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
-			<if test="issue != null">and recommend.issue = #{issue}</if>
+			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
 		</where>
 		<if test="sorter != null and sorted != null">
 			order by [${sorter}] ${sorted}
@@ -35,6 +35,8 @@
 				<if test="status != null">status,</if>
 				<if test="text != null">text,</if>
 				<if test="operator != null">operator,</if>
+			    <if test="issueId != null">issue_id</if>
+				<if test="startTime != null">start_time</if>
 				create_time,
 				update_time,
 			</trim>
@@ -44,6 +46,8 @@
 				<if test="status != null">#{status},</if>
 				<if test="text != null">#{text},</if>
 				<if test="operator != null">#{operator},</if>
+		        <if test="issueId != null">#{issueId}</if>
+				<if test="startTime != null">#{startTime},</if>
 				getdate(),
 				getdate(),
 			</trim>
@@ -57,7 +61,11 @@
 			<if test="status != null">status = #{status},</if>
 			<if test="text != null">text = #{text},</if>
 			<if test="operator != null">operator = #{operator},</if>
-			<if test="issue != null">issue = #{issue},</if>
+			<if test="issueId != null">
+				<if test="issueId == -1">issue_id = null,</if>
+				<if test="issueId != -1">issue_id = #{issueId},</if>
+		    </if>
+			<if test="startTime != null">start_time = #{startTime},</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -13,6 +13,7 @@ public class VideoDataQuery extends BaseQuery<VideoDataQuery> {
     private Long av;
     private Integer issue;
     private Integer status;
+    private Boolean hasRank;
 
     //info
     private Boolean isDelete;

@@ -39,6 +39,9 @@
 			<if test="status != null">
 				and video_info.status = #{status}
 			</if>
+			<if test="hasRank != null">
+				and video_data.rank != 0
+			</if>
 		</where>
 	</select>
 	<select id="list" resultMap="VideoDataResultMap">
@@ -70,6 +73,9 @@
 			</if>
 			<if test="status != null">
 				and video_info.status = #{status}
+			</if>
+			<if test="hasRank != null">
+				and video_data.rank != 0
 			</if>
 		</where>
 		<if test="sorter != null and sorted != null">

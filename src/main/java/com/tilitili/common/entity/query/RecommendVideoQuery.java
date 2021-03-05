@@ -7,8 +7,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class RecommendQuery extends BaseQuery<RecommendQuery> {
-    private Long av;
+public class RecommendVideoQuery extends BaseQuery<RecommendVideoQuery> {
+    private Integer type;
     private Integer status;
-    private Integer issueId;
 }

@@ -1,4 +1,4 @@
-package com.tilitili.common.entity;
+package com.tilitili.common.entity.resource;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

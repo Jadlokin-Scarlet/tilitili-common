@@ -2,66 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tilitili.common.mapper.TaskMapper">
 	<resultMap id="TaskResultMap" type="com.tilitili.common.entity.Task">
-		<result column="create_time" property="createTime" />
-		<result column="update_time" property="updateTime" />
-		<result column="batch_id" property="batchId" />
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from task
 		<where>
-			<if test="id != null">
-				and task.id = #{id}
-			</if>
-			<if test="value != null">
-				and task.value = #{value}
-			</if>
-			<if test="status != null">
-				and task.status = #{status}
-			</if>
-			<if test="type != null">
-				and task.type = #{type}
-			</if>
-			<if test="batchId != null">
-				and task.batch_id = #{batchId}
-			</if>
+			<if test="id != null">and task.id = #{id}</if>
+			<if test="value != null">and task.value = #{value}</if>
+			<if test="status != null">and task.status = #{status}</if>
+			<if test="type != null">and task.type = #{type}</if>
+			<if test="batchId != null">and task.batch_id = #{batchId}</if>
 		</where>
 	</select>
 	<select id="countByGroupStatus" resultType="TaskStatusCount">
 		select task.status, count(1) as number from task
 		<where>
-			<if test="id != null">
-				and task.id = #{id}
-			</if>
-			<if test="value != null">
-				and task.value = #{value}
-			</if>
-			<if test="type != null">
-				and task.type = #{type}
-			</if>
-			<if test="batchId != null">
-				and task.batch_id = #{batchId}
-			</if>
+			<if test="id != null">and task.id = #{id}</if>
+			<if test="value != null">and task.value = #{value}</if>
+			<if test="type != null">and task.type = #{type}</if>
+			<if test="batchId != null">and task.batch_id = #{batchId}</if>
 		</where>
 		group by task.status
 	</select>
 	<select id="list" resultMap="TaskResultMap">
 		select * from task
 		<where>
-			<if test="id != null">
-				and task.id = #{id}
-			</if>
-			<if test="value != null">
-				and task.value = #{value}
-			</if>
-			<if test="status != null">
-				and task.status = #{status}
-			</if>
-			<if test="type != null">
-				and task.type = #{type}
-			</if>
-			<if test="batchId != null">
-				and task.batch_id = #{batchId}
-			</if>
+			<if test="id != null">and task.id = #{id}</if>
+			<if test="value != null">and task.value = #{value}</if>
+			<if test="status != null">and task.status = #{status}</if>
+			<if test="type != null">and task.type = #{type}</if>
+			<if test="batchId != null">and task.batch_id = #{batchId}</if>
 		</where>
 		<if test="sorter != null and sorted != null">
 			order by [${sorter}] ${sorted}
@@ -76,33 +45,33 @@
 	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.Task" useGeneratedKeys="true">
 		insert into task (
 			<trim suffixOverrides=",">
-				create_time,
-				update_time,
 				<if test="status != null">status,</if>
 				<if test="type != null">type,</if>
 				<if test="batchId != null">batch_id,</if>
 				<if test="value != null">value,</if>
+				create_time,
+				update_time,
 			</trim>
 		) values (
 			<trim suffixOverrides=",">
-				getdate(),
-				getdate(),
 				<if test="status != null">#{status},</if>
 				<if test="type != null">#{type},</if>
 				<if test="batchId != null">#{batchId},</if>
 				<if test="value != null">#{value},</if>
+				getdate(),
+				getdate(),
 			</trim>
 		)
 	</insert>
 	<update id="update">
 		update task
 		<set>
-		    update_time = getdate(),
 			<if test="type != null">type = #{type},</if>
 			<if test="status != null">status = #{status},</if>
 			<if test="remark != null">remark = #{remark},</if>
 			<if test="batchId != null">batch_id = #{batchId},</if>
 			<if test="value != null">value = #{value},</if>
+			update_time = getdate(),
 		</set>
 		where id = #{id}
 	</update>

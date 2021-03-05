@@ -35,10 +35,10 @@ public class BaseModel {
     }
 
     public static BaseModel success(Object data) {
-        return new BaseModel("success", true, data);
+        return new BaseModel("成功", true, data);
     }
 
     public static BaseModel success() {
-        return new BaseModel("success", true);
+        return new BaseModel("成功", true);
     }
 }

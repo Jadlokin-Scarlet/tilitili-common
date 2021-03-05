@@ -1,6 +1,6 @@
 package com.tilitili.common.emnus;
 
-import com.tilitili.common.entity.Resource;
+import com.tilitili.common.entity.resource.Resource;
 
 import java.util.Arrays;
 import java.util.List;
