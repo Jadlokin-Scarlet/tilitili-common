@@ -17,4 +17,7 @@ public interface RecommendMapper {
     @Select("select * from recommend where av = #{av} and status != -1")
     Recommend getByAv(Long av);
 
+    @Select("select * from recommend where id = #{id} and status != -1")
+    Recommend getById(Long id);
+
 }

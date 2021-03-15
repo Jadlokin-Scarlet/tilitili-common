@@ -53,7 +53,10 @@
 			<if test="name != null">name = #{name},</if>
 			<if test="type != null">type = #{type},</if>
 			<if test="status != null">status = #{status},</if>
-			<if test="issue != null">issue = #{issue},</if>
+			<if test="issue != null">
+				<if test="issue == -1">issue = null,</if>
+				<if test="issue != -1">issue = #{issue},</if>
+			</if>
 			update_time = getdate(),
 		</set>
 		where id = #{id}

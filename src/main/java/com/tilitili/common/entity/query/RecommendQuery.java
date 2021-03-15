@@ -11,4 +11,5 @@ public class RecommendQuery extends BaseQuery<RecommendQuery> {
     private Long av;
     private Integer status;
     private Integer issueId;
+    private Integer videoStatus;
 }

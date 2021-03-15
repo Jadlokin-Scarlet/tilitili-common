@@ -5,18 +5,30 @@
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from recommend
+		left join video_info on recommend.av = video_info.av
 		<where>
 			<if test="av != null">and recommend.av = #{av}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
 			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
+			<if test="videoStatus != null">and video_info.status = #{videoStatus}</if>
 		</where>
 	</select>
 	<select id="list" resultMap="RecommendResultMap">
-		select * from recommend
+		select recommend.*,
+			video_info.name,
+			video_info.owner,
+			video_info.external_owner,
+			video_info.pub_time,
+			video_info.type,
+			video_info.bv,
+			video_info.status as video_status
+	    from recommend
+		left join video_info on recommend.av = video_info.av
 		<where>
 			<if test="av != null">and recommend.av = #{av}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
 			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
+			<if test="videoStatus != null">and video_info.status = #{videoStatus}</if>
 		</where>
 		<if test="sorter != null and sorted != null">
 			order by [${sorter}] ${sorted}
@@ -35,8 +47,10 @@
 				<if test="status != null">status,</if>
 				<if test="text != null">text,</if>
 				<if test="operator != null">operator,</if>
-			    <if test="issueId != null">issue_id</if>
-				<if test="startTime != null">start_time</if>
+			    <if test="issueId != null">issue_id,</if>
+				<if test="startTime != null">start_time,</if>
+				<if test="endTime != null">end_time,</if>
+				<if test="sortNum != null">sort_num,</if>
 				create_time,
 				update_time,
 			</trim>
@@ -46,8 +60,10 @@
 				<if test="status != null">#{status},</if>
 				<if test="text != null">#{text},</if>
 				<if test="operator != null">#{operator},</if>
-		        <if test="issueId != null">#{issueId}</if>
+		        <if test="issueId != null">#{issueId},</if>
 				<if test="startTime != null">#{startTime},</if>
+				<if test="endTime != null">#{endTime},</if>
+				<if test="sortNum != null">#{sortNum},</if>
 				getdate(),
 				getdate(),
 			</trim>
@@ -66,6 +82,8 @@
 				<if test="issueId != -1">issue_id = #{issueId},</if>
 		    </if>
 			<if test="startTime != null">start_time = #{startTime},</if>
+			<if test="endTime != null">end_time = #{endTime},</if>
+			<if test="sortNum != null">sort_num = #{sortNum},</if>
 		</set>
 		where id = #{id}
 	</update>

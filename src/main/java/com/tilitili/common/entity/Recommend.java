@@ -19,6 +19,8 @@ public class Recommend {
     private Date updateTime;
     private Integer issueId;
     private Integer startTime;
+    private Integer endTime;
+    private Integer sortNum;
 
     //video info
     private String name;
@@ -27,8 +29,13 @@ public class Recommend {
     private String pubTime;
     private String type;
     private String bv;
+    private Integer videoStatus;
 
     //recommend video
     private String issueName;
     private Integer issue;
+
+    //view
+    private Integer startMinute;
+    private Integer endMinute;
 }
