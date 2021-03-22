@@ -15,6 +15,7 @@ public class Recommend {
     private String text;
     private String operator;
     private Integer status;
+    private Integer type;
     private Date createTime;
     private Date updateTime;
     private Integer issueId;
@@ -27,7 +28,7 @@ public class Recommend {
     private String owner;
     private String externalOwner;
     private String pubTime;
-    private String type;
+    private String videoType;
     private String bv;
     private Integer videoStatus;
 

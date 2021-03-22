@@ -9,16 +9,14 @@ import java.util.Date;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class RecommendVideo {
+public class RecommendTalk {
     private Integer id;
-    private String name;
-    private Date createTime;
-    private Date updateTime;
     private Integer type;
     private Integer status;
-    private Integer issue;
-
-    //recommend表
-    private Integer recommendNumber;
-    private Integer selfRecommendNumber;
+    private Date createTime;
+    private Date updateTime;
+    private String speaker;
+    private String text;
+    private String expression;
+    private Integer issueId;
 }

@@ -8,6 +8,7 @@
 		left join video_info on recommend.av = video_info.av
 		<where>
 			<if test="av != null">and recommend.av = #{av}</if>
+			<if test="type != null">and recommend.type = #{type}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
 			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
 			<if test="videoStatus != null">and video_info.status = #{videoStatus}</if>
@@ -19,13 +20,14 @@
 			video_info.owner,
 			video_info.external_owner,
 			video_info.pub_time,
-			video_info.type,
+			video_info.type as video_type,
 			video_info.bv,
 			video_info.status as video_status
 	    from recommend
 		left join video_info on recommend.av = video_info.av
 		<where>
 			<if test="av != null">and recommend.av = #{av}</if>
+			<if test="type != null">and recommend.type = #{type}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
 			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
 			<if test="videoStatus != null">and video_info.status = #{videoStatus}</if>
@@ -45,6 +47,7 @@
 			<trim suffixOverrides=",">
 				<if test="av != null">av,</if>
 				<if test="status != null">status,</if>
+				<if test="type != null">type,</if>
 				<if test="text != null">text,</if>
 				<if test="operator != null">operator,</if>
 			    <if test="issueId != null">issue_id,</if>
@@ -58,6 +61,7 @@
 			<trim suffixOverrides=",">
 				<if test="av != null">#{av},</if>
 				<if test="status != null">#{status},</if>
+				<if test="type != null">#{type},</if>
 				<if test="text != null">#{text},</if>
 				<if test="operator != null">#{operator},</if>
 		        <if test="issueId != null">#{issueId},</if>
@@ -75,6 +79,7 @@
 		    update_time = getdate(),
 			<if test="av != null">av = #{av},</if>
 			<if test="status != null">status = #{status},</if>
+			<if test="type != null">type = #{type},</if>
 			<if test="text != null">text = #{text},</if>
 			<if test="operator != null">operator = #{operator},</if>
 			<if test="issueId != null">
