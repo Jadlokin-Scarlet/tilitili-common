@@ -20,4 +20,6 @@ public class VideoInfoQuery extends BaseQuery<VideoInfoQuery> {
     private Boolean copyright;
     private Date pubTimeStart;
     private Date pubTimeEnd;
+    private Boolean isRandom;
+    private String firstType;
 }

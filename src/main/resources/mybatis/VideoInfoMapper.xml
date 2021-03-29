@@ -45,6 +45,9 @@
 			<if test="pubTimeEnd != null">-- 小于
 				and pub_time &lt; convert(varchar(10),#{pubTimeEnd},120)
 			</if>
+			<if test="firstType != null">
+				and first_type = #{firstType}
+			</if>
 		</where>
 	</select>
 	<select id="list" resultMap="VideoInfoResultMap">
@@ -81,12 +84,20 @@
 			<if test="pubTimeEnd != null">-- 小于
 				and pub_time &lt; convert(varchar(10),#{pubTimeEnd},120)
 			</if>
+			<if test="firstType != null">
+				and first_type = #{firstType}
+			</if>
 		</where>
-		<if test="sorter != null and sorted != null">
-			order by [${sorter}] ${sorted}
+		<if test="isRandom == true">
+			order by NEWID()
 		</if>
-		<if test="sorter == null or sorted == null">
-			order by pub_time desc
+		<if test="isRandom != true">
+			<if test="sorter != null and sorted != null">
+				order by [${sorter}] ${sorted}
+			</if>
+			<if test="sorter == null or sorted == null">
+				order by pub_time desc
+			</if>
 		</if>
 		<if test="start != null and pageSize != null">
 			offset ${start} rows fetch next ${pageSize} rows only
@@ -113,6 +124,7 @@
 			<if test="dynamic != null">[dynamic],</if>
 			<if test="startPage != null">start_page,</if>
 			<if test="status != null">status,</if>
+			<if test="firstType != null">first_type,</if>
 			create_time,
 			update_time,
 		</trim>
@@ -136,6 +148,7 @@
 			<if test="dynamic != null">#{dynamic},</if>
 			<if test="startPage != null">#{startPage},</if>
 			<if test="status != null">#{status},</if>
+			<if test="firstType != null">#{firstType},</if>
 			getdate(),
 			getdate(),
 		</trim>
@@ -161,6 +174,7 @@
 			<if test="dynamic != null">[dynamic] = #{dynamic},</if>
 			<if test="startPage != null">start_page = #{startPage},</if>
 			<if test="status != null">status = #{status},</if>
+			<if test="firstType != null">first_type = #{firstType},</if>
 			update_time = getdate(),
 		</set>
 		where av = #{av}

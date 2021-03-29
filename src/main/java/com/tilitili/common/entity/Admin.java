@@ -11,4 +11,5 @@ public class Admin {
     private String password;
     private Integer status;
     private Integer type;
+    private String face;
 }

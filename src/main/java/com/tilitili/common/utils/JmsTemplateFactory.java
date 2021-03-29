@@ -25,7 +25,7 @@ public class JmsTemplateFactory {
         this.connectionFactory = connectionFactory;
         this.messageConverter = messageConverter;
         map = new HashMap<>();
-        updateJmsTemplate(null, null, 5, 7200000L);
+        updateJmsTemplate(null, null, 5, 10800000L);
 
         updateJmsTemplate(SpiderVideo, null, 8, null);
         updateJmsTemplate(AutoBatchSpiderVideo, null, 3, null);

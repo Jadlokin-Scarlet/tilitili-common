@@ -16,6 +16,7 @@ public enum TaskReason {
     RE_SPIDER_All_VIDEO_TAG(5, "重爬所有的视频的tag", "SpiderVideoTagTaskMessage"),
     SUPPLEMENT_VIDEO_TAG(6, "补充视频tag", "SpiderVideoTagTaskMessage"),
     RE_SPIDER_All_OWNER(7, "重爬所有的作者", "SpiderOwnerTaskMessage"),
+    SPIDER_NEW_VIDEO(8, "爬新增视频", "spiderNewVideo")
     ;
 
     TaskReason(Integer value, String text, String destination) {

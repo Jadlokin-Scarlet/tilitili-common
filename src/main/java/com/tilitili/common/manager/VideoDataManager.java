@@ -5,6 +5,7 @@ import com.tilitili.common.entity.dto.VideoDataGroup;
 import com.tilitili.common.entity.query.VideoDataQuery;
 import com.tilitili.common.entity.query.VideoInfoQuery;
 import com.tilitili.common.mapper.VideoDataMapper;
+import com.tilitili.common.utils.Asserts;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -121,5 +122,15 @@ public class VideoDataManager {
             videoData.setIssue(videoData.getIssue() + resourcesManager.getIssueSupplement());
         }
         videoDataMapper.updateRank(videoData);
+    }
+
+    public VideoData getVideoNewDataByAv(Long av) {
+        VideoDataQuery videoDataQuery = new VideoDataQuery().setAv(av).setSorter("issue", "desc").setPageSize(1);
+        List<VideoData> videoDataList = this.list(videoDataQuery);
+        if (videoDataList.isEmpty()) {
+            return null;
+        }
+        Asserts.isTrue(videoDataList.size() == 1, "getVideoNewDataByAv ？？？");
+        return videoDataList.get(0);
     }
 }
