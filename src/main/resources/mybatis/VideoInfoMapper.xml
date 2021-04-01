@@ -48,6 +48,12 @@
 			<if test="firstType != null">
 				and first_type = #{firstType}
 			</if>
+			<if test="minDuration != null">-- 大于
+				and video_info.duration &gt;= #{minDuration}
+			</if>
+			<if test="maxDuration != null">-- 小于
+				and video_info.duration &lt; #{maxDuration}
+			</if>
 		</where>
 	</select>
 	<select id="list" resultMap="VideoInfoResultMap">
@@ -86,6 +92,12 @@
 			</if>
 			<if test="firstType != null">
 				and first_type = #{firstType}
+			</if>
+			<if test="minDuration != null">-- 大于
+				and video_info.duration &gt;= #{minDuration}
+			</if>
+			<if test="maxDuration != null">-- 小于
+				and video_info.duration &lt; #{maxDuration}
 			</if>
 		</where>
 		<if test="isRandom == true">

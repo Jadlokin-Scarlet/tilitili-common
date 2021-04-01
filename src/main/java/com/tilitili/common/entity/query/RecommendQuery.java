@@ -13,4 +13,6 @@ public class RecommendQuery extends BaseQuery<RecommendQuery> {
     private Integer status;
     private Integer issueId;
     private Integer videoStatus;
+    private String bv;
+    private String operator;
 }

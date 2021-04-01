@@ -22,4 +22,6 @@ public class VideoInfoQuery extends BaseQuery<VideoInfoQuery> {
     private Date pubTimeEnd;
     private Boolean isRandom;
     private String firstType;
+    private Integer minDuration;
+    private Integer maxDuration;
 }

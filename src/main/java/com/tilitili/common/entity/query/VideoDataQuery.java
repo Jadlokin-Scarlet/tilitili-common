@@ -22,6 +22,9 @@ public class VideoDataQuery extends BaseQuery<VideoDataQuery> {
     private String bv;
     private String type;
     private Boolean copyright;
+    private String firstType;
+    private Integer minDuration;
+    private Integer maxDuration;
 
 }
 
