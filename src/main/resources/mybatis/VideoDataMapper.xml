@@ -46,10 +46,10 @@
 				and video_info.first_type = #{firstType}
 			</if>
 			<if test="minDuration != null">-- 大于
-				and video_info.duration >= #{minDuration}
+				and video_info.duration &gt;= #{minDuration}
 			</if>
 			<if test="maxDuration != null">-- 小于
-				and #{maxDuration} > video_info.duration
+				and video_info.duration &lt; #{maxDuration}
 			</if>
 		</where>
 	</select>
