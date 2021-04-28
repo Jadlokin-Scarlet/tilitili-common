@@ -9,6 +9,8 @@ public class BaseQuery<T extends BaseQuery<T>> {
     private Integer start = 0;
     private Integer pageSize = 20;
     private Integer current = 1;
+    private String subSorter;
+    private String subSorted;
 
     public T setSorter(String sorter) {
         this.sorter = sorter;
@@ -53,5 +55,23 @@ public class BaseQuery<T extends BaseQuery<T>> {
             return start / pageSize + 1;
         }
         return current;
+    }
+
+    public T setSubSorter(String subSorter) {
+        this.subSorter = subSorter;
+        return (T) this;
+    }
+
+    public T setSubSorted(String subSorted) {
+        this.subSorted = subSorted;
+        return (T) this;
+    }
+
+    public String getSubSorter() {
+        return subSorter;
+    }
+
+    public String getSubSorted() {
+        return subSorted;
     }
 }

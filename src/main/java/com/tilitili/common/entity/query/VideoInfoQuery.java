@@ -24,4 +24,5 @@ public class VideoInfoQuery extends BaseQuery<VideoInfoQuery> {
     private String firstType;
     private Integer minDuration;
     private Integer maxDuration;
+    private Boolean hasData;
 }

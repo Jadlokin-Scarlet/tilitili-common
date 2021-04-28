@@ -16,4 +16,7 @@ public interface OwnerMapper {
 
     @Select("select * from owner where uid = #{uid}")
     Owner getByUid(Long uid);
+
+    @Select("select top 1 * from owner where name = #{name}")
+    Owner getByName(String name);
 }

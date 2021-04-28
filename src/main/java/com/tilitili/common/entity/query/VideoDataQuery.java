@@ -25,6 +25,7 @@ public class VideoDataQuery extends BaseQuery<VideoDataQuery> {
     private String firstType;
     private Integer minDuration;
     private Integer maxDuration;
+    private Boolean isRandom;
 
 }
 

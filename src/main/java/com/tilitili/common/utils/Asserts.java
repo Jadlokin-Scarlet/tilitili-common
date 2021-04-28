@@ -27,15 +27,27 @@ public class Asserts {
         }
     }
 
-    public static void notNull(Object object, String name) {
+    public static void notNull(Object object) {
         if (object == null) {
-            throw new IllegalStateException(name + "未获取到");
+            throw new IllegalStateException("数据未获取到");
         }
     }
 
-    public static void notNull(Object object, String name, String msg) {
+    public static void notNull(Object object, String message) {
         if (object == null) {
-            throw new IllegalStateException(name + "未获取到。" + msg);
+            throw new IllegalStateException(message);
+        }
+    }
+
+    public static void notNull(Object object, String message, Object arg) {
+        if (object == null) {
+            throw new IllegalStateException(String.format(message, arg));
+        }
+    }
+
+    public static void notNull(Object object, String message, Object... args) {
+        if (object == null) {
+            throw new IllegalStateException(String.format(message, args));
         }
     }
 

@@ -8,7 +8,9 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 public class VideoTagRelationQuery extends BaseQuery<VideoTagRelationQuery> {
+    private Long id;
+    private Long tagId;
     private Long av;
-    private String name;
-    private String tag;
+    private Integer status;
+    private Integer type;
 }

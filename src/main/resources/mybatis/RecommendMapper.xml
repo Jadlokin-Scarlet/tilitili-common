@@ -11,7 +11,7 @@
 			<if test="type != null">and recommend.type = #{type}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
 			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
-			<if test="operator != null">and recommend.operator = #{operator}</if>
+			<if test="operator != null">and recommend.operator like concat('%', #{operator}, '%')</if>
 			<if test="bv != null">and (video_info.bv is null or video_info.bv = #{bv})</if>
 			<if test="videoStatus != null">and (video_info.status is null or video_info.status = #{videoStatus})</if>
 		</where>
@@ -32,7 +32,7 @@
 			<if test="type != null">and recommend.type = #{type}</if>
 			<if test="status != null">and recommend.status = #{status}</if>
 			<if test="issueId != null">and recommend.issue_id = #{issueId}</if>
-			<if test="operator != null">and recommend.operator = #{operator}</if>
+			<if test="operator != null">and recommend.operator like concat('%', #{operator}, '%')</if>
 			<if test="bv != null">and (video_info.bv is null or video_info.bv = #{bv})</if>
 			<if test="videoStatus != null">and (video_info.status is null or video_info.status = #{videoStatus})</if>
 		</where>

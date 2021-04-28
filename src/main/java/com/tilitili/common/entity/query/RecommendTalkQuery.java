@@ -12,4 +12,5 @@ public class RecommendTalkQuery extends BaseQuery<RecommendTalkQuery> {
     private Integer status;
     private Integer type;
     private Integer issueId;
+    private String speaker;
 }

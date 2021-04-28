@@ -10,6 +10,7 @@
 			<if test="status != null">and recommend_talk.status = #{status}</if>
 			<if test="type != null">and recommend_talk.type = #{type}</if>
 			<if test="issueId != null">and recommend_talk.issue_id = #{issueId}</if>
+			<if test="speaker != null">and recommend_talk.speaker = #{speaker}</if>
 		</where>
 	</select>
 	<select id="list" resultMap="RecommendTalkResultMap">
@@ -19,6 +20,7 @@
 			<if test="status != null">and recommend_talk.status = #{status}</if>
 			<if test="type != null">and recommend_talk.type = #{type}</if>
 			<if test="issueId != null">and recommend_talk.issue_id = #{issueId}</if>
+			<if test="speaker != null">and recommend_talk.speaker = #{speaker}</if>
 		</where>
 		<if test="sorter != null and sorted != null">
 			order by [${sorter}] ${sorted}
@@ -39,7 +41,6 @@
 				<if test="status != null">status,</if>
 				<if test="type != null">type,</if>
 				<if test="issueId != null">issue_id,</if>
-				<if test="value != null">value,</if>
 				create_time,
 				update_time,
 			</trim>
@@ -51,7 +52,6 @@
 				<if test="status != null">#{status},</if>
 				<if test="type != null">#{type},</if>
 				<if test="issueId != null">#{issueId},</if>
-				<if test="value != null">#{value},</if>
 				getdate(),
 				getdate(),
 			</trim>
@@ -65,9 +65,7 @@
 			<if test="expression != null">expression = #{expression},</if>
 			<if test="type != null">type = #{type},</if>
 			<if test="status != null">status = #{status},</if>
-			<if test="remark != null">remark = #{remark},</if>
 			<if test="issueId != null">issue_id = #{issueId},</if>
-			<if test="value != null">value = #{value},</if>
 			update_time = getdate(),
 		</set>
 		where id = #{id}

@@ -31,5 +31,8 @@ public interface VideoInfoMapper {
     @Update("update video_info set is_copy_warning = #{isCopyWarning} where av = #{av}")
     void updateIsCopyWarning(Long av, Boolean isCopyWarning);
 
+    @Select("select top ${pageSize} * from video_info where is_delete = 0 and status = 0 order by NEWID()")
+    List<VideoInfo> random(VideoInfoQuery videoInfoQuery);
+
     List<VideoInfoGroup> groupByPubTime(VideoInfoQuery query);
 }

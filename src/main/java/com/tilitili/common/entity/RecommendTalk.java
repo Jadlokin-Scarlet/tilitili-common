@@ -19,4 +19,8 @@ public class RecommendTalk {
     private String text;
     private String expression;
     private Integer issueId;
+
+    //batch
+    private String op;
+    private String ed;
 }

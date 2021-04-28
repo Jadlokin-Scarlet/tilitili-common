@@ -1,8 +1,10 @@
 package com.tilitili.common.mapper;
 
 import com.tilitili.common.entity.VideoData;
+import com.tilitili.common.entity.VideoInfo;
 import com.tilitili.common.entity.dto.VideoDataGroup;
 import com.tilitili.common.entity.query.VideoDataQuery;
+import com.tilitili.common.entity.query.VideoInfoQuery;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -32,4 +34,5 @@ public interface VideoDataMapper {
     @Update("update video_data set rank = #{rank} where av = #{av} and issue = #{issue}")
     void updateRank(VideoData videoData);
 
+    List<VideoData> randomRanked(VideoDataQuery videoDataQuery);
 }

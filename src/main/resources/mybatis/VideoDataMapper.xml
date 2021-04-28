@@ -46,10 +46,10 @@
 				and video_info.first_type = #{firstType}
 			</if>
 			<if test="minDuration != null">-- 大于
-				and video_info.duration &gt;= #{minDuration}
+				and video_info.duration >= #{minDuration}
 			</if>
 			<if test="maxDuration != null">-- 小于
-				and video_info.duration &lt; #{maxDuration}
+				and #{maxDuration} > video_info.duration
 			</if>
 		</where>
 	</select>
@@ -96,11 +96,19 @@
 				and video_info.duration &lt; #{maxDuration}
 			</if>
 		</where>
-		<if test="sorter != null and sorted != null">
-			order by [${sorter}] ${sorted}
+		<if test="isRandom == true">
+			order by NEWID()
 		</if>
-		<if test="sorter == null or sorted == null">
-			order by video_data.av desc
+		<if test="isRandom != true">
+			<if test="sorter != null and sorted != null">
+				order by [${sorter}] ${sorted}
+			</if>
+			<if test="sorter == null or sorted == null">
+				order by video_data.av desc
+			</if>
+			<if test="subSorter != null and subSorted != null">
+				, video_info.[${subSorter}] ${subSorted}
+			</if>
 		</if>
 		<if test="start != null and pageSize != null">
 			offset ${start} rows fetch next ${pageSize} rows only
@@ -174,5 +182,13 @@
 		<if test="start != null and pageSize != null">
 			offset ${start} rows fetch next ${pageSize} rows only
 		</if>
+	</select>
+	<select id="randomRanked" resultMap="VideoDataResultMap">
+		select top ${pageSize} *
+		from (
+		    select top 1000 * from video_data where video_data.issue = #{issue}
+		) video_data
+		left join video_info on video_data.av = video_info.av
+		order by NEWID()
 	</select>
 </mapper>

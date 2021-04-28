@@ -60,7 +60,7 @@
 			order by [${sorter}] ${sorted}
 		</if>
 		<if test="sorter == null or sorted == null">
-			order by pub_time desc
+			order by id desc
 		</if>
 		<if test="start != null and pageSize != null">
 			offset ${start} rows fetch next ${pageSize} rows only

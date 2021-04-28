@@ -1,6 +1,7 @@
 package com.tilitili.common.manager;
 
 import com.tilitili.common.entity.VideoData;
+import com.tilitili.common.entity.VideoInfo;
 import com.tilitili.common.entity.dto.VideoDataGroup;
 import com.tilitili.common.entity.query.VideoDataQuery;
 import com.tilitili.common.entity.query.VideoInfoQuery;
@@ -132,5 +133,28 @@ public class VideoDataManager {
         }
         Asserts.isTrue(videoDataList.size() == 1, "getVideoNewDataByAv ？？？");
         return videoDataList.get(0);
+    }
+
+
+
+    public VideoData getVideoNewDataByAvOrDefault(Long av) {
+        VideoData videoData = getVideoNewDataByAv(av);
+        if (videoData == null) {
+            return new VideoData().setAv(av);
+        }
+        return videoData;
+    }
+
+    public List<VideoData> randomRanked(VideoDataQuery videoDataQuery) {
+        VideoDataQuery newVideoDataQuery = new VideoDataQuery();
+        if (videoDataQuery != null) {
+            BeanUtils.copyProperties(videoDataQuery, newVideoDataQuery);
+            if (videoDataQuery.getIssue() != null) {
+                newVideoDataQuery.setIssue(videoDataQuery.getIssue() + resourcesManager.getIssueSupplement());
+            }
+        }
+        return videoDataMapper.randomRanked(newVideoDataQuery).parallelStream()
+                .map(videoData -> videoData.setIssue(videoData.getIssue() - resourcesManager.getIssueSupplement()))
+                .collect(Collectors.toList());
     }
 }

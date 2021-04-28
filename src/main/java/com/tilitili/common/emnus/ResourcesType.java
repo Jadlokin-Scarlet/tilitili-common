@@ -15,7 +15,8 @@ public enum ResourcesType {
     MUSIC_OWNER("MUSIC_OWNER", "ed社团"),
     MUSIC_CARD("MUSIC_CARD", "ed专辑"),
     MUSIC_IMAGE("MUSIC_IMAGE", "ed图片"),
-    MUSIC_SOURCE("MUSIC_SOURCE", "ed原曲")
+    MUSIC_SOURCE("MUSIC_SOURCE", "ed原曲"),
+    TIPS("TIPS", "小标题"),
     ;
 
     ResourcesType(String value, String text) {

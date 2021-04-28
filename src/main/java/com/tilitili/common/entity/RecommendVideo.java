@@ -21,4 +21,7 @@ public class RecommendVideo {
     //recommend表
     private Integer recommendNumber;
     private Integer selfRecommendNumber;
+
+    //recommend talk表
+    private Boolean hasTalk;
 }
