@@ -21,7 +21,7 @@ public interface VideoDataMapper {
 
     List<VideoDataGroup> groupByIssue(VideoDataQuery videoDataQuery);
 
-    @Select("select * from video_data where av = #{av} and issue = #{issue}")
+    @Select("select * from video_data left join video_info on video_data.av = video_info.av where video_data.av = #{av} and video_data.issue = #{issue}")
     @ResultMap("VideoDataResultMap")
     VideoData getByAvAndIssue(Long av, Integer issue);
 

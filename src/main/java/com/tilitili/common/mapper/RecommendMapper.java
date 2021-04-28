@@ -20,4 +20,7 @@ public interface RecommendMapper {
     @Select("select * from recommend where id = #{id} and status != -1")
     Recommend getById(Long id);
 
+    @Select("select top ${pageSize} * from recommend where status != -1 order by NEWID()")
+    List<Recommend> random(RecommendQuery recommendQuery);
+
 }
