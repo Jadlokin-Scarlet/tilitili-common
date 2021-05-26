@@ -39,6 +39,14 @@ public class TaskManager {
         return result;
     }
 
+    public void reSpiderVideo(Long taskId) {
+        Task task = taskMapper.getById(taskId);
+        BatchTask batchTask = batchTaskMapper.getById(task.getBatchId());
+
+        TaskMessage taskMessage = new TaskMessage().setValue(task.getValue()).setId(taskId).setType(batchTask.getType()).setReason(batchTask.getReason());
+        taskSender.sendTask(taskMessage);
+    }
+
     public void simpleSpiderVideo(SimpleTaskView simpleTaskView) {
         String value = simpleTaskView.getValue();
         BatchTask batchTask = new BatchTask().setType(TaskType.SpiderVideo.getValue()).setReason(simpleTaskView.getReason());

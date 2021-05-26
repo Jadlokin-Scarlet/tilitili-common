@@ -20,6 +20,7 @@
 			<if test="value != null">and task.value = #{value}</if>
 			<if test="type != null">and task.type = #{type}</if>
 			<if test="batchId != null">and task.batch_id = #{batchId}</if>
+			<if test="createTime != null">and task.create_time > #{createTime} and dateadd(day, 1, #{createTime}) > task.create_time</if>
 		</where>
 		group by task.status
 	</select>

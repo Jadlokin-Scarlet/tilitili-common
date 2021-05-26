@@ -1,0 +1,53 @@
+package com.tilitili.common.autocode.server;
+
+
+import com.tilitili.common.autocode.AutocodeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
+
+public class MapperAutocode {
+    private static Logger logger = LoggerFactory.getLogger(MapperAutocode.class);
+
+    public static void run() throws IOException {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("package ").append(AutocodeHelper.basePackageName).append(".dao.mapper;").append("\n\n");
+        buffer.append("import javax.annotation.Resource;").append("\n\n");
+        buffer.append("import java.util.List;").append("\n");
+        buffer.append("import java.util.Map;").append("\n");
+        buffer.append("import java.util.HashMap;").append("\n");
+        buffer.append("import java.util.Date;").append("\n");
+        buffer.append("import org.apache.ibatis.annotations.Mapper;").append("\n");
+        buffer.append("import org.apache.ibatis.annotations.Param;").append("\n");
+        buffer.append("import ").append(AutocodeHelper.basePackageName).append(".domain.").append(Table2Domain.domainName).append(";\n\n");
+
+        buffer.append("@Mapper").append("\n");
+        buffer.append("public interface "+ Table2Domain.domainName+"Mapper {").append("\n");
+
+        //insert
+        buffer.append("\t").append("Long add"+Table2Domain.domainName+"("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+
+        //update
+        buffer.append("\t").append("public void update"+Table2Domain.domainName+"("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+
+        //count
+        buffer.append("\t").append("public int count"+Table2Domain.domainName+"ByCondition ("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+
+        //get
+        buffer.append("\t").append("public ").append("List<").append(Table2Domain.domainName).append(">").append(" get"+Table2Domain.domainName+"ByCondition ("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+
+        buffer.append("}");
+
+        File file = new File(AutocodeHelper.daoPath+ Table2Domain.domainName+"Mapper.java");
+        if(file.exists()) {
+            file.delete();
+        }
+
+        OutputStream outStream = new FileOutputStream(file, true);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(outStream));
+        bw.write(buffer.toString());
+        bw.close();
+        logger.error("成功生成文件"+ AutocodeHelper.daoPath+ Table2Domain.domainName+"Mapper.java");
+    }
+}

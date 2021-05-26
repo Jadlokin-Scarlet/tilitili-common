@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Log {
 
-    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson gson = new GsonBuilder().create();
 
     public static String getName() {
         return log.getName();

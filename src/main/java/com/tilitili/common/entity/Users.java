@@ -20,4 +20,5 @@ public class Users {
     private Date createTime;
     private Date updateTime;
     private Date lastLoginTime;
+    private String face;
 }

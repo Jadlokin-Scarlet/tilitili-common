@@ -17,6 +17,9 @@ public interface TaskMapper {
     int insert(Task task);
     int update(Task task);
 
+    @Select("select * from task where id = #{id}")
+    Task getById(Long id);
+
     @Delete("delete task where batch_id = #{batchId}")
     int deleteByBatchId(Long batchId);
 
