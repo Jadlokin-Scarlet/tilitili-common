@@ -1,7 +1,6 @@
 package com.tilitili.common.utils;
 
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.util.StringUtils;
 
 import java.util.Objects;
 
@@ -23,6 +22,24 @@ public class Asserts {
 
     public static void isTrue(boolean expression, String message, Object arg) {
         if (!expression) {
+            throw new IllegalStateException(String.format(message, arg));
+        }
+    }
+
+    public static void isFalse(boolean expression, String message) {
+        if (expression) {
+            throw new IllegalStateException(message);
+        }
+    }
+
+    public static void isFalse(boolean expression, String message, Object... args) {
+        if (expression) {
+            throw new IllegalStateException(String.format(message, args));
+        }
+    }
+
+    public static void isFalse(boolean expression, String message, Object arg) {
+        if (expression) {
             throw new IllegalStateException(String.format(message, arg));
         }
     }
@@ -58,20 +75,26 @@ public class Asserts {
     }
 
     public static void notEmpty(String s, String name) {
-        if (StringUtils.isEmpty(s)) {
+        if (Strings.isEmpty(s)) {
             throw new IllegalStateException(name + "为空");
         }
     }
 
-    public static void notBlank(String s, String name) {
+    public static void notBlank(String s, String message) {
         if (Strings.isBlank(s)) {
-            throw new IllegalStateException(name + "为空字符串");
+            throw new IllegalStateException(message);
         }
     }
 
     public static void checkEquals(Object a, Object b, String message) {
         if (! Objects.equals(a, b)) {
             throw new IllegalStateException(message + ", ["+a+"]["+b+"]");
+        }
+    }
+
+    public static void isNumber(String s, String message) {
+        if (StringUtils.isNumber(s)) {
+            throw new IllegalStateException(message);
         }
     }
 }

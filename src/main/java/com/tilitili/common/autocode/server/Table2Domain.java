@@ -21,16 +21,10 @@ public class Table2Domain {
     public static Map<String, String> columnPropertyMap = new HashMap<String, String>();
     static {
         columnPropertyMap.put("BIGINT", "Long");
-        columnPropertyMap.put("BIGINT UNSIGNED", "Long");
-        columnPropertyMap.put("INT", "Integer");
-        columnPropertyMap.put("INT UNSIGNED", "Integer");
-        columnPropertyMap.put("FLOAT", "Float");
-        columnPropertyMap.put("DOUBLE", "Double");
-        columnPropertyMap.put("DATE", "Date");
+        columnPropertyMap.put("NUMERIC", "Integer");
+//        columnPropertyMap.put("DOUBLE", "Double");
         columnPropertyMap.put("DATETIME", "Date");
-        columnPropertyMap.put("TIMESTAMP", "Date");
-        columnPropertyMap.put("TINYINT", "Integer");
-        columnPropertyMap.put("TEXT", "String");
+        columnPropertyMap.put("BIT", "Integer");
     }
 
     public static Map<String, FieldPair> fieldPairMap = new LinkedHashMap<>();
@@ -40,17 +34,25 @@ public class Table2Domain {
     public static String PrimaryPropertyName = "";
     public static String PrimaryPropertyType = "";
 
+    public static String CreateTimeColumn = "create_time";
+    public static String updateTimeColumn = "update_time";
+
     public static String domainName = null;
     public static String domainAttrName = null;
     public static StringBuffer columnNameBuffer = new StringBuffer();
 
 
-    public static String getColumnProperty(String columnType) {
+    public static String getColumnProperty(String columnType, int columnDisplaySize) {
+        String result;
         if(columnPropertyMap.get(columnType) != null) {
-            return columnPropertyMap.get(columnType.toUpperCase());
+            result = columnPropertyMap.get(columnType.toUpperCase());
         }else{
-            return "String";
+            result = "String";
         }
+        if (Objects.equals(result, "Integer") && columnDisplaySize > 9) {
+            result = "Long";
+        }
+        return result;
     }
 
     public static void init(String tableName) throws IOException, SQLException {
@@ -100,8 +102,9 @@ public class Table2Domain {
         for (int index = 1; index <= rsmd.getColumnCount(); index++) {
             String columnName = JdbcUtils.lookupColumnName(rsmd, index);
             String columnType = rsmd.getColumnTypeName(index);
+            int columnDisplaySize = rsmd.getColumnDisplaySize(index);
             String propertyName = JdbcUtils.convertUnderscoreNameToPropertyName(columnName);
-            String propertyType = getColumnProperty(columnType.toUpperCase());
+            String propertyType = getColumnProperty(columnType.toUpperCase(), columnDisplaySize);
             String propertyClassName = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1, propertyName.length());
 
             fieldPairMap.put(columnName, new FieldPair(columnName, columnType, propertyName, propertyType, propertyClassName));

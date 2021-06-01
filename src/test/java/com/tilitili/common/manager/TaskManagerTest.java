@@ -26,7 +26,7 @@ public class TaskManagerTest {
 
     @Test
     public void countByGroupStatus() {
-        Map<Integer, Integer> map = taskManager.countByGroupStatus(new TaskQuery().setBatchId(33L));
+        Map<Integer, Integer> map = taskManager.countByGroupStatus(new TaskQuery().setBatchId(51L));
         System.out.println(map);
 //        System.out.println(redisCache.get("test"));
     }

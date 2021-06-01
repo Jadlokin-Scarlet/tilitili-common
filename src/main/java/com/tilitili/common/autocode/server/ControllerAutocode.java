@@ -49,7 +49,7 @@ public class ControllerAutocode {
         controllerBuffer.append("import com.taofen8.admin.scaffold.dto.ResultUtil;").append("\n");
 
         controllerBuffer.append("import ").append(AutocodeHelper.basePackageName).append(".dto.").append("PageBean").append(";\n");
-        controllerBuffer.append("import ").append(AutocodeHelper.basePackageName).append(".domain.").append(Table2Domain.domainName).append(";\n");
+        controllerBuffer.append("import ").append(AutocodeHelper.basePackageName).append(".entity.").append(Table2Domain.domainName).append(";\n");
 //        controllerBuffer.append("import ").append(AutocodeHelper.basePackageName).append(".dao.").append(Table2Domain.domainName).append("DAO").append(";\n");
         controllerBuffer.append("import ").append(AutocodeHelper.basePackageName).append(".dao.").append(Table2Domain.domainName).append("Mapper").append(";\n\n\n");
 
@@ -73,7 +73,7 @@ public class ControllerAutocode {
                 .append("\t\t").append("if(").append(Table2Domain.domainAttrName).append(".getId() !=null && ").append(Table2Domain.domainAttrName).append(".getId() >0) {").append("\n")
                 .append("\t\t\t").append(mapperAttr).append(".").append("update").append(Table2Domain.domainName).append("(").append(Table2Domain.domainAttrName).append(");").append("\n")
                 .append("\t\t").append("}else{").append("\n")
-                .append("\t\t\t").append(mapperAttr).append(".").append("add").append(Table2Domain.domainName).append("(").append(Table2Domain.domainAttrName).append(");\n")
+                .append("\t\t\t").append(mapperAttr).append(".").append("insert").append(Table2Domain.domainName).append("(").append(Table2Domain.domainAttrName).append(");\n")
                 .append("\t\t").append("}").append("\n")
                 .append("\t\t").append("return ResultUtil.success()").append(";\n")
                 .append("\t").append("} ").append("\n\n");
@@ -91,7 +91,7 @@ public class ControllerAutocode {
                 .append("\t").append("int totalNum =")
                     .append(mapperAttr).append(".").append("count").append(Table2Domain.domainName).append("ByCondition(").append(Table2Domain.domainAttrName).append(");\n")
                 .append("\t").append("List<").append(Table2Domain.domainName).append("> list = ")
-                    .append(mapperAttr).append(".").append("get").append(Table2Domain.domainName).append("ByCondition(").append(Table2Domain.domainAttrName).append(");\n")
+                    .append(mapperAttr).append(".").append("list").append(Table2Domain.domainName).append("ByCondition(").append(Table2Domain.domainAttrName).append(");\n")
                 .append("\t").append("\n")
                 .append("\t\t").append("int pageNo=").append(Table2Domain.domainAttrName).append(".getPageNo()").append(";\n")
                 .append("\t\t").append("int pageSize=").append(Table2Domain.domainAttrName).append(".getPageSize()").append(";\n")

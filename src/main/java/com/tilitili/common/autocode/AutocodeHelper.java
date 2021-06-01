@@ -2,12 +2,15 @@ package com.tilitili.common.autocode;
 
 import com.tilitili.common.autocode.server.DomainAutoCode;
 import com.tilitili.common.autocode.server.MapperAutocode;
+import com.tilitili.common.autocode.server.SqlMapperAutocode;
 import com.tilitili.common.autocode.server.Table2Domain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.support.JdbcUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class AutocodeHelper {
 
@@ -15,7 +18,7 @@ public class AutocodeHelper {
 
     //数据库名+表名
     public final static String dbName    ="bilibili";
-    public final static String tableName = "view_history";
+    public final static String tableName = "subscription";
     public final static String schema    = JdbcUtils.convertUnderscoreNameToPropertyName(dbName);
 
     public final static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -72,33 +75,11 @@ public class AutocodeHelper {
     }
 
 
-    public static void main(String args[]) {
-//        Connection conn = null;
-//        Statement stmt  = null;
-        try {
-//            Class.forName(driver).newInstance();
-//            conn = DriverManager.getConnection(url, user, password);
-//            stmt = conn.createStatement();
-            Table2Domain.init(tableName);
-//            ModalFormAutocode.run();
-//            SimpleTableAutocode.run();
-//            DomainAutoCode.run();
-//            DAOAutocode.run();
-            MapperAutocode.run();
-//            SqlMapperAutocode.run();
-//            ControllerAutocode.run();
-
-        }catch (Throwable e) {
-            logger.error(e.getMessage(), e);
-        }
-//        finally {
-//            try {
-//                stmt.close();
-//                conn.close();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
+    public static void main(String[] args) throws IOException, SQLException {
+        Table2Domain.init(tableName);
+//        MapperAutocode.run();
+//        DomainAutoCode.run();
+        SqlMapperAutocode.run();
     }
 
 }

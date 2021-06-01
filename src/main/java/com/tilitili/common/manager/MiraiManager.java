@@ -3,16 +3,22 @@ package com.tilitili.common.manager;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.tilitili.common.entity.request.MessageChain;
+import com.tilitili.common.entity.Recommend;
+import com.tilitili.common.entity.RecommendVideo;
+import com.tilitili.common.entity.mirai.MessageChain;
+import com.tilitili.common.entity.mirai.MiraiMessage;
 import com.tilitili.common.entity.request.SendFriendMessageRequest;
+import com.tilitili.common.mapper.RecommendMapper;
+import com.tilitili.common.mapper.RecommendVideoMapper;
 import com.tilitili.common.utils.Asserts;
+import com.tilitili.common.utils.BilibiliUtil;
+import com.tilitili.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.tilitili.common.utils.HttpClientUtil.httpPost;
 
@@ -25,6 +31,8 @@ public class MiraiManager {
     private String AUTH_KEY;
     @Value("${mirai.base-url}")
     private String BASE_URL;
+    @Value("${mirai.group}")
+    private Long group;
 
     private final Gson gson = new Gson();
 
@@ -56,6 +64,10 @@ public class MiraiManager {
     }
 
     public Integer sendFriendMessage(String type, String message) {
+        return sendFriendMessage(type, message);
+    }
+
+    public Integer sendFriendMessage(String type, String message, Long qq) {
         String session = this.auth();
         this.verify(session);
 
@@ -80,14 +92,17 @@ public class MiraiManager {
         this.release(session);
         return Integer.parseInt(resultMap.get("messageId"));
     }
-
     public Integer sendGroupMessage(String type, String message) {
+        return sendGroupMessage(type, message, group);
+    }
+
+    public Integer sendGroupMessage(String type, String message, Long group) {
         String session = this.auth();
         this.verify(session);
 
         SendFriendMessageRequest request = new SendFriendMessageRequest();
         request.setSessionKey(session);
-        request.setGroup(729412455L);
+        request.setGroup(group);
 
         MessageChain messageChain = new MessageChain().setType(type);
         if (Objects.equals(type, "Plain")) {
@@ -106,6 +121,5 @@ public class MiraiManager {
         this.release(session);
         return Integer.parseInt(resultMap.get("messageId"));
     }
-
 
 }

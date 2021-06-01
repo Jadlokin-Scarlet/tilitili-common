@@ -15,7 +15,7 @@ public class DAOAutocode {
 
         String abstractDBhelperPackageName = AutocodeHelper.class.getPackage().getName().replaceAll("autocode","");
         StringBuffer buffer = new StringBuffer();
-        buffer.append("package ").append(AutocodeHelper.basePackageName).append(".dao.mapper;").append("\n\n");
+        buffer.append("package ").append(AutocodeHelper.basePackageName).append(".mapper;").append("\n\n");
         buffer.append("import ").append(abstractDBhelperPackageName).append("AbstractDBhelper;").append("\n");
         buffer.append("import org.springframework.jdbc.core.JdbcTemplate;").append("\n");
         buffer.append("import org.springframework.stereotype.Component;").append("\n");
@@ -24,7 +24,7 @@ public class DAOAutocode {
         buffer.append("import java.util.Map;").append("\n");
         buffer.append("import java.util.HashMap;").append("\n");
         buffer.append("import java.util.Date;").append("\n");
-        buffer.append("import ").append(AutocodeHelper.basePackageName).append(".domain.").append(Table2Domain.domainName).append(";\n\n");
+        buffer.append("import ").append(AutocodeHelper.basePackageName).append(".entity.").append(Table2Domain.domainName).append(";\n\n");
 
         buffer.append("@Component").append("\n");
         buffer.append("public class "+ Table2Domain.domainName+"DAO extends AbstractDBhelper<"+ Table2Domain.domainName+"> {").append("\n");
@@ -60,7 +60,7 @@ public class DAOAutocode {
         buffer.append("\t").append("public void update"+ Table2Domain.domainName+"By"+capitalFirstPropertyName+"("+ Table2Domain.PrimaryPropertyType +" "+ Table2Domain.PrimaryPropertyName +") {").append("\n");
         buffer.append("\t\t").append("Map<String,Object> paramMap = new HashMap<String, Object>();").append("\n");
         buffer.append("\t\t").append("paramMap.put(\""+ Table2Domain.PrimaryPropertyName +"\", "+ Table2Domain.PrimaryPropertyName +");").append("\n");
-        buffer.append("\t\t").append("super.update(\"update "+ AutocodeHelper.tableName+" set update_time=now() where "+ Table2Domain.PrimaryColumn +"=:"+ Table2Domain.PrimaryPropertyName +"\", paramMap);").append("\n");
+        buffer.append("\t\t").append("super.update(\"update "+ AutocodeHelper.tableName+" set update_time=getdate() where "+ Table2Domain.PrimaryColumn +"=:"+ Table2Domain.PrimaryPropertyName +"\", paramMap);").append("\n");
         buffer.append("\t").append("}").append("\n").append("\n");
 
         //in

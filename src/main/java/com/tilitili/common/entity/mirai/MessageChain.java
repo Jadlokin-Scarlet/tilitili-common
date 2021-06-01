@@ -1,4 +1,4 @@
-package com.tilitili.common.entity.request;
+package com.tilitili.common.entity.mirai;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

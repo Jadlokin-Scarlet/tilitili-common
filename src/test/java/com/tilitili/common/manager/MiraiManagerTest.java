@@ -40,13 +40,16 @@ public class MiraiManagerTest {
     private RecommendTalkMapper recommendTalkMapper;
 
 
+    @Test
+    public void test0() {}
+
 //    @Test
     public void test() {
         //统计昨日数据
         List<Tag> tagList = tagMapper.list(new TagQuery().setType(TagType.TOUHOU_TAG.value).setStatus(0));
         String tagListStr = tagList.parallelStream().map(Tag::getName).map(String::valueOf).collect(Collectors.joining(","));
         int count = videoInfoMapper.count(new VideoInfoQuery().setPubTimeStart(DateUtils.getT1()).setPubTimeEnd(DateUtils.getCurrentDate()).setIsDelete(false).setStatus(0));
-        miraiManager.sendGroupMessage("Plain", String.format("周刊小助手提醒您，昨日新增视频%s，当前监听tag：%s", count, tagListStr));
+        Integer messageId = miraiManager.sendGroupMessage("Plain", String.format("周刊小助手提醒您，昨日新增视频%s，当前监听tag：%s", count, tagListStr));
     }
 
 //    @Test

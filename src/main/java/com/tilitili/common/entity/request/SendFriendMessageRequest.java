@@ -1,5 +1,6 @@
 package com.tilitili.common.entity.request;
 
+import com.tilitili.common.entity.mirai.MessageChain;
 import lombok.Data;
 
 import java.util.List;

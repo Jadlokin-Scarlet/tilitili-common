@@ -12,30 +12,30 @@ public class MapperAutocode {
 
     public static void run() throws IOException {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("package ").append(AutocodeHelper.basePackageName).append(".dao.mapper;").append("\n\n");
+        buffer.append("package ").append(AutocodeHelper.basePackageName).append(".mapper;").append("\n\n");
         buffer.append("import javax.annotation.Resource;").append("\n\n");
         buffer.append("import java.util.List;").append("\n");
         buffer.append("import java.util.Map;").append("\n");
         buffer.append("import java.util.HashMap;").append("\n");
         buffer.append("import java.util.Date;").append("\n");
-        buffer.append("import org.apache.ibatis.annotations.Mapper;").append("\n");
+        buffer.append("import org.springframework.stereotype.Component;").append("\n");
         buffer.append("import org.apache.ibatis.annotations.Param;").append("\n");
-        buffer.append("import ").append(AutocodeHelper.basePackageName).append(".domain.").append(Table2Domain.domainName).append(";\n\n");
+        buffer.append("import ").append(AutocodeHelper.basePackageName).append(".entity.").append(Table2Domain.domainName).append(";\n\n");
 
-        buffer.append("@Mapper").append("\n");
+        buffer.append("@Component").append("\n");
         buffer.append("public interface "+ Table2Domain.domainName+"Mapper {").append("\n");
 
         //insert
-        buffer.append("\t").append("Long add"+Table2Domain.domainName+"("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+        buffer.append("\t").append("Long insert"+Table2Domain.domainName+"("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
 
         //update
-        buffer.append("\t").append("public void update"+Table2Domain.domainName+"("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+        buffer.append("\t").append("void update"+Table2Domain.domainName+"("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
 
         //count
-        buffer.append("\t").append("public int count"+Table2Domain.domainName+"ByCondition ("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+        buffer.append("\t").append("int count"+Table2Domain.domainName+"ByCondition ("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
 
         //get
-        buffer.append("\t").append("public ").append("List<").append(Table2Domain.domainName).append(">").append(" get"+Table2Domain.domainName+"ByCondition ("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
+        buffer.append("\t").append("List<").append(Table2Domain.domainName).append(">").append(" list"+Table2Domain.domainName+"ByCondition ("+ Table2Domain.domainName+" " +Table2Domain.domainAttrName+");").append("\n");
 
         buffer.append("}");
 
