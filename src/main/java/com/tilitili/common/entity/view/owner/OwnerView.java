@@ -20,4 +20,5 @@ public class OwnerView {
     public Nameplate nameplate;
     public Boolean is_followed;
     public String top_photo;
+    public LiveRoom live_room;
 }

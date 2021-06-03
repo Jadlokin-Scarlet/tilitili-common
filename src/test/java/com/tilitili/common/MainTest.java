@@ -20,6 +20,5 @@ public class MainTest {
 
     @Test
     public void test() {
-        subscriptionMapper.insertSubscription(new Subscription().setValue("123"));
     }
 }

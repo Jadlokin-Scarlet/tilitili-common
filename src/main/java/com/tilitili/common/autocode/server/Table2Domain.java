@@ -49,7 +49,7 @@ public class Table2Domain {
         }else{
             result = "String";
         }
-        if (Objects.equals(result, "Integer") && columnDisplaySize > 9) {
+        if (Objects.equals(result, "Integer") && columnDisplaySize > 11) {
             result = "Long";
         }
         return result;

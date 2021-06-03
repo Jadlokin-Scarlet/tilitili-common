@@ -17,4 +17,5 @@ public class VideoView {
     public String dynamic;
     public Rights rights;
     public OwnerView owner;
+    public String short_link;
 }
