@@ -27,6 +27,8 @@ import static com.tilitili.common.utils.HttpClientUtil.httpPost;
 public class MiraiManager {
     @Value("${mirai.bot-qq}")
     private String BOT_QQ;
+    @Value("${mirai.friend-qq}")
+    private Long FRIEND_QQ;
     @Value("${mirai.auth-key}")
     private String AUTH_KEY;
     @Value("${mirai.base-url}")
@@ -63,63 +65,42 @@ public class MiraiManager {
         Asserts.isTrue(Objects.equals(resultMap.get("msg"), "success"), "解绑失败");
     }
 
-    public Integer sendFriendMessage(String type, String message) {
-        return sendFriendMessage(type, message);
-    }
-
-    public Integer sendFriendMessage(String type, String message, Long qq) {
+    public Integer sendMessage(String sendType, String messageType, String message, String url, Long target) {
         String session = this.auth();
         this.verify(session);
 
         SendFriendMessageRequest request = new SendFriendMessageRequest();
         request.setSessionKey(session);
-        request.setTarget(545459363L);
+        request.setTarget(target);
 
-        MessageChain messageChain = new MessageChain().setType(type);
-        if (Objects.equals(type, "Plain")) {
-            messageChain.setText(message);
-        }else if (Objects.equals(type, "Image")) {
-            messageChain.setUrl(message);
-        }else {
-            Asserts.isTrue(false, "不支持的类型");
+        switch (messageType) {
+            case "Plain": request.setMessageChain(Collections.singletonList(new MessageChain().setType("Plain").setText(message)));
+            case "Image": request.setMessageChain(Collections.singletonList(new MessageChain().setType("Image").setUrl(url)));
+            case "ImageText": request.setMessageChain(Arrays.asList(new MessageChain().setType("Plain").setText(message),new MessageChain().setType("Image").setUrl(url)));
+            default: request.setMessageChain(Collections.emptyList());
         }
-        request.setMessageChain(Arrays.asList(messageChain));
 
-        String result = post("sendFriendMessage", request);
-        Map<String, String> resultMap = gson.fromJson(result, new TypeToken<Map<String, String>>(){}.getType());
-        Asserts.isTrue(Objects.equals(resultMap.get("msg"), "success"), "发送消息失败, " + resultMap.get("msg"));
-
-        this.release(session);
-        return Integer.parseInt(resultMap.get("messageId"));
-    }
-    public Integer sendGroupMessage(String type, String message) {
-        return sendGroupMessage(type, message, group);
-    }
-
-    public Integer sendGroupMessage(String type, String message, Long group) {
-        String session = this.auth();
-        this.verify(session);
-
-        SendFriendMessageRequest request = new SendFriendMessageRequest();
-        request.setSessionKey(session);
-        request.setGroup(group);
-
-        MessageChain messageChain = new MessageChain().setType(type);
-        if (Objects.equals(type, "Plain")) {
-            messageChain.setText(message);
-        }else if (Objects.equals(type, "Image")) {
-            messageChain.setUrl(message);
-        }else {
-            Asserts.isTrue(false, "不支持的类型");
-        }
-        request.setMessageChain(Arrays.asList(messageChain));
-
-        String result = post("sendGroupMessage", request);
+        String result = post(Objects.equals(sendType, "group") ? "sendGroupMessage": "sendFriendMessage", request);
         Map<String, String> resultMap = gson.fromJson(result, new TypeToken<Map<String, String>>(){}.getType());
         Asserts.isTrue(Objects.equals(resultMap.get("msg"), "success"), "发送消息失败");
 
         this.release(session);
         return Integer.parseInt(resultMap.get("messageId"));
+    }
+
+    public Integer sendFriendMessage(String type, String message) {
+        return sendMessage("friend", type, message, message, FRIEND_QQ);
+    }
+
+    public Integer sendFriendMessage(String type, String message, Long qq) {
+        return sendMessage("friend", type, message, message, qq);
+    }
+    public Integer sendGroupMessage(String type, String message) {
+        return sendMessage("group", type, message, message, group);
+    }
+
+    public Integer sendGroupMessage(String type, String message, Long group) {
+        return sendMessage("group", type, message, message, group);
     }
 
 }

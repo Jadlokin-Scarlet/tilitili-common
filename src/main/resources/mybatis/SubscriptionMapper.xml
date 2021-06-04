@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tilitili.common.mapper.SubscriptionMapper">
+<resultMap id="Subscription" type="com.tilitili.common.entity.Subscription">
+	<result  property="id"  column="id"/>
+	<result  property="createTime"  column="create_time"/>
+	<result  property="updateTime"  column="update_time"/>
+	<result  property="status"  column="status"/>
+	<result  property="type"  column="type"/>
+	<result  property="remark"  column="remark"/>
+	<result  property="value"  column="value"/>
+	<result  property="sendGroup"  column="send_group"/>
+	<result  property="sendType"  column="send_type"/>
+</resultMap>
+
+
+<sql id="Base_Column_List">`id`,`create_time`,`update_time`,`status`,`type`,`remark`,`value`,`send_group`,`send_type`</sql>
+
+<insert id="insertSubscription" parameterType="com.tilitili.common.entity.Subscription" keyProperty="id" useGeneratedKeys="true">
+INSERT INTO subscription
+<trim prefix="(" suffix=")" suffixOverrides=",">
+	create_time,
+	update_time,
+	<if test="status!= null" >status,</if>
+	<if test="type!= null" >type,</if>
+	<if test="remark!= null" >remark,</if>
+	<if test="value!= null" >value,</if>
+	<if test="sendGroup!= null" >send_group,</if>
+	<if test="sendType!= null" >send_type,</if>
+</trim>
+<trim prefix="values (" suffix=")" suffixOverrides=",">
+	getdate(),
+	getdate(),
+	<if test="status!= null" >#{status},</if>
+	<if test="type!= null" >#{type},</if>
+	<if test="remark!= null" >#{remark},</if>
+	<if test="value!= null" >#{value},</if>
+	<if test="sendGroup!= null" >#{sendGroup},</if>
+	<if test="sendType!= null" >#{sendType},</if>
+</trim>
+</insert>
+
+
+<update id="updateSubscription"  parameterType="com.tilitili.common.entity.Subscription">
+update subscription
+<set>
+	update_time=getdate(),
+	<if test="status!=null">
+		status=#{status},
+	</if>
+	<if test="type!=null">
+		type=#{type},
+	</if>
+	<if test="remark!=null">
+		remark=#{remark},
+	</if>
+	<if test="value!=null">
+		value=#{value},
+	</if>
+	<if test="sendGroup!=null">
+		send_group=#{sendGroup},
+	</if>
+	<if test="sendType!=null">
+		send_type=#{sendType},
+	</if>
+</set>
+where id=#{id}
+</update>
+
+
+<select id="countSubscriptionByCondition"  parameterType="com.tilitili.common.entity.Subscription" resultType="java.lang.Integer">
+	 select count(1) from subscription
+<where>
+	<if test="id!=null">
+		 and id=#{id}
+	</if>
+	<if test="createTime!=null">
+		 and create_time=#{createTime}
+	</if>
+	<if test="updateTime!=null">
+		 and update_time=#{updateTime}
+	</if>
+	<if test="status!=null">
+		 and status=#{status}
+	</if>
+	<if test="type!=null">
+		 and type=#{type}
+	</if>
+	<if test="remark!=null">
+		 and remark=#{remark}
+	</if>
+	<if test="value!=null">
+		 and value=#{value}
+	</if>
+	<if test="sendGroup!=null">
+		 and send_group=#{sendGroup}
+	</if>
+	<if test="sendType!=null">
+		 and send_type=#{sendType}
+	</if>
+</where>
+</select>
+
+
+<select id="listSubscriptionByCondition"  parameterType="com.tilitili.common.entity.Subscription" resultMap="Subscription">
+select <include refid="Base_Column_List" />
+ from subscription
+<where>
+	<if test="id!=null">
+		 and id=#{id}
+	</if>
+	<if test="createTime!=null">
+		 and create_time=#{createTime}
+	</if>
+	<if test="updateTime!=null">
+		 and update_time=#{updateTime}
+	</if>
+	<if test="status!=null">
+		 and status=#{status}
+	</if>
+	<if test="type!=null">
+		 and type=#{type}
+	</if>
+	<if test="remark!=null">
+		 and remark=#{remark}
+	</if>
+	<if test="value!=null">
+		 and value=#{value}
+	</if>
+	<if test="sendGroup!=null">
+		 and send_group=#{sendGroup}
+	</if>
+	<if test="sendType!=null">
+		 and send_type=#{sendType}
+	</if>
+</where>
+order by id desc 
+<if test="startNum != null and pageSize != null">limit #{startNum}, #{pageSize}</if>
+</select>
+
+
+</mapper>

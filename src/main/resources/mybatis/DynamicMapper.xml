@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tilitili.common.mapper.DynamicMapper">
+<resultMap id="Dynamic" type="com.tilitili.common.entity.Dynamic">
+	<result  property="id"  column="id"/>
+	<result  property="createTime"  column="create_time"/>
+	<result  property="updateTime"  column="update_time"/>
+	<result  property="status"  column="status"/>
+	<result  property="type"  column="type"/>
+	<result  property="remark"  column="remark"/>
+	<result  property="text"  column="text"/>
+	<result  property="externalId"  column="external_id"/>
+	<result  property="externalType"  column="external_type"/>
+	<result  property="uid"  column="uid"/>
+	<result  property="pic"  column="pic"/>
+</resultMap>
+
+
+<sql id="Base_Column_List">`id`,`create_time`,`update_time`,`status`,`type`,`remark`,`text`,`external_id`,`external_type`,`uid`,`pic`</sql>
+
+<insert id="insertDynamic" parameterType="com.tilitili.common.entity.Dynamic" keyProperty="id" useGeneratedKeys="true">
+INSERT INTO dynamic
+<trim prefix="(" suffix=")" suffixOverrides=",">
+	create_time,
+	update_time,
+	<if test="status!= null" >status,</if>
+	<if test="type!= null" >type,</if>
+	<if test="remark!= null" >remark,</if>
+	<if test="text!= null" >text,</if>
+	<if test="externalId!= null" >external_id,</if>
+	<if test="externalType!= null" >external_type,</if>
+	<if test="uid!= null" >uid,</if>
+	<if test="pic!= null" >pic,</if>
+</trim>
+<trim prefix="values (" suffix=")" suffixOverrides=",">
+	getdate(),
+	getdate(),
+	<if test="status!= null" >#{status},</if>
+	<if test="type!= null" >#{type},</if>
+	<if test="remark!= null" >#{remark},</if>
+	<if test="text!= null" >#{text},</if>
+	<if test="externalId!= null" >#{externalId},</if>
+	<if test="externalType!= null" >#{externalType},</if>
+	<if test="uid!= null" >#{uid},</if>
+	<if test="pic!= null" >#{pic},</if>
+</trim>
+</insert>
+
+
+<update id="updateDynamic"  parameterType="com.tilitili.common.entity.Dynamic">
+update dynamic
+<set>
+	update_time=getdate(),
+	<if test="status!=null">
+		status=#{status},
+	</if>
+	<if test="type!=null">
+		type=#{type},
+	</if>
+	<if test="remark!=null">
+		remark=#{remark},
+	</if>
+	<if test="text!=null">
+		text=#{text},
+	</if>
+	<if test="externalId!=null">
+		external_id=#{externalId},
+	</if>
+	<if test="externalType!=null">
+		external_type=#{externalType},
+	</if>
+	<if test="uid!=null">
+		uid=#{uid},
+	</if>
+	<if test="pic!=null">
+		pic=#{pic},
+	</if>
+</set>
+where id=#{id}
+</update>
+
+
+<select id="countDynamicByCondition"  parameterType="com.tilitili.common.entity.Dynamic" resultType="java.lang.Integer">
+	 select count(1) from dynamic
+<where>
+	<if test="id!=null">
+		 and id=#{id}
+	</if>
+	<if test="createTime!=null">
+		 and create_time=#{createTime}
+	</if>
+	<if test="updateTime!=null">
+		 and update_time=#{updateTime}
+	</if>
+	<if test="status!=null">
+		 and status=#{status}
+	</if>
+	<if test="type!=null">
+		 and type=#{type}
+	</if>
+	<if test="remark!=null">
+		 and remark=#{remark}
+	</if>
+	<if test="text!=null">
+		 and text=#{text}
+	</if>
+	<if test="externalId!=null">
+		 and external_id=#{externalId}
+	</if>
+	<if test="externalType!=null">
+		 and external_type=#{externalType}
+	</if>
+	<if test="uid!=null">
+		 and uid=#{uid}
+	</if>
+	<if test="pic!=null">
+		 and pic=#{pic}
+	</if>
+</where>
+</select>
+
+
+<select id="listDynamicByCondition"  parameterType="com.tilitili.common.entity.Dynamic" resultMap="Dynamic">
+select <include refid="Base_Column_List" />
+ from dynamic
+<where>
+	<if test="id!=null">
+		 and id=#{id}
+	</if>
+	<if test="createTime!=null">
+		 and create_time=#{createTime}
+	</if>
+	<if test="updateTime!=null">
+		 and update_time=#{updateTime}
+	</if>
+	<if test="status!=null">
+		 and status=#{status}
+	</if>
+	<if test="type!=null">
+		 and type=#{type}
+	</if>
+	<if test="remark!=null">
+		 and remark=#{remark}
+	</if>
+	<if test="text!=null">
+		 and text=#{text}
+	</if>
+	<if test="externalId!=null">
+		 and external_id=#{externalId}
+	</if>
+	<if test="externalType!=null">
+		 and external_type=#{externalType}
+	</if>
+	<if test="uid!=null">
+		 and uid=#{uid}
+	</if>
+	<if test="pic!=null">
+		 and pic=#{pic}
+	</if>
+</where>
+order by id desc 
+<if test="startNum != null and pageSize != null">limit #{startNum}, #{pageSize}</if>
+</select>
+
+
+</mapper>
