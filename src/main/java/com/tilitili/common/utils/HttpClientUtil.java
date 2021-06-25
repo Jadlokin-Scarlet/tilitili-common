@@ -1,183 +1,164 @@
 package com.tilitili.common.utils;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.tilitili.common.entity.UploadFile;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.config.Registry;
-import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.socket.ConnectionSocketFactory;
-import org.apache.http.conn.socket.PlainConnectionSocketFactory;
-import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.StandardHttpRequestRetryHandler;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.util.CollectionUtils;
 
-import java.io.UnsupportedEncodingException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.logging.log4j.util.Strings.isBlank;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.apache.http.util.TextUtils.isBlank;
 
 /**
  * 基于httpClient4.3.1的http工具
  */
+@Slf4j
 public class HttpClientUtil {
 
-    private static final Log log = LogFactory.getLog(HttpClientUtil.class);
-
     private static final int TIME_OUT = 10000;
-    private static CloseableHttpClient httpclient = null;
+    private static final CloseableHttpClient httpClient;
 
     static {
         RequestConfig config = RequestConfig.custom().setConnectTimeout(TIME_OUT).setSocketTimeout(TIME_OUT).setConnectionRequestTimeout(TIME_OUT).build();
-
-        SSLContextBuilder builder = new SSLContextBuilder();
-        SSLConnectionSocketFactory sslsf = null;
-        try {
-            builder.loadTrustMaterial(null, (x509Certificates, s) -> true);
-            sslsf = new SSLConnectionSocketFactory(builder.build(), new String[]{"SSLv2Hello", "SSLv3", "TLSv1", "TLSv1.2"}, null, new AllowAllHostnameVerifier());
-        } catch (Exception ignored) { }
-
-        Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create().register("http", new PlainConnectionSocketFactory()).register("https", sslsf).build();
-        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(registry);
-        cm.setMaxTotal(50);
-        cm.setDefaultMaxPerRoute(50);
-
-        httpclient = HttpClients.custom().setConnectionManager(cm).setDefaultRequestConfig(config).setRetryHandler(new StandardHttpRequestRetryHandler()).build();
+        httpClient = HttpClients.custom().setDefaultRequestConfig(config).setRetryHandler(new StandardHttpRequestRetryHandler()).build();
     }
 
     /**
      * httpGet
      */
-    public static String httpGet(String url, String charSet, String cookie) {
+    public static String httpGet(String url) {
         HttpGet httpGet = new HttpGet(url);
 
-        charSet = isBlank(charSet) ? "UTF-8":charSet;
-        if (!isBlank(cookie)) {
-            httpGet.addHeader("Cookie", cookie);
-        }
-        try (CloseableHttpResponse httpResponse = httpclient.execute(httpGet)) {
+        try (CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {
             if (httpResponse.getStatusLine().getStatusCode() == 200) {
                 HttpEntity httpEntity = httpResponse.getEntity();
-                return EntityUtils.toString(httpEntity, charSet);
+                return EntityUtils.toString(httpEntity, UTF_8);
+            } else {
+                log.warn("[httpGet] got an Exception resp={}", httpResponse.toString());
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error("[httpGet] got an Exception, url " + url, e);
         }
         return null;
     }
 
     /**
+     * 发送无内容的httpPost
+     */
+    public static String httpPost(String url) {
+        return httpPost(url, null, null, null, false);
+    }
+
+    /**
      * httpPost
      * @param params 传入p1=v1&p2=v2的kv内容
      */
-    public static String httpPost(String url, Map<String, String> params, Map<String, String> headers, String charSet,
-                                  String cookie) {
-        HttpPost httpPost = new HttpPost(url);
-        CloseableHttpResponse httpResponse = null;
-        charSet = isBlank(charSet) ? "UTF-8":charSet;
-
-        // 设置Header信息
-        if (headers != null && headers.size() > 0) {
-            for (Map.Entry<String, String> header : headers.entrySet()) {
-                httpPost.addHeader(header.getKey(), header.getValue());
-            }
-        }
-
-        if (!isBlank(cookie)) {
-            httpPost.addHeader("Cookie", cookie);
-        }
-
-        // 设置请求体
-        if (params != null && params.size() > 0) {
-            List<BasicNameValuePair> nvps = new ArrayList<BasicNameValuePair>();
-            for (String key : params.keySet()) {
-                nvps.add(new BasicNameValuePair(key, params.get(key)));
-            }
-            UrlEncodedFormEntity entity = null;
-            try {
-                entity = new UrlEncodedFormEntity(nvps,"utf-8");
-            } catch (UnsupportedEncodingException ignored) { }
-            httpPost.setEntity(entity);
-        }
-
-        try {
-            httpResponse = httpclient.execute(httpPost);
-            if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                HttpEntity httpEntity = httpResponse.getEntity();
-                return EntityUtils.toString(httpEntity, charSet);
-            }
-        } catch (Exception e) {
-            log.error("[httpPost] got an Exception", e);
-        } finally {
-            if (httpResponse != null) {
-                try {
-                    httpResponse.close();
-                } catch (Exception ignored) { }
-            }
-        }
-        return null;
+    public static String httpPost(String url, Map<String, String> params) {
+        return httpPost(url, params, null, null, false);
     }
 
     /**
      * 发送json格式体内容的httpPost
      */
-    public static String httpPost(String url, String json, Map<String, String> headers, String charSet,
-                                  String cookie) {
+    public static String httpPost(String url, String json) {
+        return httpPost(url, null, json, null, false);
+    }
+
+    public static String httpPostProxy(String url, Map<String, String> params) {
+        return httpPost(url, params, null, null, true);
+    }
+
+    public static String httpPostWithFile(String url, Map<String, String> params, UploadFile file) {
+        return httpPost(url, params, null, file, false);
+    }
+
+    private static String httpPost(String url, Map<String, String> params, String json, UploadFile uploadFile, Boolean useProxy) {
         HttpPost httpPost = new HttpPost(url);
-        CloseableHttpResponse httpResponse = null;
-        charSet = isBlank(charSet) ? "UTF-8":charSet ;
 
-        // 设置Header信息
-        if (headers != null && headers.size() > 0) {
-            for (Map.Entry<String, String> header : headers.entrySet()) {
-                httpPost.addHeader(header.getKey(), header.getValue());
+        if (! CollectionUtils.isEmpty(params)) {
+            List<BasicNameValuePair> form = new ArrayList<>();
+            for (String key : params.keySet()) {
+                form.add(new BasicNameValuePair(key, params.get(key)));
             }
+            httpPost.setEntity(new UrlEncodedFormEntity(form, UTF_8));
         }
 
-        if (!isBlank(cookie)) {
-            httpPost.addHeader("Cookie", cookie);
-        }
-
-        // 设置请求体
         if (!isBlank(json)) {
             StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
-            entity.setContentEncoding(charSet);
+            entity.setContentEncoding("UTF-8");
             httpPost.setEntity(entity);
         }
 
-        try {
-            httpResponse = httpclient.execute(httpPost);
+        if (uploadFile != null) {
+            String fileName = uploadFile.getFileName();
+            String fileType = uploadFile.getFileType();
+            File file = uploadFile.getFile();
+            BufferedImage image = uploadFile.getBufferedImage();
+
+            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+            if (file != null) {
+                entityBuilder.addPart(fileName, new FileBody(file, ContentType.MULTIPART_FORM_DATA));
+            } else {
+                try {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    ImageIO.write(image, fileType, stream);
+                    entityBuilder.addBinaryBody(fileName, stream.toByteArray(), ContentType.create("image/"+fileType), fileName + "." + fileType);
+                } catch (IOException e) {
+                    log.error("图片异常", e);
+                }
+            }
+            for (String key : params.keySet()) {
+                entityBuilder.addPart(key, new StringBody(params.get(key), ContentType.MULTIPART_FORM_DATA));
+            }
+            httpPost.setEntity(entityBuilder.build());
+        }
+
+        CloseableHttpClient httpClient;
+        if (useProxy) {
+            HttpHost proxy = new HttpHost("127.0.0.1", 7890, "http");
+            RequestConfig defaultRequestConfig = RequestConfig.custom().setProxy(proxy).build();
+            httpClient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+        } else {
+            httpClient = HttpClientUtil.httpClient;
+        }
+
+        try (CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
             if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 HttpEntity httpEntity = httpResponse.getEntity();
-                return EntityUtils.toString(httpEntity, charSet);
+                return EntityUtils.toString(httpEntity, UTF_8);
+            } else {
+                log.warn("[httpPost] got an Exception resp={}", httpResponse.toString());
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error("[httpPost] got an Exception", e);
-        } finally {
-            if (httpResponse != null) {
-                try {
-                    httpResponse.close();
-                } catch (Exception ignored) { }
-            }
         }
         return null;
     }
-
 }
 

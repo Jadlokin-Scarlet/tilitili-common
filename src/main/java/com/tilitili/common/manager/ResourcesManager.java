@@ -14,7 +14,8 @@ public class ResourcesManager {
     }
 
     public Integer getIssueSupplement() {
-        return Integer.valueOf(resourcesMapper.getValueByType("ISSUE_SUPPLEMENT"));
+        return 20;
+//        return Integer.valueOf(resourcesMapper.getValueByType("ISSUE_SUPPLEMENT"));
     }
 
     public Integer getRecommendIssue() {

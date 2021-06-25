@@ -61,6 +61,12 @@ public class VideoDataManager {
                 .collect(Collectors.toList());
     }
 
+    public List<VideoData> listDataFile(Integer issue) {
+        return videoDataMapper.listDataFile(issue + resourcesManager.getIssueSupplement()).parallelStream()
+                .map(videoData -> videoData.setIssue(videoData.getIssue() - resourcesManager.getIssueSupplement()))
+                .collect(Collectors.toList());
+    }
+
     public int count(VideoDataQuery videoDataQuery) {
         VideoDataQuery newVideoDataQuery = new VideoDataQuery();
         if (videoDataQuery != null) {
@@ -156,5 +162,9 @@ public class VideoDataManager {
         return videoDataMapper.randomRanked(newVideoDataQuery).parallelStream()
                 .map(videoData -> videoData.setIssue(videoData.getIssue() - resourcesManager.getIssueSupplement()))
                 .collect(Collectors.toList());
+    }
+
+    public void clearRank(Integer issue) {
+        videoDataMapper.clearRank(issue + resourcesManager.getIssueSupplement());
     }
 }

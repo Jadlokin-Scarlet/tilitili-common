@@ -11,10 +11,11 @@
 	<result  property="value"  column="value"/>
 	<result  property="sendGroup"  column="send_group"/>
 	<result  property="sendType"  column="send_type"/>
+	<result  property="sendQq"  column="send_qq"/>
 </resultMap>
 
 
-<sql id="Base_Column_List">`id`,`create_time`,`update_time`,`status`,`type`,`remark`,`value`,`send_group`,`send_type`</sql>
+<sql id="Base_Column_List">`id`,`create_time`,`update_time`,`status`,`type`,`remark`,`value`,`send_group`,`send_type`,`send_qq`</sql>
 
 <insert id="insertSubscription" parameterType="com.tilitili.common.entity.Subscription" keyProperty="id" useGeneratedKeys="true">
 INSERT INTO subscription
@@ -27,6 +28,7 @@ INSERT INTO subscription
 	<if test="value!= null" >value,</if>
 	<if test="sendGroup!= null" >send_group,</if>
 	<if test="sendType!= null" >send_type,</if>
+	<if test="sendQq!= null" >send_qq,</if>
 </trim>
 <trim prefix="values (" suffix=")" suffixOverrides=",">
 	getdate(),
@@ -37,6 +39,7 @@ INSERT INTO subscription
 	<if test="value!= null" >#{value},</if>
 	<if test="sendGroup!= null" >#{sendGroup},</if>
 	<if test="sendType!= null" >#{sendType},</if>
+	<if test="sendQq!= null" >#{sendQq},</if>
 </trim>
 </insert>
 
@@ -62,6 +65,9 @@ update subscription
 	</if>
 	<if test="sendType!=null">
 		send_type=#{sendType},
+	</if>
+	<if test="sendQq!=null">
+		send_qq=#{sendQq},
 	</if>
 </set>
 where id=#{id}
@@ -98,6 +104,9 @@ where id=#{id}
 	<if test="sendType!=null">
 		 and send_type=#{sendType}
 	</if>
+	<if test="sendQq!=null">
+		 and send_qq=#{sendQq}
+	</if>
 </where>
 </select>
 
@@ -132,6 +141,9 @@ select <include refid="Base_Column_List" />
 	</if>
 	<if test="sendType!=null">
 		 and send_type=#{sendType}
+	</if>
+	<if test="sendQq!=null">
+		 and send_qq=#{sendQq}
 	</if>
 </where>
 order by id desc 

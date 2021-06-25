@@ -15,10 +15,11 @@ import java.util.List;
 @Component
 public interface VideoDataMapper {
     List<VideoData> list(VideoDataQuery videoInfoQuery);
+    List<VideoData> listDataFile(Integer issue);
     int count(VideoDataQuery videoInfoQuery);
     int insert(VideoData videoData);
     int update(VideoData videoData);
-
+    List<VideoData> randomRanked(VideoDataQuery videoDataQuery);
     List<VideoDataGroup> groupByIssue(VideoDataQuery videoDataQuery);
 
     @Select("select * from video_data left join video_info on video_data.av = video_info.av where video_data.av = #{av} and video_data.issue = #{issue}")
@@ -34,5 +35,7 @@ public interface VideoDataMapper {
     @Update("update video_data set rank = #{rank} where av = #{av} and issue = #{issue}")
     void updateRank(VideoData videoData);
 
-    List<VideoData> randomRanked(VideoDataQuery videoDataQuery);
+    @Update("update video_data set rank = 0, level = 0 where issue = #{issue} and (level > 0 or rank > 0)")
+    void clearRank(Integer issue);
+
 }

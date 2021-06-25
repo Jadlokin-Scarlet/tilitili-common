@@ -14,6 +14,7 @@ public class VideoDataQuery extends BaseQuery<VideoDataQuery> {
     private Integer issue;
     private Integer status;
     private Boolean hasRank;
+    private Boolean hasLevel;
 
     //info
     private Boolean isDelete;

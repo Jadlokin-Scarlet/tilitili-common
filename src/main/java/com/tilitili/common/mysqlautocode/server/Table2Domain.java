@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.*;
 
 import static com.microsoft.sqlserver.jdbc.StringUtils.isNumeric;
-import static org.apache.logging.log4j.util.Strings.isNotEmpty;
+import static io.lettuce.core.LettuceStrings.isNotEmpty;
 
 public class Table2Domain {
 

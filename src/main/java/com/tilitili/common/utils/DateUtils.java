@@ -6,15 +6,64 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtils {
-    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    public static final SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
-    public static final SimpleDateFormat sdfMonth = new SimpleDateFormat("yyyy-MM");
+    /**
+     * 日期转成字符串 格式为yyyy-MM-dd
+     */
+    public static String formatDateYMD(Date date) {
+        if (date == null) {
+            return "";
+        }
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
+        return sdfDay.format(date);
+    }
+
+    /**
+     * 日期转换成字符串 格式为yyyy-MM-dd HH:mm:ss
+     */
+    public static String formatDateYMDHMS(Date date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
+    }
+
+    /**
+     * 线程安全
+     * 日期转成字符串 格式为yyyy-MM-dd
+     */
+    public static Date parseDateYMD(String date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return sdfDay.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * 线程安全
+     * 日期转成字符串 格式为yyyy-MM-dd
+     */
+    public static Date parseDateYM(String date) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM");
+        try {
+            return sdfDay.parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
     /**
      * 计算天数
      * @param startTime ： 开始时间
      * @param endTime  ： 结束时间
-     * @return
      */
     public static int caculateDay(String startTime,String endTime) {
         SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
@@ -46,13 +95,18 @@ public class DateUtils {
         return sdfD.format(calstart.getTime());
     }
 
-    public static String addDays(String dateTime,int n) throws ParseException {
-        SimpleDateFormat sdfD = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = sdfD.parse(dateTime);
-        Calendar calstart = Calendar.getInstance();
-        calstart.setTime(date);
-        calstart.add(Calendar.DAY_OF_WEEK, n);
-        return sdfD.format(calstart.getTime());
+    public static String addDays(String dateTime,int n) {
+        try {
+            SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdfDay.parse(dateTime);
+            Calendar calstart = Calendar.getInstance();
+            calstart.setTime(date);
+            calstart.add(Calendar.DAY_OF_WEEK, n);
+            return sdfDay.format(calstart.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static Date addDay(Date dateTime,int n){
@@ -63,19 +117,7 @@ public class DateUtils {
         return calstart.getTime();
     }
 
-    public static String addDayfmt(String dateTime,int n) throws ParseException {
-        SimpleDateFormat sdfD = new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-        Date date = sdfD.parse(dateTime);
-        Calendar calstart = Calendar.getInstance();
-        calstart.setTime(date);
-        calstart.add(Calendar.DAY_OF_WEEK, n);
-        return sdf.format(calstart.getTime());
-    }
-
-
-    public static Date getCurrentDate() {
+    public static Date getCurrentDay() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
@@ -84,37 +126,55 @@ public class DateUtils {
         return c.getTime();
     }
 
-    public static Date getNextDate(Date date) {
+    public static Date getLastDay() {
         Calendar c = Calendar.getInstance();
-        c.setTime(date);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        c.add(Calendar.DATE, -1);
+        return c.getTime();
+    }
+
+    public static Date getNextDay() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
         c.add(Calendar.DATE, 1);
         return c.getTime();
     }
 
-    public static Date getLastDate(Date date) {
+    public static String getCurrentDays() {
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, -1);
-        return c.getTime();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return sdfDay.format(c.getTime());
     }
 
-    public static Date getT1() {
+    public static String getLastDays() {
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
         c.add(Calendar.DATE, -1);
-        return c.getTime();
+        return sdfDay.format(c.getTime());
     }
 
-    public static String getT1s() {
+    public static String getNextDays() {
+        SimpleDateFormat sdfDay = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
-        c.add(Calendar.DATE, -1);
+        c.add(Calendar.DATE, 1);
         return sdfDay.format(c.getTime());
     }
 

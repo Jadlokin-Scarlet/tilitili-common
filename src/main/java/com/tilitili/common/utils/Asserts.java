@@ -1,8 +1,10 @@
 package com.tilitili.common.utils;
 
-import org.apache.logging.log4j.util.Strings;
 
 import java.util.Objects;
+
+import static org.apache.http.util.TextUtils.isBlank;
+import static org.apache.http.util.TextUtils.isEmpty;
 
 public class Asserts {
     public Asserts() {
@@ -75,13 +77,13 @@ public class Asserts {
     }
 
     public static void notEmpty(String s, String name) {
-        if (Strings.isEmpty(s)) {
+        if (isEmpty(s)) {
             throw new IllegalStateException(name + "为空");
         }
     }
 
     public static void notBlank(String s, String message) {
-        if (Strings.isBlank(s)) {
+        if (isBlank(s)) {
             throw new IllegalStateException(message);
         }
     }

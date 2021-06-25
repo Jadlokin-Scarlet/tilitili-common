@@ -1,6 +1,8 @@
 package com.tilitili.common;
 
 import com.tilitili.common.entity.Subscription;
+import com.tilitili.common.entity.mirai.MiraiMessage;
+import com.tilitili.common.manager.MiraiManager;
 import com.tilitili.common.mapper.SubscriptionMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -17,8 +19,4 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class MainTest {
     @Autowired
     private SubscriptionMapper subscriptionMapper;
-
-    @Test
-    public void test() {
-    }
 }

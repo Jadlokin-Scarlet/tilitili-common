@@ -15,4 +15,5 @@ public class Subscription {
 	private String value;
 	private Long sendGroup;
 	private String sendType;
+	private Long sendQq;
 }

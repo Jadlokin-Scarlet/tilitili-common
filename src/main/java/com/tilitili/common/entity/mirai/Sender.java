@@ -9,4 +9,5 @@ public class Sender {
     private Long id;
     private String nickname;
     private String remark;
+    private Sender group;
 }

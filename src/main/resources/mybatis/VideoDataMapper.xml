@@ -2,12 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tilitili.common.mapper.VideoDataMapper">
 	<resultMap id="VideoDataResultMap" type="com.tilitili.common.entity.VideoData">
-		<result column="pub_time" property="pubTime" />
-		<result column="start_time" property="startTime" />
-		<result column="is_delete" property="isDelete" />
-		<result column="mission_id" property="missionId" />
-		<result column="start_page" property="startPage" />
-		<result column="external_owner" property="externalOwner" />
 	</resultMap>
 	<select id="count" resultType="Integer">
 		select count(1) from [video_data] left join video_info on video_data.av = video_info.av
@@ -50,6 +44,9 @@
 			</if>
 			<if test="maxDuration != null">-- 小于
 				and video_info.duration &lt; #{maxDuration}
+			</if>
+			<if test="hasLevel != null">
+				and video_data.level != 0
 			</if>
 		</where>
 	</select>
@@ -95,6 +92,9 @@
 			<if test="maxDuration != null">-- 小于
 				and video_info.duration &lt; #{maxDuration}
 			</if>
+			<if test="hasLevel != null">
+				and video_data.level != 0
+			</if>
 		</where>
 		<if test="isRandom == true">
 			order by NEWID()
@@ -114,6 +114,11 @@
 			offset ${start} rows fetch next ${pageSize} rows only
 		</if>
 	</select>
+	<select id="listDataFile" resultType="VideoData">
+		select * from video_data left join video_info on video_data.av = video_info.av
+		where video_data.level != 0 and video_data.issue = #{issue}
+		order by point desc
+	</select>
 	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.VideoData" useGeneratedKeys="true">
 		insert into video_data (
 		<trim suffixOverrides=",">
@@ -131,6 +136,7 @@
 			<if test="like != null">[like],</if>
 			<if test="dislike != null">dislike,</if>
 			<if test="evaluation != null">evaluation,</if>
+			<if test="level != null">level,</if>
 		</trim>
 		) values (
 		<trim suffixOverrides=",">
@@ -148,6 +154,7 @@
 			<if test="like != null">#{like},</if>
 			<if test="dislike != null">#{dislike},</if>
 			<if test="evaluation != null">#{evaluation},</if>
+			<if test="level != null">#{level},</if>
 		</trim>
 		)
 	</insert>
@@ -166,6 +173,7 @@
 			<if test="like != null">[like] = #{like},</if>
 			<if test="dislike != null">dislike = #{dislike},</if>
 			<if test="evaluation != null">evaluation = #{evaluation},</if>
+			<if test="level != null">level = #{level},</if>
 		</set>
 		where av = #{av} and issue = #{issue}
 	</update>

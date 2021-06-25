@@ -18,7 +18,7 @@ public class AutocodeHelper {
 
     //数据库名+表名
     public final static String dbName    ="bilibili";
-    public final static String tableName = "dynamic";
+    public final static String tableName = "subscription";
     public final static String schema    = JdbcUtils.convertUnderscoreNameToPropertyName(dbName);
 
     public final static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
