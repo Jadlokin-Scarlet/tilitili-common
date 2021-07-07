@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +22,8 @@ public class RecommendVideo {
     //recommend表
     private Integer recommendNumber;
     private Integer selfRecommendNumber;
+    private List<Recommend> recommendList;
+    private List<Recommend> selfRecommendList;
 
     //recommend talk表
     private Boolean hasTalk;

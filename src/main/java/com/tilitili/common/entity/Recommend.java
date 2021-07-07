@@ -31,6 +31,7 @@ public class Recommend {
     private String videoType;
     private String bv;
     private Integer videoStatus;
+    private String img;
 
     //recommend video
     private String issueName;

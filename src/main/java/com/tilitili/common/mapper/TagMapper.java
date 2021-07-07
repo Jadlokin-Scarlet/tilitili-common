@@ -23,4 +23,7 @@ public interface TagMapper {
 
     @Select("select * from [tag] where id in (${idListStr})")
     List<Tag> listByIdListStr(@Param("idListStr") String idListStr);
+
+    @Select("select tag.* from [tag] inner join video_tag_relation vtr on tag.id = vtr.tag_id where vtr.av = #{av} and vtr.status != -1 and tag.status != -1")
+    List<Tag> listByAv(Long av);
 }

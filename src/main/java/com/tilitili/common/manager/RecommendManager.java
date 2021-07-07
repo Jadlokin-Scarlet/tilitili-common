@@ -17,7 +17,7 @@ public class RecommendManager {
         this.recommendMapper = recommendMapper;
     }
 
-    public int countRecommend(RecommendQuery query) {
+    public int countUseRecommend(RecommendQuery query) {
         return recommendMapper.count(query.setType(0).setStatus(1));
     }
 
@@ -33,7 +33,7 @@ public class RecommendManager {
         return recommendMapper.count(query.setType(1).setStatus(0));
     }
 
-    public List<Recommend> listRecommend(RecommendQuery query) {
+    public List<Recommend> listUseRecommend(RecommendQuery query) {
         return recommendMapper.list(query.setType(0).setStatus(1));
     }
 

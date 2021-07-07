@@ -5,6 +5,8 @@ import com.tilitili.common.mapper.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Stream;
+
 @Component
 public class TagManager {
 
@@ -21,6 +23,10 @@ public class TagManager {
         }else {
             return tagMapper.update(tag);
         }
+    }
+
+    public Stream<Tag> streamByAv(Long av) {
+        return tagMapper.listByAv(av).stream();
     }
 
 }

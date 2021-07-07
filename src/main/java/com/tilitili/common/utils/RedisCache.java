@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -18,11 +19,11 @@ public class RedisCache implements InitializingBean {
 	private RedisTemplate<String, Object> redisTemplate;
 
 	
-	public void set(String key,Object value,int expireTime){
+	public void setValue(String key,Object value,int expireTime){
 		redisTemplate.opsForValue().set(key, value, expireTime, TimeUnit.SECONDS);
 	}
 
-	public void set(String key, Object value){
+	public void setValue(String key, Object value){
 	    redisTemplate.opsForValue().set(key, value);
     }
 
@@ -33,24 +34,40 @@ public class RedisCache implements InitializingBean {
 	    redisTemplate.persist(key);
     }
 	
-	public Object get(String key){
+	public Object getValue(String key){
 		return redisTemplate.opsForValue().get(key);
 	}
 	
-	public void sAdd(String key,List<?> values,int expireTime){
+	public void addSet(String key,List<?> values,int expireTime){
 		redisTemplate.opsForSet().add(key, values.toArray());
 		redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
 	}
 
-	public void sAdd(String key, List<?> values){
+	public void addSet(String key, List<?> values){
 		redisTemplate.opsForSet().add(key, values.toArray());
+	}
+
+	public void addMap(String key, Map<?, ?> map) {
+    	redisTemplate.opsForHash().putAll(key, map);
+	}
+
+	public void addMapValue(String key, String hashKey, Object value) {
+    	redisTemplate.opsForHash().put(key, hashKey, value);
+	}
+
+	public Object getMapValue(String key, String hashKey) {
+		return redisTemplate.opsForHash().get(key, hashKey);
+	}
+
+	public Object removeMapValue(String key, String hashKey) {
+		return redisTemplate.opsForHash().delete(key, hashKey);
 	}
 
 	public Long increment(String key) {
 		return redisTemplate.opsForValue().increment(key);
 	}
 	
-	public Set<Object> sMember(String key){
+	public Set<Object> memberSet(String key){
 		return redisTemplate.opsForSet().members(key);
 	}
 
@@ -87,18 +104,21 @@ public class RedisCache implements InitializingBean {
 	    return redisTemplate.hasKey(key);
     }
 
-    /**
-     * 增长
-     */
-    public void add(String key, long value){
-      if(exists(key)){
-        long num = Long.parseLong(String.valueOf(redisTemplate.opsForValue().get(key)));
-        num += value;
-        redisTemplate.opsForValue().set(key, num);
-      } else {
-        redisTemplate.opsForValue().set(key, value);
-      }
-    }
+	public boolean existsHashKey(String key, String hashKey){
+		return redisTemplate.opsForHash().hasKey(key, hashKey);
+	}
+//    /**
+//     * 增长
+//     */
+//    public void addValue(String key, long value){
+//      if(exists(key)){
+//        long num = Long.parseLong(String.valueOf(redisTemplate.opsForValue().get(key)));
+//        num += value;
+//        redisTemplate.opsForValue().set(key, num);
+//      } else {
+//        redisTemplate.opsForValue().set(key, value);
+//      }
+//    }
 
     /**
      * 若是key不存在则设置成功

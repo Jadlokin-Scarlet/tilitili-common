@@ -114,11 +114,6 @@
 			offset ${start} rows fetch next ${pageSize} rows only
 		</if>
 	</select>
-	<select id="listDataFile" resultType="VideoData">
-		select * from video_data left join video_info on video_data.av = video_info.av
-		where video_data.level != 0 and video_data.issue = #{issue}
-		order by point desc
-	</select>
 	<insert id="insert" keyProperty="id" parameterType="com.tilitili.common.entity.VideoData" useGeneratedKeys="true">
 		insert into video_data (
 		<trim suffixOverrides=",">

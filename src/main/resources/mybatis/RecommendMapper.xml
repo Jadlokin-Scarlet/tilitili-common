@@ -24,7 +24,8 @@
 			video_info.pub_time,
 			video_info.type as video_type,
 			video_info.bv,
-			video_info.status as video_status
+			video_info.status as video_status,
+		    video_info.img
 	    from recommend
 		left join video_info on recommend.av = video_info.av
 		<where>

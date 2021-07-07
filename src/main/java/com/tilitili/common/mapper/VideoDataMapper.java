@@ -15,7 +15,6 @@ import java.util.List;
 @Component
 public interface VideoDataMapper {
     List<VideoData> list(VideoDataQuery videoInfoQuery);
-    List<VideoData> listDataFile(Integer issue);
     int count(VideoDataQuery videoInfoQuery);
     int insert(VideoData videoData);
     int update(VideoData videoData);
