@@ -4,6 +4,8 @@ import org.apache.commons.codec.binary.Hex;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,9 +35,28 @@ public class StringUtils {
 
     public static String patten(String regex, String input) {
         Matcher matcher = Pattern.compile(regex).matcher(input);
-        if (matcher.find(1)) {
+        if (matcher.find()) {
             return matcher.group(0);
         }
         return "";
+    }
+
+    public static List<String> extractList(String regex, String input) {
+        Matcher matcher = Pattern.compile(regex).matcher(input);
+        List<String> result = new ArrayList<>();
+        if (matcher.find()) {
+            for (int index = 1; index <= matcher.groupCount(); index ++) {
+                result.add(matcher.group(index));
+            }
+        }
+        return result;
+    }
+
+    public static String convertCnNumber(String s) {
+        String[] numberMap = "零一二三四五六七八九".split("");
+        for (int index = 0; index < numberMap.length; index++) {
+            s = s.replaceAll(numberMap[index], String.valueOf(index));
+        }
+        return s;
     }
 }

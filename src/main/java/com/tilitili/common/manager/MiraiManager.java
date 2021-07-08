@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
-import java.net.SocketException;
 import java.util.*;
 
 import static com.tilitili.common.utils.HttpClientUtil.httpPost;
@@ -37,7 +36,7 @@ public class MiraiManager {
         return httpPost(BASE_URL + api, gson.toJson(data));
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public String auth() {
         Map<String, String> data = ImmutableMap.of("authKey", AUTH_KEY);
         String result = post("auth", data);
@@ -48,7 +47,7 @@ public class MiraiManager {
         return session;
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public void verify(String session) {
         Map<String, String> data = ImmutableMap.of("sessionKey", session, "qq", BOT_QQ);
         String result = post("verify", data);
@@ -57,7 +56,7 @@ public class MiraiManager {
         Asserts.isTrue(Objects.equals(resultMap.get("msg"), "success"), "绑定失败");
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public void release(String session) {
         Map<String, String> data = ImmutableMap.of("sessionKey", session, "qq", BOT_QQ);
         String result = post("release", data);
@@ -65,7 +64,7 @@ public class MiraiManager {
         Asserts.isTrue(Objects.equals(resultMap.get("msg"), "success"), "解绑失败");
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public Integer sendMessage(MiraiMessage miraiMessage) {
         String sendType = miraiMessage.getSendType();
         String messageType = miraiMessage.getMessageType();
@@ -104,27 +103,27 @@ public class MiraiManager {
         return Integer.parseInt(resultMap.get("messageId"));
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public Integer sendFriendMessage(String type, String message) {
         return sendFriendMessage(type, message, FRIEND_QQ);
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public Integer sendFriendMessage(String type, String message, Long qq) {
         return sendMessage(new MiraiMessage().setSendType("friend").setMessageType(type).setMessage(message).setQq(qq));
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public Integer sendGroupMessage(String type, String message) {
         return sendGroupMessage(type, message, group);
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public Integer sendGroupMessage(String type, String message, Long group) {
         return sendMessage(new MiraiMessage().setSendType("group").setMessageType(type).setMessage(message).setGroup(group));
     }
 
-    @Retryable(value= {SocketException.class},maxAttempts = 2)
+    @Retryable(value= {Exception.class},maxAttempts = 2)
     public Integer sendTempMessage(String type, String message, Long group, Long qq) {
         return sendMessage(new MiraiMessage().setSendType("temp").setMessageType(type).setMessage(message).setGroup(group).setQq(qq));
     }

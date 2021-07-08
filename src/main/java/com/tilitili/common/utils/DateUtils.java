@@ -181,4 +181,12 @@ public class DateUtils {
     public static String getDateByYearAndMonth(String year, String month) {
         return year + "-" + (Integer.parseInt(month) < 10? "0": "") + month;
     }
+
+    public static void setDayOfWeekToCalendar(Calendar calendar, int day) {
+        if (day == 7) {
+            calendar.add(Calendar.WEEK_OF_MONTH, 1);
+            calendar.set(Calendar.DAY_OF_WEEK, 1);
+        }
+        calendar.set(Calendar.DAY_OF_WEEK, day + 1);
+    }
 }
