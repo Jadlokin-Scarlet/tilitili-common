@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.Date;
+
 @Setter
 @Getter
 @Accessors(chain = true)
@@ -23,6 +25,7 @@ public class VideoData {
     private Integer dislike;
     private String evaluation;
     private Integer level;
+    private Date spiderTime;
 
     //info
     private String name;

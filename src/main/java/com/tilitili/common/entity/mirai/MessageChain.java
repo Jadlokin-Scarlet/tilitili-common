@@ -9,4 +9,5 @@ public class MessageChain {
     private String type;
     private String text;
     private String url;
+    private String voiceId;
 }

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public enum GroupEmum {
 
     RANK_GROUP(670290958L, "排行榜数据小组Project R"),
+    TEST_GROUP(729412455L, "My Homo"),
     ;
 
     GroupEmum(Long value, String text) {

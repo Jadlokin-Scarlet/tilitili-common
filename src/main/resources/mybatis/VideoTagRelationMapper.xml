@@ -153,4 +153,20 @@
 			offset ${start} rows fetch next ${pageSize} rows only
 		</if>
 	</select>
+	<select id="groupByTagAndData" resultType="TagRelationGroup">
+		select a.name as tag, sum(c.point) as number
+		from video_tag_relation b
+		left join tag a on a.id = b.tag_id
+		left join video_data c on b.av = c.av and c.issue = (select max(issue) from video_data)
+		<where>
+			<if test="tagType != null">
+				a.type = #{tagType}
+			</if>
+		</where>
+		group by a.name
+		order by count(1) desc
+		<if test="start != null and pageSize != null">
+			offset ${start} rows fetch next ${pageSize} rows only
+		</if>
+	</select>
 </mapper>

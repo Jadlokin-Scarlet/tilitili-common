@@ -11,4 +11,5 @@ public class VideoTagQuery extends BaseQuery<VideoTagQuery> {
     private Long av;
     private String tag;
     private Integer tagType;
+    private Integer issue;
 }

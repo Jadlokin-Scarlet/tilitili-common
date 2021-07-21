@@ -6,6 +6,7 @@ import com.tilitili.common.entity.dto.TagRelationGroup;
 import com.tilitili.common.entity.query.BaseQuery;
 import com.tilitili.common.entity.query.VideoTagQuery;
 import com.tilitili.common.entity.query.VideoTagRelationQuery;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public interface VideoTagRelationMapper {
     List<VideoTag> listVideoTag(VideoTagQuery query);
 
     List<TagRelationGroup> groupByTag(VideoTagQuery query);
+    List<TagRelationGroup> groupByTagAndData(VideoTagQuery query);
 
     @Select("select * from video_tag_relation where id = #{id}")
     @ResultMap("VideoTagRelationResultMap")
@@ -32,4 +34,7 @@ public interface VideoTagRelationMapper {
     @Select("select * from video_tag_relation where tag_id = #{tagId} and av = #{av}")
     @ResultMap("VideoTagRelationResultMap")
     VideoTagRelation getVideoTagRelationByTagIdAndAv(Long tagId, Long av);
+
+    @Delete("delete from video_tag_relation where av = #{av}")
+    void deleteByAv(Long av);
 }

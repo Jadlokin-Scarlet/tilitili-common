@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.tilitili.common.entity.mirai.MessageChain;
 import com.tilitili.common.entity.mirai.MiraiMessage;
 import com.tilitili.common.entity.request.SendFriendMessageRequest;
+import com.tilitili.common.exception.AssertException;
 import com.tilitili.common.utils.Asserts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,6 +71,7 @@ public class MiraiManager {
         String messageType = miraiMessage.getMessageType();
         String message = miraiMessage.getMessage();
         String url = miraiMessage.getUrl();
+        String voiceId = miraiMessage.getVoiceId();
         Long group = miraiMessage.getGroup();
         Long qq = miraiMessage.getQq();
 
@@ -83,7 +85,8 @@ public class MiraiManager {
             case "Plain": request.setMessageChain(Collections.singletonList(new MessageChain().setType("Plain").setText(message)));break;
             case "Image": request.setMessageChain(Collections.singletonList(new MessageChain().setType("Image").setUrl(url)));break;
             case "ImageText": request.setMessageChain(Arrays.asList(new MessageChain().setType("Plain").setText(message),new MessageChain().setType("Image").setUrl(url)));break;
-            default: request.setMessageChain(Collections.emptyList());break;
+            case "Voice": request.setMessageChain(Collections.singletonList(new MessageChain().setType("Voice").setVoiceId(voiceId)));break;
+            default: throw new AssertException("不支持的消息类型");
         }
 
         String result;
@@ -91,7 +94,7 @@ public class MiraiManager {
             case "friend": result = post("sendFriendMessage", request.setTarget(qq)); break;
             case "group": result = post("sendGroupMessage", request.setTarget(group)); break;
             case "temp": result = post("sendTempMessage", request.setGroup(group).setQq(qq)); break;
-            default: result = null;
+            default: throw new AssertException("不支持的发送类型");
         }
         Asserts.notBlank(result, "获取数据失败");
 

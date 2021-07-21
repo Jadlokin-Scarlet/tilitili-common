@@ -10,6 +10,7 @@ public class MiraiMessage {
     private String messageType;
     private String message;
     private String url;
+    private String voiceId;
     private Long group;
     private Long qq;
 }

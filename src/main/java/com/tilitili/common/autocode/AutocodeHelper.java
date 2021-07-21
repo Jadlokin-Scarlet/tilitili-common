@@ -1,5 +1,7 @@
 package com.tilitili.common.autocode;
 
+import com.tilitili.common.autocode.config.BaseConfig;
+import com.tilitili.common.autocode.config.VideoDataRollConfig;
 import com.tilitili.common.autocode.server.DomainAutoCode;
 import com.tilitili.common.autocode.server.MapperAutocode;
 import com.tilitili.common.autocode.server.SqlMapperAutocode;
@@ -18,7 +20,8 @@ public class AutocodeHelper {
 
     //数据库名+表名
     public final static String dbName    ="bilibili";
-    public final static String tableName = "bot_calendar";
+    public final static BaseConfig CONFIG = new VideoDataRollConfig();
+//    public final static String tableName = "video_data_roll";
     public final static String schema    = JdbcUtils.convertUnderscoreNameToPropertyName(dbName);
 
     public final static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
@@ -76,9 +79,11 @@ public class AutocodeHelper {
 
 
     public static void main(String[] args) throws IOException, SQLException {
-        Table2Domain.init(tableName);
-//        MapperAutocode.run();
-        DomainAutoCode.run();
+        Table2Domain.init(CONFIG.getTableName());
+        if (CONFIG.updateDomain()) {
+            DomainAutoCode.run();
+        }
+        MapperAutocode.run();
         SqlMapperAutocode.run();
     }
 
