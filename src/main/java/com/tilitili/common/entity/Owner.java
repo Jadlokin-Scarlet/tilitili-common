@@ -54,4 +54,5 @@ public class Owner implements Serializable {
     private Date updateTime;
     private Long roomId;
     private String roomUrl;
+    private Integer roomStatus;
 }

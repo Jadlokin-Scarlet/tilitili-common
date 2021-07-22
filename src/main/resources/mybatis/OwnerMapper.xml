@@ -81,6 +81,7 @@
             <if test="remark != null">[remark],</if>
             <if test="roomId != null">[room_id],</if>
             <if test="roomUrl != null">[room_url],</if>
+            <if test="roomStatus != null">[room_status],</if>
             [create_time],
             [update_time],
         </trim>
@@ -128,6 +129,7 @@
             <if test="remark != null">#{remark},</if>
             <if test="roomId != null">#{roomId},</if>
             <if test="roomUrl != null">#{roomUrl},</if>
+            <if test="roomStatus != null">#{roomStatus},</if>
             getdate(),
             getdate(),
         </trim>
@@ -177,6 +179,7 @@
             <if test="remark != null">remark = #{remark},</if>
             <if test="roomId != null">room_id = #{roomId},</if>
             <if test="roomUrl != null">room_url = #{roomUrl},</if>
+            <if test="roomStatus != null">room_status = #{roomStatus},</if>
             [update_time] = getdate(),
         </set>
         where [uid] = #{uid}
