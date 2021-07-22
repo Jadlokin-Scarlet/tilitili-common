@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.*;
 
 import static com.microsoft.sqlserver.jdbc.StringUtils.isNumeric;
+import static com.tilitili.common.autocode.AutocodeHelper.CONFIG;
 import static io.lettuce.core.LettuceStrings.isNotEmpty;
 
 public class Table2Domain {
@@ -116,7 +117,7 @@ public class Table2Domain {
         }
 
         //如果存在主键,框架要求必须有主键
-        ResultSet primaryKeyResultSet = conn.getMetaData().getPrimaryKeys(null,null, AutocodeHelper.tableName);
+        ResultSet primaryKeyResultSet = conn.getMetaData().getPrimaryKeys(null,null, CONFIG.getTableName());
         if(primaryKeyResultSet.next()){
             String primaryKeyColumnName = primaryKeyResultSet.getString("COLUMN_NAME");
             FieldPair fieldPair = fieldPairMap.get(primaryKeyColumnName);
@@ -129,7 +130,7 @@ public class Table2Domain {
 
     public static void parseIndex(Connection conn) throws SQLException {
 
-        ResultSet indexResultSet = conn.getMetaData().getIndexInfo(null, null, AutocodeHelper.tableName, false, false);
+        ResultSet indexResultSet = conn.getMetaData().getIndexInfo(null, null, CONFIG.getTableName(), false, false);
 
         while(indexResultSet.next()) {
             String indexName = indexResultSet.getString("INDEX_NAME");
@@ -168,7 +169,7 @@ public class Table2Domain {
 
 
     public static void parseComment(Statement stmt) throws SQLException {
-        ResultSet rs = stmt.executeQuery(String.format("select * from information_schema.columns t where t.table_name='%s';", AutocodeHelper.tableName));
+        ResultSet rs = stmt.executeQuery(String.format("select * from information_schema.columns t where t.table_name='%s';", CONFIG.getTableName()));
         while (rs.next()) {
             String comment    = rs.getString("COLUMN_NAME");
             String columnName = rs.getString("COLUMN_NAME");

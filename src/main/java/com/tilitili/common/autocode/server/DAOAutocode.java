@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.util.Map;
 
+import static com.tilitili.common.autocode.AutocodeHelper.CONFIG;
+
 public class DAOAutocode {
     private static Logger logger = LoggerFactory.getLogger(DAOAutocode.class);
 
@@ -46,28 +48,28 @@ public class DAOAutocode {
 
         //save
         buffer.append("\t").append("public void save("+ Table2Domain.domainName+" " +attrName+") {").append("\n");
-        buffer.append("\t\t").append("super.save("+attrName+", \""+ AutocodeHelper.tableName+"\");").append("\n");
+        buffer.append("\t\t").append("super.save("+attrName+", \""+ CONFIG.getTableName()+"\");").append("\n");
         buffer.append("\t").append("}").append("\n").append("\n");
 
         //query
         buffer.append("\t").append("public "+ Table2Domain.domainName+" query"+ Table2Domain.domainName+"By"+capitalFirstPropertyName+"("+ Table2Domain.PrimaryPropertyType +" "+ Table2Domain.PrimaryPropertyName +") {").append("\n");
         buffer.append("\t\t").append("Map<String,Object> paramMap = new HashMap<String, Object>();").append("\n");
         buffer.append("\t\t").append("paramMap.put(\""+ Table2Domain.PrimaryPropertyName +"\", "+ Table2Domain.PrimaryPropertyName +");").append("\n");
-        buffer.append("\t\t").append("return super.query(\"select \"+columnName+\" from "+ AutocodeHelper.tableName+" where "+ Table2Domain.PrimaryColumn +"=:"+ Table2Domain.PrimaryPropertyName +"\", paramMap);").append("\n");
+        buffer.append("\t\t").append("return super.query(\"select \"+columnName+\" from "+ CONFIG.getTableName()+" where "+ Table2Domain.PrimaryColumn +"=:"+ Table2Domain.PrimaryPropertyName +"\", paramMap);").append("\n");
         buffer.append("\t").append("}").append("\n").append("\n");
 
         //update
         buffer.append("\t").append("public void update"+ Table2Domain.domainName+"By"+capitalFirstPropertyName+"("+ Table2Domain.PrimaryPropertyType +" "+ Table2Domain.PrimaryPropertyName +") {").append("\n");
         buffer.append("\t\t").append("Map<String,Object> paramMap = new HashMap<String, Object>();").append("\n");
         buffer.append("\t\t").append("paramMap.put(\""+ Table2Domain.PrimaryPropertyName +"\", "+ Table2Domain.PrimaryPropertyName +");").append("\n");
-        buffer.append("\t\t").append("super.update(\"update "+ AutocodeHelper.tableName+" set update_time=getdate() where "+ Table2Domain.PrimaryColumn +"=:"+ Table2Domain.PrimaryPropertyName +"\", paramMap);").append("\n");
+        buffer.append("\t\t").append("super.update(\"update "+ CONFIG.getTableName()+" set update_time=getdate() where "+ Table2Domain.PrimaryColumn +"=:"+ Table2Domain.PrimaryPropertyName +"\", paramMap);").append("\n");
         buffer.append("\t").append("}").append("\n").append("\n");
 
         //in
         buffer.append("\t").append("public List<"+ Table2Domain.domainName+"> query"+ Table2Domain.domainName+"In"+capitalFirstPropertyName+"List(List<"+ Table2Domain.PrimaryPropertyType +"> "+ Table2Domain.PrimaryPropertyName +"List) {").append("\n");
         buffer.append("\t\t").append("Map<String,Object> paramMap = new HashMap<String, Object>();").append("\n");
         buffer.append("\t\t").append("paramMap.put(\""+ Table2Domain.PrimaryPropertyName +"List\", "+ Table2Domain.PrimaryPropertyName +"List);").append("\n");
-        buffer.append("\t\t").append("return super.queryList(\"select \"+columnName+\" from "+ AutocodeHelper.tableName+" where "+ Table2Domain.PrimaryColumn +" in (:"+ Table2Domain.PrimaryPropertyName +"List)\", paramMap);").append("\n");
+        buffer.append("\t\t").append("return super.queryList(\"select \"+columnName+\" from "+ CONFIG.getTableName()+" where "+ Table2Domain.PrimaryColumn +" in (:"+ Table2Domain.PrimaryPropertyName +"List)\", paramMap);").append("\n");
         buffer.append("\t").append("}").append("\n").append("\n");
 
         //queryByIndex
@@ -112,7 +114,7 @@ public class DAOAutocode {
             indexQueryMethod.append("\t").append("public List<" + Table2Domain.domainName + "> query" + Table2Domain.domainName + "By" + indexName + "(" + paramDefinitionBuffer.toString() + ") {").append("\n");
             indexQueryMethod.append("\t\t").append("Map<String,Object> paramMap = new HashMap<String, Object>();").append("\n");
             indexQueryMethod.append(paramMapBuffer.toString()).append("\n");
-            indexQueryMethod.append("\t\t").append("return super.queryList(\"select \"+columnName+\" from " + AutocodeHelper.tableName + " where " + paramWhereBuffer.toString() + "\", paramMap);").append("\n");
+            indexQueryMethod.append("\t\t").append("return super.queryList(\"select \"+columnName+\" from " + CONFIG.getTableName() + " where " + paramWhereBuffer.toString() + "\", paramMap);").append("\n");
             indexQueryMethod.append("\t").append("}").append("\n\n");
 
         }

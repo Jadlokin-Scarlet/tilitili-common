@@ -9,6 +9,8 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.Map;
 
+import static com.tilitili.common.autocode.AutocodeHelper.CONFIG;
+
 public class SqlMapperAutocode {
     private static Logger logger = LoggerFactory.getLogger(SqlMapperAutocode.class);
 
@@ -48,15 +50,15 @@ public class SqlMapperAutocode {
         resultMap.append("<resultMap id=\"").append(Table2Domain.domainName).append("\" type=\"").append(parameterType).append("\">").append("\n");
         //3.insert
         insertHead.append("<insert id=\"insert").append(Table2Domain.domainName).append("\" parameterType=\""+parameterType+"\" keyProperty=\"id\" useGeneratedKeys=\"true\">").append("\n");
-        insertHead.append("INSERT INTO ").append(AutocodeHelper.tableName).append("\n")
+        insertHead.append("INSERT INTO ").append(CONFIG.getTableName()).append("\n")
                 .append("<trim prefix=\"(\" suffix=\")\" suffixOverrides=\",\">").append("\n");
         //4.update
         update.append("<update id=\"update").append(Table2Domain.domainName).append("\"  parameterType=\""+parameterType+"\">").append("\n");
-        update.append("update ").append(AutocodeHelper.tableName).append("\n").append("<set>").append("\n");
+        update.append("update ").append(CONFIG.getTableName()).append("\n").append("<set>").append("\n");
         //5.countByCondition
         countByCondition.append("<select id=\"count").append(Table2Domain.domainName).append("ByCondition").append("\"  parameterType=\""+parameterType+"\"")
                 .append(" resultType=\"java.lang.Integer\">").append("\n")
-                .append("\t select count(1) from ").append(AutocodeHelper.tableName).append("\n").append("<where>").append("\n");
+                .append("\t select count(1) from ").append(CONFIG.getTableName()).append("\n").append("<where>").append("\n");
         //6.getByCondition
         getByCondition.append("<select id=\"list").append(Table2Domain.domainName).append("ByCondition").append("\"  parameterType=\""+parameterType+"\"")
                 .append(" resultMap=\"").append(Table2Domain.domainName).append("\">").append("\n")
@@ -102,7 +104,7 @@ public class SqlMapperAutocode {
                 .append("</insert>").append("\n\n\n");
         update.append("</set>").append("\n").append("where ").append(Table2Domain.PrimaryColumn).append("=").append("#{").append(Table2Domain.PrimaryColumn).append("}").append("\n").append("</update>").append("\n\n\n");
         countField.append("</where>").append("\n").append("</select>").append("\n\n\n");
-        getByCondition.append(" from ").append(AutocodeHelper.tableName).append("\n").append("<where>").append("\n");
+        getByCondition.append(" from ").append(CONFIG.getTableName()).append("\n").append("<where>").append("\n");
         getField.append("</where>").append("\n")
                 .append("order by id desc ").append("\n")
                 .append("<if test=\"startNum != null and pageSize != null\">limit #{startNum}, #{pageSize}</if>").append("\n")
