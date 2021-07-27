@@ -3,6 +3,10 @@ package com.tilitili.common.utils;
 
 import com.tilitili.common.entity.UploadFile;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
@@ -13,6 +17,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
@@ -27,7 +32,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -115,24 +122,33 @@ public class HttpClientUtil {
             httpPost.setEntity(entity);
         }
 
-        if (uploadFile != null) {
+//        if (uploadFile != null && uploadFile.getFile() != null) {
+//            String fileName = uploadFile.getFileName();
+//            File file = uploadFile.getFile();
+//
+//            ArrayList<Part> partArrayList = new ArrayList<>();
+//            partArrayList.add(new FilePart(fileName, file));
+//            for (String key : params.keySet()) {
+//                partArrayList.add(new StringPart(key, params.get(key)));
+//            }
+//            httpPost.setRequestEntity(new MultipartRequestEntity(parts, post.getParams()));
+//
+//
+//        }
+        if (uploadFile != null && uploadFile.getBufferedImage() != null) {
             String fileName = uploadFile.getFileName();
             String fileType = uploadFile.getFileType();
-            File file = uploadFile.getFile();
             BufferedImage image = uploadFile.getBufferedImage();
 
             MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
-            if (file != null) {
-                entityBuilder.addPart(fileName, new FileBody(file, ContentType.MULTIPART_FORM_DATA));
-            } else {
-                try {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    ImageIO.write(image, fileType, stream);
-                    entityBuilder.addBinaryBody(fileName, stream.toByteArray(), ContentType.create("image/"+fileType), fileName + "." + fileType);
-                } catch (IOException e) {
-                    log.error("图片异常", e);
-                }
+            try {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                ImageIO.write(image, fileType, stream);
+                entityBuilder.addBinaryBody(fileName, stream.toByteArray(), ContentType.create("image/"+fileType), fileName + "." + fileType);
+            } catch (IOException e) {
+                log.error("图片异常", e);
             }
+
             for (String key : params.keySet()) {
                 entityBuilder.addPart(key, new StringBody(params.get(key), ContentType.MULTIPART_FORM_DATA));
             }

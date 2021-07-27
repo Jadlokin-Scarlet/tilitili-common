@@ -3,19 +3,23 @@ package com.tilitili.common.manager;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.tilitili.common.entity.UploadFile;
 import com.tilitili.common.entity.mirai.MessageChain;
 import com.tilitili.common.entity.mirai.MiraiMessage;
 import com.tilitili.common.entity.request.SendFriendMessageRequest;
 import com.tilitili.common.exception.AssertException;
 import com.tilitili.common.utils.Asserts;
+import com.tilitili.common.utils.HttpClientHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.*;
 
 import static com.tilitili.common.utils.HttpClientUtil.httpPost;
+import static com.tilitili.common.utils.HttpClientUtil.httpPostWithFile;
 
 @Slf4j
 @Component
@@ -63,6 +67,20 @@ public class MiraiManager {
         String result = post("release", data);
         Map<String, String> resultMap = gson.fromJson(result, new TypeToken<Map<String, String>>(){}.getType());
         Asserts.isTrue(Objects.equals(resultMap.get("msg"), "success"), "解绑失败");
+    }
+
+    @Retryable(value= {Exception.class},maxAttempts = 2)
+    public String uploadVoice(File slkFile) {
+        String session = this.auth();
+        this.verify(session);
+
+        Map<String, String> data = ImmutableMap.of("sessionKey", session, "type", "group");
+//        String result = httpPostWithFile(BASE_URL + "uploadVoice", data, new UploadFile().setFileName("voice").setFileType("slk").setFile(slkFile));
+        String result = HttpClientHelper.uploadFile(BASE_URL + "uploadVoice", "voice", slkFile, data);
+        Asserts.notBlank(result, "上传失败");
+        log.info("data="+data+",result="+result);
+        Map<String, String> resultMap = gson.fromJson(result, new TypeToken<Map<String, String>>(){}.getType());
+        return resultMap.get("voiceId");
     }
 
     @Retryable(value= {Exception.class},maxAttempts = 2)
@@ -130,5 +148,4 @@ public class MiraiManager {
     public Integer sendTempMessage(String type, String message, Long group, Long qq) {
         return sendMessage(new MiraiMessage().setSendType("temp").setMessageType(type).setMessage(message).setGroup(group).setQq(qq));
     }
-
 }

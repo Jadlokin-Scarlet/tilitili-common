@@ -1,5 +1,6 @@
 package com.tilitili.common.manager;
 
+import com.tilitili.common.entity.mirai.MiraiMessage;
 import com.tilitili.common.entity.view.baidu.TranslateBaseView;
 import com.tilitili.common.entity.view.baidu.TranslateView;
 import lombok.extern.slf4j.Slf4j;

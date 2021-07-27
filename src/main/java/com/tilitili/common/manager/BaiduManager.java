@@ -3,6 +3,7 @@ package com.tilitili.common.manager;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.tilitili.common.entity.UploadFile;
+import com.tilitili.common.entity.mirai.MiraiMessage;
 import com.tilitili.common.entity.view.TransResult;
 import com.tilitili.common.entity.view.baidu.TranslateBaseView;
 import com.tilitili.common.entity.view.baidu.TranslateView;
