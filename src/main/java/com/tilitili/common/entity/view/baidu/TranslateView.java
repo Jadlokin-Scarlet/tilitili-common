@@ -15,4 +15,6 @@ public class TranslateView {
     private List<TransResult> content;
     private String sumSrc;
     private String sumDst;
+    private String error_code;
+    private String error_msg;
 }

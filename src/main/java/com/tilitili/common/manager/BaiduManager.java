@@ -7,6 +7,7 @@ import com.tilitili.common.entity.mirai.MiraiMessage;
 import com.tilitili.common.entity.view.TransResult;
 import com.tilitili.common.entity.view.baidu.TranslateBaseView;
 import com.tilitili.common.entity.view.baidu.TranslateView;
+import com.tilitili.common.utils.Asserts;
 import com.tilitili.common.utils.FileUtil;
 import com.tilitili.common.utils.HttpClientUtil;
 import com.tilitili.common.utils.StringUtils;
@@ -60,11 +61,17 @@ public class BaiduManager {
     }
 
     public String translate(String to, String source) {
-        TranslateView translateView = reqTranslate("auto", "en", source);
+        TranslateView translateView = reqTranslate("auto", to, source);
         if (translateView == null) {
             return "";
         }
         String from = translateView.getFrom();
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            log.error("?", e);
+            return "";
+        }
         return translate(from, to, source);
     }
 
@@ -105,7 +112,9 @@ public class BaiduManager {
         if (isBlank(result)) {
             return null;
         }
-        return new Gson().fromJson(result, TranslateView.class);
+        TranslateView translateView = new Gson().fromJson(result, TranslateView.class);
+        Asserts.checkNull(translateView.getError_code(), "翻译失败:"+translateView.getError_msg());
+        return translateView;
     }
 
     private TranslateBaseView reqTranslateImage(String from, String to, String url) {
