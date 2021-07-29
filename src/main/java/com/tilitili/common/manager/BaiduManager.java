@@ -66,6 +66,9 @@ public class BaiduManager {
             return "";
         }
         String from = translateView.getFrom();
+        if (Objects.equals(from, to)) {
+            return source;
+        }
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
