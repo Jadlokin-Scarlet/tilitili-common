@@ -1,6 +1,7 @@
 package com.tilitili.common.autocode;
 
 import com.tilitili.common.autocode.config.BaseConfig;
+import com.tilitili.common.autocode.config.TmpDataNewConfig;
 import com.tilitili.common.autocode.config.VideoDataRollConfig;
 import com.tilitili.common.autocode.server.DomainAutoCode;
 import com.tilitili.common.autocode.server.MapperAutocode;
@@ -20,7 +21,7 @@ public class AutocodeHelper {
 
     //数据库名+表名
     public final static String dbName    ="bilibili";
-    public final static BaseConfig CONFIG = new VideoDataRollConfig();
+    public final static BaseConfig CONFIG = new TmpDataNewConfig();
 //    public final static String tableName = "video_data_roll";
     public final static String schema    = JdbcUtils.convertUnderscoreNameToPropertyName(dbName);
 

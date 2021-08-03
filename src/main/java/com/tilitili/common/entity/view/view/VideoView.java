@@ -2,6 +2,8 @@ package com.tilitili.common.entity.view.view;
 
 import com.tilitili.common.entity.view.owner.OwnerView;
 
+import java.util.List;
+
 public class VideoView {
     public Long aid;
     public String bvid;
@@ -18,4 +20,6 @@ public class VideoView {
     public Rights rights;
     public OwnerView owner;
     public String short_link;
+    public VideoDataView stat;
+    public List<PageView> pages;
 }

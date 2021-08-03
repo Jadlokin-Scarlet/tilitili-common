@@ -125,6 +125,10 @@ public class Table2Domain {
             PrimaryColumn       = fieldPair.getColumnName();
             PrimaryPropertyName = fieldPair.getPropertyName();
             PrimaryPropertyType = fieldPair.getPropertyType();
+        } else {
+            PrimaryColumn       = CONFIG.getReplacePrimaryKey();
+            PrimaryPropertyName = CONFIG.getReplacePrimaryKey();
+            PrimaryPropertyType = CONFIG.getReplacePrimaryKey();
         }
     }
 

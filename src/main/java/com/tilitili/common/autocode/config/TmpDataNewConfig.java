@@ -1,9 +1,13 @@
 package com.tilitili.common.autocode.config;
 
-public class VideoDataRollConfig extends BaseConfig {
+import org.springframework.stereotype.Component;
+
+@Component
+public class TmpDataNewConfig extends BaseConfig{
+
     @Override
     public String getTableName() {
-        return "video_data_roll";
+        return "tmp_data_new";
     }
 
     @Override
@@ -13,7 +17,7 @@ public class VideoDataRollConfig extends BaseConfig {
 
     @Override
     public Boolean updateDomain() {
-        return false;
+        return true;
     }
 
     @Override
@@ -23,6 +27,6 @@ public class VideoDataRollConfig extends BaseConfig {
 
     @Override
     public String getReplacePrimaryKey() {
-        return null;
+        return "av";
     }
 }

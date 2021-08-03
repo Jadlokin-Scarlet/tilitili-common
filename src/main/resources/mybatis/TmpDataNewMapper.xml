@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tilitili.common.mapper.TmpDataNewMapper">
+<resultMap id="TmpDataNew" type="com.tilitili.common.entity.TmpDataNew">
+	<result  property="av"  column="av"/>
+	<result  property="bv"  column="bv"/>
+	<result  property="survival"  column="survival"/>
+	<result  property="view"  column="view"/>
+	<result  property="danmaku"  column="danmaku"/>
+	<result  property="reply"  column="reply"/>
+	<result  property="favorite"  column="favorite"/>
+	<result  property="coin"  column="coin"/>
+	<result  property="share"  column="share"/>
+	<result  property="page"  column="page"/>
+	<result  property="copyright"  column="copyright"/>
+	<result  property="like"  column="like"/>
+	<result  property="dislike"  column="dislike"/>
+	<result  property="point"  column="point"/>
+	<result  property="collectTime"  column="collect_time"/>
+</resultMap>
+
+
+<sql id="Base_Column_List">`av`,`bv`,`survival`,`view`,`danmaku`,`reply`,`favorite`,`coin`,`share`,`page`,`copyright`,`like`,`dislike`,`point`,`collect_time`</sql>
+
+<insert id="insertTmpDataNew" parameterType="com.tilitili.common.entity.TmpDataNew" keyProperty="id" useGeneratedKeys="true">
+INSERT INTO tmp_data_new
+<trim prefix="(" suffix=")" suffixOverrides=",">
+	<if test="bv!= null" >bv,</if>
+	<if test="survival!= null" >survival,</if>
+	<if test="view!= null" >view,</if>
+	<if test="danmaku!= null" >danmaku,</if>
+	<if test="reply!= null" >reply,</if>
+	<if test="favorite!= null" >favorite,</if>
+	<if test="coin!= null" >coin,</if>
+	<if test="share!= null" >share,</if>
+	<if test="page!= null" >page,</if>
+	<if test="copyright!= null" >copyright,</if>
+	<if test="like!= null" >like,</if>
+	<if test="dislike!= null" >dislike,</if>
+	<if test="point!= null" >point,</if>
+	<if test="collectTime!= null" >collect_time,</if>
+</trim>
+<trim prefix="values (" suffix=")" suffixOverrides=",">
+	<if test="bv!= null" >#{bv},</if>
+	<if test="survival!= null" >#{survival},</if>
+	<if test="view!= null" >#{view},</if>
+	<if test="danmaku!= null" >#{danmaku},</if>
+	<if test="reply!= null" >#{reply},</if>
+	<if test="favorite!= null" >#{favorite},</if>
+	<if test="coin!= null" >#{coin},</if>
+	<if test="share!= null" >#{share},</if>
+	<if test="page!= null" >#{page},</if>
+	<if test="copyright!= null" >#{copyright},</if>
+	<if test="like!= null" >#{like},</if>
+	<if test="dislike!= null" >#{dislike},</if>
+	<if test="point!= null" >#{point},</if>
+	<if test="collectTime!= null" >#{collectTime},</if>
+</trim>
+</insert>
+
+
+<update id="updateTmpDataNew"  parameterType="com.tilitili.common.entity.TmpDataNew">
+update tmp_data_new
+<set>
+	<if test="bv!=null">
+		bv=#{bv},
+	</if>
+	<if test="survival!=null">
+		survival=#{survival},
+	</if>
+	<if test="view!=null">
+		view=#{view},
+	</if>
+	<if test="danmaku!=null">
+		danmaku=#{danmaku},
+	</if>
+	<if test="reply!=null">
+		reply=#{reply},
+	</if>
+	<if test="favorite!=null">
+		favorite=#{favorite},
+	</if>
+	<if test="coin!=null">
+		coin=#{coin},
+	</if>
+	<if test="share!=null">
+		share=#{share},
+	</if>
+	<if test="page!=null">
+		page=#{page},
+	</if>
+	<if test="copyright!=null">
+		copyright=#{copyright},
+	</if>
+	<if test="like!=null">
+		like=#{like},
+	</if>
+	<if test="dislike!=null">
+		dislike=#{dislike},
+	</if>
+	<if test="point!=null">
+		point=#{point},
+	</if>
+	<if test="collectTime!=null">
+		collect_time=#{collectTime},
+	</if>
+</set>
+where av=#{av}
+</update>
+
+
+<select id="countTmpDataNewByCondition"  parameterType="com.tilitili.common.entity.TmpDataNew" resultType="java.lang.Integer">
+	 select count(1) from tmp_data_new
+<where>
+	<if test="av!=null">
+		 and av=#{av}
+	</if>
+	<if test="bv!=null">
+		 and bv=#{bv}
+	</if>
+	<if test="survival!=null">
+		 and survival=#{survival}
+	</if>
+	<if test="view!=null">
+		 and view=#{view}
+	</if>
+	<if test="danmaku!=null">
+		 and danmaku=#{danmaku}
+	</if>
+	<if test="reply!=null">
+		 and reply=#{reply}
+	</if>
+	<if test="favorite!=null">
+		 and favorite=#{favorite}
+	</if>
+	<if test="coin!=null">
+		 and coin=#{coin}
+	</if>
+	<if test="share!=null">
+		 and share=#{share}
+	</if>
+	<if test="page!=null">
+		 and page=#{page}
+	</if>
+	<if test="copyright!=null">
+		 and copyright=#{copyright}
+	</if>
+	<if test="like!=null">
+		 and like=#{like}
+	</if>
+	<if test="dislike!=null">
+		 and dislike=#{dislike}
+	</if>
+	<if test="point!=null">
+		 and point=#{point}
+	</if>
+	<if test="collectTime!=null">
+		 and collect_time=#{collectTime}
+	</if>
+</where>
+</select>
+
+
+<select id="listTmpDataNewByCondition"  parameterType="com.tilitili.common.entity.TmpDataNew" resultMap="TmpDataNew">
+select <include refid="Base_Column_List" />
+ from tmp_data_new
+<where>
+	<if test="av!=null">
+		 and av=#{av}
+	</if>
+	<if test="bv!=null">
+		 and bv=#{bv}
+	</if>
+	<if test="survival!=null">
+		 and survival=#{survival}
+	</if>
+	<if test="view!=null">
+		 and view=#{view}
+	</if>
+	<if test="danmaku!=null">
+		 and danmaku=#{danmaku}
+	</if>
+	<if test="reply!=null">
+		 and reply=#{reply}
+	</if>
+	<if test="favorite!=null">
+		 and favorite=#{favorite}
+	</if>
+	<if test="coin!=null">
+		 and coin=#{coin}
+	</if>
+	<if test="share!=null">
+		 and share=#{share}
+	</if>
+	<if test="page!=null">
+		 and page=#{page}
+	</if>
+	<if test="copyright!=null">
+		 and copyright=#{copyright}
+	</if>
+	<if test="like!=null">
+		 and like=#{like}
+	</if>
+	<if test="dislike!=null">
+		 and dislike=#{dislike}
+	</if>
+	<if test="point!=null">
+		 and point=#{point}
+	</if>
+	<if test="collectTime!=null">
+		 and collect_time=#{collectTime}
+	</if>
+</where>
+order by id desc 
+<if test="startNum != null and pageSize != null">limit #{startNum}, #{pageSize}</if>
+</select>
+
+
+</mapper>
