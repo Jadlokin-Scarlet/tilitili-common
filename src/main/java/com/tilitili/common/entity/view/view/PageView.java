@@ -6,4 +6,6 @@ public class PageView {
     public String from;
     public String part;
     public Integer duration;
+    public String vid;
+    public String weblink;
 }

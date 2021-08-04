@@ -63,6 +63,10 @@ public class RedisCache implements InitializingBean {
 		return redisTemplate.opsForHash().delete(key, hashKey);
 	}
 
+	public Long increment(String key, Long delta) {
+		return redisTemplate.opsForValue().increment(key, delta);
+	}
+
 	public Long increment(String key) {
 		return redisTemplate.opsForValue().increment(key);
 	}
