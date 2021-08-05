@@ -79,14 +79,14 @@ public class SqlMapperAutocode {
             if (columnName.equals(Table2Domain.updateTimeColumn)) {
                 update.append("\t").append(columnName).append("=").append("getdate()").append(",").append("\n");
             }else if(!columnName.equals(Table2Domain.PrimaryColumn) && !columnName.equals(Table2Domain.CreateTimeColumn)){
-                update.append("\t<if test=\"").append(propertyName).append("!=null\">").append("\n").append("\t\t").append(columnName).append("=").append("#{").append(propertyName).append("}").append(",").append("\n").append("\t</if>").append("\n");
+                update.append("\t<if test=\"").append(propertyName).append("!=null\">").append("\n").append("\t\t[").append(columnName).append("]=").append("#{").append(propertyName).append("}").append(",").append("\n").append("\t</if>").append("\n");
             }
             //主键不插入, 创建时间，更新时间固定getdate()
             if (columnName.equals(Table2Domain.updateTimeColumn) || columnName.equals(Table2Domain.CreateTimeColumn)) {
                 insertField.append("\t").append(columnName).append(",").append("\n");
                 insertValue.append("\t").append("getdate()").append(",").append("\n");
             }else if(!columnName.equals(Table2Domain.PrimaryColumn)){
-                insertField.append("\t<if test=\"").append(propertyName).append("!= null\" >").append(columnName).append(",").append("</if>").append("\n");
+                insertField.append("\t<if test=\"").append(propertyName).append("!= null\" >[").append(columnName).append("],").append("</if>").append("\n");
                 insertValue.append("\t<if test=\"").append(propertyName).append("!= null\" >").append("#{").append(propertyName).append("}").append(",").append("</if>").append("\n");
             }
             //float要加上round(col,2)才能匹配

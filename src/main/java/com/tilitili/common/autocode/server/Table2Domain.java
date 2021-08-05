@@ -113,7 +113,7 @@ public class Table2Domain {
             if(columnNameBuffer.length()>0) {
                 columnNameBuffer.append(",");
             }
-            columnNameBuffer.append("`"+columnName+"`");
+            columnNameBuffer.append("["+columnName+"]");
         }
 
         //如果存在主键,框架要求必须有主键

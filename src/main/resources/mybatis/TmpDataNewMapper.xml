@@ -20,25 +20,25 @@
 </resultMap>
 
 
-<sql id="Base_Column_List">`av`,`bv`,`survival`,`view`,`danmaku`,`reply`,`favorite`,`coin`,`share`,`page`,`copyright`,`like`,`dislike`,`point`,`collect_time`</sql>
+<sql id="Base_Column_List">[av],[bv],[survival],[view],[danmaku],[reply],[favorite],[coin],[share],[page],[copyright],[like],[dislike],[point],[collect_time]</sql>
 
 <insert id="insertTmpDataNew" parameterType="com.tilitili.common.entity.TmpDataNew" keyProperty="id" useGeneratedKeys="true">
 INSERT INTO tmp_data_new
 <trim prefix="(" suffix=")" suffixOverrides=",">
-	<if test="bv!= null" >bv,</if>
-	<if test="survival!= null" >survival,</if>
-	<if test="view!= null" >view,</if>
-	<if test="danmaku!= null" >danmaku,</if>
-	<if test="reply!= null" >reply,</if>
-	<if test="favorite!= null" >favorite,</if>
-	<if test="coin!= null" >coin,</if>
-	<if test="share!= null" >share,</if>
-	<if test="page!= null" >page,</if>
-	<if test="copyright!= null" >copyright,</if>
-	<if test="like!= null" >like,</if>
-	<if test="dislike!= null" >dislike,</if>
-	<if test="point!= null" >point,</if>
-	<if test="collectTime!= null" >collect_time,</if>
+	<if test="bv!= null" >[bv],</if>
+	<if test="survival!= null" >[survival],</if>
+	<if test="view!= null" >[view],</if>
+	<if test="danmaku!= null" >[danmaku],</if>
+	<if test="reply!= null" >[reply],</if>
+	<if test="favorite!= null" >[favorite],</if>
+	<if test="coin!= null" >[coin],</if>
+	<if test="share!= null" >[share],</if>
+	<if test="page!= null" >[page],</if>
+	<if test="copyright!= null" >[copyright],</if>
+	<if test="like!= null" >[like],</if>
+	<if test="dislike!= null" >[dislike],</if>
+	<if test="point!= null" >[point],</if>
+	<if test="collectTime!= null" >[collect_time],</if>
 </trim>
 <trim prefix="values (" suffix=")" suffixOverrides=",">
 	<if test="bv!= null" >#{bv},</if>
@@ -63,46 +63,46 @@ INSERT INTO tmp_data_new
 update tmp_data_new
 <set>
 	<if test="bv!=null">
-		bv=#{bv},
+		[bv]=#{bv},
 	</if>
 	<if test="survival!=null">
-		survival=#{survival},
+		[survival]=#{survival},
 	</if>
 	<if test="view!=null">
-		view=#{view},
+		[view]=#{view},
 	</if>
 	<if test="danmaku!=null">
-		danmaku=#{danmaku},
+		[danmaku]=#{danmaku},
 	</if>
 	<if test="reply!=null">
-		reply=#{reply},
+		[reply]=#{reply},
 	</if>
 	<if test="favorite!=null">
-		favorite=#{favorite},
+		[favorite]=#{favorite},
 	</if>
 	<if test="coin!=null">
-		coin=#{coin},
+		[coin]=#{coin},
 	</if>
 	<if test="share!=null">
-		share=#{share},
+		[share]=#{share},
 	</if>
 	<if test="page!=null">
-		page=#{page},
+		[page]=#{page},
 	</if>
 	<if test="copyright!=null">
-		copyright=#{copyright},
+		[copyright]=#{copyright},
 	</if>
 	<if test="like!=null">
-		like=#{like},
+		[like]=#{like},
 	</if>
 	<if test="dislike!=null">
-		dislike=#{dislike},
+		[dislike]=#{dislike},
 	</if>
 	<if test="point!=null">
-		point=#{point},
+		[point]=#{point},
 	</if>
 	<if test="collectTime!=null">
-		collect_time=#{collectTime},
+		[collect_time]=#{collectTime},
 	</if>
 </set>
 where av=#{av}

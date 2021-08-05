@@ -84,7 +84,7 @@ public class AutocodeHelper {
         if (CONFIG.updateDomain()) {
             DomainAutoCode.run();
         }
-        MapperAutocode.run();
+//        MapperAutocode.run();
         SqlMapperAutocode.run();
     }
 
