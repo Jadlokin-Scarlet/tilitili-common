@@ -25,9 +25,15 @@ public interface TaskMapper {
 
     List<TaskStatusCount> countByGroupStatus(TaskQuery taskQuery);
 
-    @Update("update [task] set [status] = #{toStatus} where id = #{id} and [status] = #{fromStatus}")
-    int updateStatusById(Long id, Integer fromStatus, Integer toStatus);
+    @Update("update [task] set [status] = #{toStatus}, update_time = getdate() where id = #{id} and [status] = #{fromStatus}")
+    void updateStatusById(Long id, Integer fromStatus, Integer toStatus);
 
-    @Update("update [task] set [status] = #{toStatus}, remark = #{remark} where id = #{id} and [status] = #{fromStatus}")
-    int updateStatusAndRemarkById(Long id, Integer fromStatus, Integer toStatus, String remark);
+    @Update("update [task] set [status] = #{toStatus}, update_time = getdate(), remark = #{remark} where id = #{id} and [status] = #{fromStatus}")
+    void updateStatusAndRemarkById(Long id, Integer fromStatus, Integer toStatus, String remark);
+
+    @Update("update [task] set [status] = #{toStatus}, update_time = getdate(), ip = #{ip} where id = #{id} and [status] = #{fromStatus}")
+    void updateStatusAndIpById(Long id, Integer fromStatus, Integer toStatus, String ip);
+
+    @Update("update [task] set [status] = #{toStatus}, update_time = getdate(), ip = #{ip}, remark = #{remark} where id = #{id} and [status] = #{fromStatus}")
+    void updateStatusAndIpAndRemarkById(Long id, Integer fromStatus, Integer toStatus, String ip, String remark);
 }

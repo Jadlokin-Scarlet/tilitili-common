@@ -18,6 +18,7 @@ public class Task {
     private String remark;
     private Long batchId;
     private String value;
+    private String ip;
 
     private String idList;
 }

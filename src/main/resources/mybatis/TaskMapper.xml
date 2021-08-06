@@ -11,6 +11,7 @@
 			<if test="status != null">and task.status = #{status}</if>
 			<if test="type != null">and task.type = #{type}</if>
 			<if test="batchId != null">and task.batch_id = #{batchId}</if>
+			<if test="ip != null">and task.ip = #{ip}</if>
 		</where>
 	</select>
 	<select id="countByGroupStatus" resultType="TaskStatusCount">
@@ -20,6 +21,7 @@
 			<if test="value != null">and task.value = #{value}</if>
 			<if test="type != null">and task.type = #{type}</if>
 			<if test="batchId != null">and task.batch_id = #{batchId}</if>
+			<if test="ip != null">and task.ip = #{ip}</if>
 			<if test="createTime != null">and task.create_time > #{createTime} and dateadd(day, 1, #{createTime}) > task.create_time</if>
 		</where>
 		group by task.status
@@ -32,6 +34,7 @@
 			<if test="status != null">and task.status = #{status}</if>
 			<if test="type != null">and task.type = #{type}</if>
 			<if test="batchId != null">and task.batch_id = #{batchId}</if>
+			<if test="ip != null">and task.ip = #{ip}</if>
 		</where>
 		<if test="sorter != null and sorted != null">
 			order by [${sorter}] ${sorted}
@@ -50,6 +53,7 @@
 				<if test="type != null">type,</if>
 				<if test="batchId != null">batch_id,</if>
 				<if test="value != null">value,</if>
+				<if test="ip != null">ip,</if>
 				create_time,
 				update_time,
 			</trim>
@@ -59,6 +63,7 @@
 				<if test="type != null">#{type},</if>
 				<if test="batchId != null">#{batchId},</if>
 				<if test="value != null">#{value},</if>
+				<if test="ip != null">#{ip},</if>
 				getdate(),
 				getdate(),
 			</trim>
@@ -72,6 +77,7 @@
 			<if test="remark != null">remark = #{remark},</if>
 			<if test="batchId != null">batch_id = #{batchId},</if>
 			<if test="value != null">value = #{value},</if>
+			<if test="ip != null">ip = #{ip},</if>
 			update_time = getdate(),
 		</set>
 		where id = #{id}

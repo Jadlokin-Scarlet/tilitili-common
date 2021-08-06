@@ -16,4 +16,5 @@ public class TaskQuery extends BaseQuery<TaskQuery> {
     private Integer type;
     private Long batchId;
     private Date createTime;
+    private String ip;
 }

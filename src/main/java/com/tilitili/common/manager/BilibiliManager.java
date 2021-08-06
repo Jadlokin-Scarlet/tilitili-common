@@ -18,7 +18,7 @@ public class BilibiliManager {
     public List<Card> getDynamic(Long uid) {
         String url = String.format("https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/space_history?offset_dynamic_id=0&host_uid=%s",uid);
         String result = HttpClientUtil.httpGet(url);
-        log.info("url={}, result={}",url,result);
+//        log.info("url={}, result={}",url,result);
         BaseView<DynamicPageView> json = new Gson().fromJson(result, new TypeToken<BaseView<DynamicPageView>>() {}.getType());
         if (json != null) {
             return json.data.cards;
